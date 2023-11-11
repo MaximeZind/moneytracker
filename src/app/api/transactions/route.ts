@@ -43,6 +43,7 @@ export async function POST(request: Request) {
             },
             include: {
                 transactions: true,
+                budget: true,
             },
         });
 
@@ -63,6 +64,7 @@ export async function POST(request: Request) {
                 },
             });
 
+            const newTotalAmount = newTransaction.type === "income" ? (user.budget?.totalAmount || 0) + datas.amount :  (user.budget?.totalAmount || 0) - datas.amount;
             // Update the User and  user's accounts by adding the new transaction
             const updatedUser = await prisma.user.update({
                 where: {
@@ -74,9 +76,15 @@ export async function POST(request: Request) {
                             id: newTransaction.id,
                         },
                     },
+                    budget: {
+                        update: {
+                            totalAmount: newTotalAmount,
+                        },
+                    }
                 },
                 include: {
                     transactions: true,
+                    budget: true,
                 },
             });
 

@@ -25,8 +25,8 @@ export async function GET(request: Request) {
     }
 }
 
-// Get user's Budget
-export async function POST(request: Request) {
+// Update user's Budget
+export async function PUT(request: Request) {
 
     const req = await request.headers.get('authorization');
     const token = req ? req.replace('Bearer ', '') : null;
