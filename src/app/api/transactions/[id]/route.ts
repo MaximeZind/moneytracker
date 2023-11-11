@@ -14,9 +14,6 @@ export async function GET(request: Request, context:any) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
     const userId = verifyToken(token);
-    console.log(userId);
-    console.log(transactionId);
-    
     if (userId) {
         const transaction = await prisma.transaction.findUnique({
             where: {

@@ -7,15 +7,27 @@ const saltRounds = 10;
 export async function POST(request: Request, response: Response) {
     const datas = await request.json();
     const hashedPassword = await bcrypt.hash(datas.password, saltRounds)
-    const newUser = {
-        password: hashedPassword,
-        username: datas.username,
-        email: datas.email
-    }
 
-    const createdUser: User = await prisma.user.create({
-        data: newUser
-      });
+    const createdUser = await prisma.user.create({
+        data: {
+            password: hashedPassword,
+            username: datas.username,
+            email: datas.email,
+            transactions: {
+                create: [] 
+            },
+            accounts: {
+                create: [] 
+            },
+            budget: {
+                create: {
+                    totalAmount: 0, 
+                    amountGoal: 0,
+                    goalDate: new Date(),
+                }
+            }
+        }
+    });
       
     return Response.json({
         createdUser
