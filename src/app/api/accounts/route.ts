@@ -29,6 +29,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     const req = await request.headers.get('authorization');
     const token = req ? req.replace('Bearer ', '') : null;
+    const data = await request.json();
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
@@ -47,8 +48,8 @@ export async function POST(request: Request) {
             // Create a new account
             const newAccount = await prisma.account.create({
                 data: {
-                    name: 'New Account',
-                    type: 'Checking', // Adjust the type as needed
+                    name: data.name,
+                    type: data.type, // Adjust the type as needed
                     userId: userId,
                 },
             });
