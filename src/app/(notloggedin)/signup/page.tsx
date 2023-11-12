@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-import SignUpForm from "../components/SignUpForm";
+import SignUpForm from "../../components/SignUpForm";
 
 export default function Login() {
     return (
