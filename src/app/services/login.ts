@@ -1,12 +1,11 @@
-export interface SignUpData {
+export interface LoginData {
     username: string;
-    email: string;
     password: string;
 }
 
-export async function signUpUser(data: SignUpData) {
+export async function LoginUser(data: LoginData) {
 
-    const response = await fetch('api/signup', {
+    const response = await fetch('api/login', {
         method: 'POST',
         headers: {
             Accept: "application/json",

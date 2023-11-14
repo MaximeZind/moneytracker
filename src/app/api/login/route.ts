@@ -34,5 +34,4 @@ export async function POST(request: Request, response: Response) {
         console.log('Incorrect password');
         return Response.json(passwordMatch);
     }
-
 }

@@ -3,5 +3,7 @@
     height: 100%;
     width: 100%;
     flex-grow: 1;
-    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

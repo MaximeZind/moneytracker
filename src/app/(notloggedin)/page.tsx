@@ -1,10 +1,10 @@
 import styles from './Home.module.css';
-import Link from 'next/link';
+import HeroSection from '../components/HeroSection';
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Link href='/login'>Login</Link>
+      <HeroSection />
     </main>
   )
 }
