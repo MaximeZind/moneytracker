@@ -5,6 +5,8 @@ export interface LoginData {
 
 export async function LoginUser(data: LoginData) {
 
+    console.log('hi');
+    
     const response = await fetch('api/login', {
         method: 'POST',
         headers: {

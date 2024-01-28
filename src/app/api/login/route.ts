@@ -25,6 +25,7 @@ export async function POST(request: Request, response: Response) {
         const secret = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'BackupKey';
         const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
         const responseData = {
+            userId: user.id,
             username: user.username,
             email: user.email,
             token: token
