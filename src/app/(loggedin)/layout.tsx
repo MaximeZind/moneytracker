@@ -1,4 +1,4 @@
-import LoggedInHeader from "../components/baselayout/NotLoggedInHeader"
+import LoggedInHeader from "../components/baselayout/LoggedInHeader"
 
 export default function LoggedInLayout({
     children,

@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 // Get user's Transactions
 export async function GET(request: Request) {
     const req = await request.headers.get('authorization');
+    console.log(request.headers);
     const token = req ? req.replace('Bearer ', '') : null;
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });

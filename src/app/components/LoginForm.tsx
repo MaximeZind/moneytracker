@@ -9,6 +9,8 @@ import { redirect } from 'next/navigation'
 export default function Login() {
     const userToken = localStorage.getItem("token");
     const [token, setToken] = useState(userToken);
+    console.log(token);
+    
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const contactForm = event.target as HTMLFormElement;
