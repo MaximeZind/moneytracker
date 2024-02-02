@@ -9,7 +9,6 @@ import { redirect } from 'next/navigation'
 export default function Login() {
     const userToken = localStorage.getItem("token");
     const [token, setToken] = useState(userToken);
-    console.log(token);
     
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -18,13 +17,16 @@ export default function Login() {
         const formJson: LoginData = Object.fromEntries(formData.entries()) as unknown as LoginData;
 
         const loginResponse = LoginUser(formJson);
-        loginResponse.then((responseData) => {
-            console.log(responseData);
-            localStorage.setItem('token', responseData.token);
-            setToken(responseData.token);
+        loginResponse.then((response) => {
+            if (response.response.status  === 200){
+                const receivedToken = response.responseData.data.token;
+                localStorage.setItem('token', receivedToken);
+                setToken(receivedToken);
+            }
         })
     }
 
+    //Auto redirect to dashboard if token exists
     useEffect(() => {
         if (token !== null) {
             redirect('/dashboard');

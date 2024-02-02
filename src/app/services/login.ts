@@ -5,8 +5,6 @@ export interface LoginData {
 
 export async function LoginUser(data: LoginData) {
 
-    console.log('hi');
-    
     const response = await fetch('api/login', {
         method: 'POST',
         headers: {
@@ -15,10 +13,11 @@ export async function LoginUser(data: LoginData) {
         body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Something went wrong');
+    const responseData = await response.json();
+    // Object.assign(response, {responseData: responseData})
+    
+    return {
+        response: response,
+        responseData: responseData
     }
-    const responseData = response.json();
-    return responseData;
 }

@@ -1,11 +1,12 @@
 import { PrismaClient, User } from '@prisma/client';
+import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken';
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const prisma = new PrismaClient();
 
-export async function POST(request: Request, response: Response) {
+export async function POST(request: Request) {
     const data = await request.json();
     const username = data.username;
     const user = await prisma.user.findUnique({
@@ -13,10 +14,12 @@ export async function POST(request: Request, response: Response) {
             username: username
         },
     })
-
     if (!user) {
-        console.log('User not found!');
-        return Response.json(false);
+        return NextResponse.json({
+            error: 'User Not found!'
+        }, {
+            status: 404
+        });
     }
 
     const passwordMatch = await bcrypt.compare(data.password, user.password);
@@ -30,9 +33,13 @@ export async function POST(request: Request, response: Response) {
             email: user.email,
             token: token
         }
-        return Response.json(responseData);
+        return NextResponse.json({ data: responseData }, { status: 200 });
     } else if (!passwordMatch) {
         console.log('Incorrect password');
-        return Response.json(passwordMatch);
+        return NextResponse.json({
+            error: 'Wrong password!'
+        }, {
+            status: 401
+        });
     }
 }
