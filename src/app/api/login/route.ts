@@ -4,27 +4,30 @@ import jwt from 'jsonwebtoken';
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
+interface CustomResponse {
+    data?: { userId: string; username: string; email: string; token: string; };
+    status?: number; 
+    message?: string; 
+}
+
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
     const data = await request.json();
     const username = data.username;
-    const user = await prisma.user.findUnique({
-        where: {
-            username: username
-        },
-    })
-    if (!user) {
-        return NextResponse.json({
-            error: 'User Not found!'
-        }, {
-            status: 404
-        });
-    }
+    let response: CustomResponse = {};
 
-    const passwordMatch = await bcrypt.compare(data.password, user.password);
-    if (passwordMatch) {
-        console.log('Authentification successful');
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username
+            },
+        })
+        if (!user) {
+            response.status = 404;
+            throw new Error('User not found.')
+        }
+        const passwordMatch = await bcrypt.compare(data.password, user.password);
         const secret = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'BackupKey';
         const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
         const responseData = {
@@ -33,13 +36,18 @@ export async function POST(request: Request) {
             email: user.email,
             token: token
         }
-        return NextResponse.json({ data: responseData }, { status: 200 });
-    } else if (!passwordMatch) {
-        console.log('Incorrect password');
-        return NextResponse.json({
-            error: 'Wrong password!'
-        }, {
-            status: 401
-        });
+        if (!passwordMatch) {
+            response.status = 401;
+            throw new Error('Password is incorrect.')
+        }
+        response.status = 200;
+        response.message = 'User successfully logged in.';
+        response.data = responseData;
+    } catch (error) {
+        console.log('Error with the login.');
+        if (error instanceof Error) {
+            response.message = error.message;
+        }
     }
+    return NextResponse.json({response: response}, {status: response.status});
 }

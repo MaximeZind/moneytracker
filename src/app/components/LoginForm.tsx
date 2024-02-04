@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation'
 export default function Login() {
     const userToken = localStorage.getItem("token");
     const [token, setToken] = useState(userToken);
+    const [errorMsg, setErrorMsg] = useState(null);
     
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -18,10 +19,13 @@ export default function Login() {
 
         const loginResponse = LoginUser(formJson);
         loginResponse.then((response) => {
-            if (response.response.status  === 200){
-                const receivedToken = response.responseData.data.token;
+            const status = response.response.status;
+            if (status === 200){
+                const receivedToken = response.responseData.response.data.token;
                 localStorage.setItem('token', receivedToken);
                 setToken(receivedToken);
+            } else if (status !== 200) {
+                setErrorMsg(response.responseData.response.message)
             }
         })
     }
@@ -39,6 +43,9 @@ export default function Login() {
             <input type="text" name="username" id="username" />
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" />
+            {
+                errorMsg && <p>{errorMsg}</p>
+            }
             <button value='submit'>Valider</button>
             <p>You don't have an account yet? <Link href={'/signup'}>Sign Up!</Link></p>
         </form>
