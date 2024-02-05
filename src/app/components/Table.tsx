@@ -24,18 +24,14 @@ export default function Table({headers,data}: TableProps) {
             <tbody>
             {
                         data && data.map((object, index) => {
-                            headers.map((header:string) => {
-                                console.log(object[header.toLowerCase()]);
-                            })
-                            console.log(object.debit);
                             balance = balance + object.income - object.debit;
                             return (
                                 <tr key={index}>
                                     {
-                                        headers.map((header:string) => {
+                                        headers.map((header:string, index) => {
                                             if (header !== "Balance")
                                             return (
-                                                <td>{object[header.toLowerCase()]}</td>
+                                                <td key={index}>{object[header.toLowerCase()]}</td>
                                             )
                                         })
                                     }

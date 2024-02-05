@@ -15,6 +15,18 @@ export default function LoggedInHeader() {
         <header className={styles.header}>
             <div className={styles.header_logo}></div>
             <nav className={styles.header_nav}>
+                <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard">
+                    Overview
+                </Link>
+                <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard/addtransaction">
+                    Add Transaction
+                </Link>
+                <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard/accounts">
+                    Accounts
+                </Link>
+                <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard/settings">
+                    Settings
+                </Link>
                 <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/" onClick={handleOnClick}>
                     Sign out
                 </Link>
