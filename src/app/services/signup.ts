@@ -1,3 +1,5 @@
+import { customFetch } from "./customFetch";
+
 export interface SignUpData {
     username: string;
     email: string;
@@ -6,13 +8,13 @@ export interface SignUpData {
 
 export async function signUpUser(data: SignUpData) {
 
-    const response = await fetch('api/signup', {
+    const response = await customFetch('api/signup', {
         method: 'POST',
         headers: {
             Accept: "application/json",
         },
-        body: JSON.stringify(data),
-    });
+        body: data,
+    })
 
     if (!response.ok) {
         const errorData = await response.json();
