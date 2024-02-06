@@ -1,11 +1,13 @@
+import { customFetch } from "./customFetch";
+
 export async function deleteUsers() {
 
-    const response = await fetch('api/users', {
+    const response = await customFetch('api/users', {
         method: 'DELETE',
         headers: {
             Accept: "application/json",
         },
-    });
+    })
 
     if (!response.ok) {
         const errorData = await response.json();
