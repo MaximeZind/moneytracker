@@ -1,3 +1,5 @@
+import { verifyToken } from "../api/verifyToken";
+
 export async function customFetch(url: string, options: {
     method: string;
     headers?: { [key: string]: string };
@@ -34,9 +36,15 @@ export async function customFetch(url: string, options: {
 
     try {
         const response = await fetch(url, fetchOptions);
-        return response;
+        const res = await response.json()
+        console.log(res.response);
+        
+        if (res.response.message === "Token Expired") {
+            console.log('expired');
+        }
+        return res;
     } catch (error) {
-        console.log(error);
+        console.log("customFetch error: " + error);
         throw error;
     }
 }

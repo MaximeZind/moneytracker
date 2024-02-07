@@ -29,7 +29,7 @@ export async function POST(request: Request) {
         }
         const passwordMatch = await bcrypt.compare(data.password, user.password);
         const secret = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'BackupKey';
-        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '3s' });
         const responseData = {
             userId: user.id,
             username: user.username,

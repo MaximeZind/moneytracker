@@ -14,11 +14,13 @@ export async function LoginUser(data: LoginData) {
                 },
                 body: data,
             })
+
+            const responseData = response.response.data;
+            console.log(responseData);
             
-    const responseData = await response.json();
-    
+
     return {
         response: response,
-        responseData: responseData
+        responseData: responseData,
     }
 }

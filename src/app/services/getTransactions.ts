@@ -6,8 +6,8 @@ export async function getTransactions(token: string) {
         method: 'GET',
         headers: {
             Accept: "application/json",
-            'Authorization': `Bearer ${token}`,
         },
+        token: token,
     })
     
     if (!response.ok) {

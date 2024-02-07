@@ -1,28 +1,67 @@
 import { PrismaClient } from '@prisma/client';
 import { verifyToken } from '../verifyToken';
+import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 require('dotenv').config();
 
 const prisma = new PrismaClient();
+interface CustomResponse {
+    data?: Transaction[];
+    status?: number; 
+    message?: string; 
+}
+
+interface Transaction {
+    id: string;
+    date: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    amount: number;
+    description: string;
+    category: string;
+    type: string;
+    recurring: boolean;
+    frequencyAmount: number | null;
+    frequencyUnit: string | null;
+    userId: string;
+    accountId: string;
+  }
 
 // Get user's Transactions
 export async function GET(request: Request) {
     const req = await request.headers.get('authorization');
+    let response: CustomResponse = {};
     const token = req ? req.replace('Bearer ', '') : null;
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
-    const userId = verifyToken(token);
-    if (userId) {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: userId
-            },
-            include: {
-                transactions: true,
-            },
-        })
-        return Response.json(user?.transactions);
+    try {
+        const userId = verifyToken(token);
+        if (userId) {
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: userId
+                },
+                include: {
+                    transactions: true,
+                },
+            })
+            response.status = 200;
+            response.data = user?.transactions
+        } 
+    } catch (error) {
+        if (error instanceof Error) {
+            if (error.name === 'TokenExpiredError') {
+                response.status = 401;
+                response.message = 'Token Expired';
+            } else {
+                response.status = 401;
+                response.message = 'Unauthorized';
+            }
+        }
     }
+    
+    return NextResponse.json({response: response}, {status: response.status});
 }
 
 // Create a new Transaction

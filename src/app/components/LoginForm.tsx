@@ -19,13 +19,15 @@ export default function Login() {
 
         const loginResponse = LoginUser(formJson);
         loginResponse.then((response) => {
-            const status = response.response.status;
+            console.log(response);
+            
+            const status = response.response.response.status;
             if (status === 200){
-                const receivedToken = response.responseData.response.data.token;
+                const receivedToken = response.responseData.token;
                 localStorage.setItem('token', receivedToken);
                 setToken(receivedToken);
             } else if (status !== 200) {
-                setErrorMsg(response.responseData.response.message)
+                setErrorMsg(response.responseData.message)
             }
         })
     }
