@@ -10,10 +10,11 @@ export async function getTransactions(token: string) {
         token: token,
     })
     
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Something went wrong');
+    if (response.response.status !== 200) {
+        const errorData = response.response.message;
+        throw new Error(errorData || 'Something went wrong');
     }
-    const responseData = response.json();
+
+    const responseData = response.response.data;
     return responseData;
 }
