@@ -19,8 +19,6 @@ export default function Login() {
 
         const loginResponse = LoginUser(formJson);
         loginResponse.then((response) => {
-            console.log(response);
-            
             const status = response.response.response.status;
             if (status === 200){
                 const receivedToken = response.responseData.token;
