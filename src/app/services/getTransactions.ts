@@ -8,11 +8,6 @@ export async function getTransactions() {
             Accept: "application/json",
         },
     })
-    
-    if (response.response.status !== 200) {
-        const errorData = response.response.message;
-        throw new Error(errorData || 'Something went wrong');
-    }
 
     const responseData = response.response.data;
     return responseData;

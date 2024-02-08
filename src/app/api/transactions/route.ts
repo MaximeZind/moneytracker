@@ -55,9 +55,11 @@ export async function GET() {
             if (error.name === 'TokenExpiredError') {
                 response.status = 401;
                 response.message = 'Token Expired';
+                response.data = [];
             } else {
                 response.status = 401;
                 response.message = 'Unauthorized';
+                response.data = [];
             }
         }
     }
