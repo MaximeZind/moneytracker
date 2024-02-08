@@ -15,8 +15,6 @@ export async function LoginUser(data: LoginData) {
                 body: data,
             })
 
-            console.log(response.data);
-            
             const responseData = response.data;
     return {
         response: response,
