@@ -7,7 +7,7 @@ export interface LoginData {
 
 export async function LoginUser(data: LoginData) {
 
-    const response = await customFetch('../api/login', {
+    const response = await customFetch('/api/login', {
                 method: 'POST',
                 headers: {
                     Accept: "application/json",

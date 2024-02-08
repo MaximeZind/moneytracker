@@ -8,7 +8,7 @@ export interface SignUpData {
 
 export async function signUpUser(data: SignUpData) {
 
-    const response = await customFetch('api/signup', {
+    const response = await customFetch('/api/signup', {
         method: 'POST',
         headers: {
             Accept: "application/json",

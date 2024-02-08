@@ -25,10 +25,12 @@ export async function GET() {
     let response: CustomResponse = {};
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
-    console.log(token);
     
     if (!token) {
-        return Response.json({ error: 'Unauthorized - Token missing' });
+        response.data = [];
+        response.status = 401;
+        response.message = 'Unauthorized - Token missing';
+        return NextResponse.json({response: response}, {status: response.status});
     }
     try {
         const userId = verifyToken(token.value);
@@ -61,11 +63,15 @@ export async function GET() {
 
 // Create a new Account
 export async function POST(request: Request) {
-    const req = await request.headers.get('authorization');
-    const token = req ? req.replace('Bearer ', '') : null;
+    let response: CustomResponse = {};
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_NAME);
     const data = await request.json();
     if (!token) {
-        return Response.json({ error: 'Unauthorized - Token missing' });
+        response.data = [];
+        response.status = 401;
+        response.message = 'Unauthorized - Token missing';
+        return NextResponse.json({response: response}, {status: response.status});
     }
     const userId = verifyToken(token);
     if (userId) {
