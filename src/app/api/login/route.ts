@@ -32,7 +32,7 @@ export async function POST(request: Request) {
         }
         const passwordMatch = await bcrypt.compare(data.password, user.password);
         const secret = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'BackupKey';
-        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '30s' });
+        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
         serialized = serialize(COOKIE_NAME, token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -64,5 +64,4 @@ export async function POST(request: Request) {
         status: response.status,
         headers: headers,
     });
-    // return NextResponse.json({response: response}, {status: response.status}, {headers: {"Set-Cookie": serialized}});
 }
