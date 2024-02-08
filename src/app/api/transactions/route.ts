@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { verifyToken } from '../verifyToken';
-import { redirect } from 'next/navigation';
+import { cookies } from "next/headers";
 import { NextResponse } from 'next/server';
+import { COOKIE_NAME } from '@/constants';
 require('dotenv').config();
 
 const prisma = new PrismaClient();
@@ -31,12 +32,14 @@ interface Transaction {
 export async function GET(request: Request) {
     const req = await request.headers.get('authorization');
     let response: CustomResponse = {};
-    const token = req ? req.replace('Bearer ', '') : null;
+    // const token = req ? req.replace('Bearer ', '') : null;
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_NAME);
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
     try {
-        const userId = verifyToken(token);
+        const userId = verifyToken(token.value);
         if (userId) {
             const user = await prisma.user.findUnique({
                 where: {

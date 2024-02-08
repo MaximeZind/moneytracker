@@ -2,6 +2,7 @@ import { PrismaClient, User } from '@prisma/client';
 import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken';
 import { serialize } from 'cookie';
+import { COOKIE_NAME } from '@/constants';
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
@@ -31,8 +32,8 @@ export async function POST(request: Request) {
         }
         const passwordMatch = await bcrypt.compare(data.password, user.password);
         const secret = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'BackupKey';
-        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '3s' });
-        serialized = serialize("JWT", token, {
+        const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '30s' });
+        serialized = serialize(COOKIE_NAME, token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",

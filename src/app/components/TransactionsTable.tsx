@@ -17,19 +17,16 @@ interface Transaction {
 
 export default function TransactionsTable() {
 
-    const token = localStorage.getItem("token");
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     
     useEffect(() => {
         const getProfile = async () => {
-            if (token) {
-                await getTransactions(token).then((userTransactions) => {
+                await getTransactions().then((userTransactions) => {
                     setTransactions(userTransactions);
                 });
-            }
         }
         getProfile();
-    }, [token]);
+    }, []);
 
     // Creating datas for the table component
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];

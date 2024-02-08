@@ -1,13 +1,12 @@
 import { customFetch } from "./customFetch";
 
-export async function getTransactions(token: string) {
+export async function getTransactions() {
 
     const response = await customFetch('../api/transactions', {
         method: 'GET',
         headers: {
             Accept: "application/json",
         },
-        token: token,
     })
     
     if (response.response.status !== 200) {
