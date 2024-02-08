@@ -15,10 +15,9 @@ export async function LoginUser(data: LoginData) {
                 body: data,
             })
 
-            const responseData = response.response.data;
-            console.log(responseData);
+            console.log(response.data);
             
-
+            const responseData = response.data;
     return {
         response: response,
         responseData: responseData,

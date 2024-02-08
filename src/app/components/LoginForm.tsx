@@ -7,8 +7,7 @@ import { LoginData, LoginUser } from '../services/login';
 import { redirect } from 'next/navigation'
 
 export default function Login() {
-    const userToken = localStorage.getItem("token");
-    const [token, setToken] = useState(userToken);
+    const [token, setToken] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -16,13 +15,11 @@ export default function Login() {
         const contactForm = event.target as HTMLFormElement;
         const formData = new FormData(contactForm);
         const formJson: LoginData = Object.fromEntries(formData.entries()) as unknown as LoginData;
-
         const loginResponse = LoginUser(formJson);
         loginResponse.then((response) => {
-            const status = response.response.response.status;
+            const status = response.response.status;
             if (status === 200){
                 const receivedToken = response.responseData.token;
-                localStorage.setItem('token', receivedToken);
                 setToken(receivedToken);
             } else if (status !== 200) {
                 setErrorMsg(response.responseData.message)

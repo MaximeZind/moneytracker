@@ -1,4 +1,5 @@
-import { verifyToken } from "../api/verifyToken";
+import { redirect } from "next/navigation";
+import { useRouter } from 'next/router';
 
 export async function customFetch(url: string, options: {
     method: string;
@@ -12,6 +13,17 @@ export async function customFetch(url: string, options: {
 
     if (options.token) {
         defaultHeaders['Authorization'] = `Bearer ${options.token}`;
+        // const router = useRouter();
+        if (isTokenExpired(options.token)) {
+            // console.log('Token expired');
+            // localStorage.removeItem('token');
+            // router.push('/login');
+        }
+        // if (isTokenExpired(options.token)) {
+        //     console.log('expired');
+        //     localStorage.removeItem('token');
+        //     return redirect('/login');
+        // }
     }
 
     // Prepare the headers
@@ -36,15 +48,17 @@ export async function customFetch(url: string, options: {
 
     try {
         const response = await fetch(url, fetchOptions);
-        const res = await response.json()
-        console.log(res.response);
-        
-        if (res.response.message === "Token Expired") {
-            console.log('expired');
-        }
+        const res = await response.json();
+        console.log(res);
         return res;
     } catch (error) {
         console.log("customFetch error: " + error);
         throw error;
     }
+}
+
+function isTokenExpired(token: string) {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Date.now() / 1000; // Convert to seconds
+    return payload.exp < now;
 }

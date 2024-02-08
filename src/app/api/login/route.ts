@@ -1,6 +1,7 @@
 import { PrismaClient, User } from '@prisma/client';
 import { NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken';
+import { serialize } from 'cookie';
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
@@ -16,7 +17,8 @@ export async function POST(request: Request) {
     const data = await request.json();
     const username = data.username;
     let response: CustomResponse = {};
-
+    let serialized;
+    let headers;
     try {
         const user = await prisma.user.findUnique({
             where: {
@@ -30,6 +32,13 @@ export async function POST(request: Request) {
         const passwordMatch = await bcrypt.compare(data.password, user.password);
         const secret = process.env.JWT_SECRET ? process.env.JWT_SECRET : 'BackupKey';
         const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '3s' });
+        serialized = serialize("JWT", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path:"/"
+        })
+        headers = serialized ? { "Set-Cookie": serialized } : {};
         const responseData = {
             userId: user.id,
             username: user.username,
@@ -49,5 +58,10 @@ export async function POST(request: Request) {
             response.message = error.message;
         }
     }
-    return NextResponse.json({response: response}, {status: response.status});
+    
+    return new NextResponse(JSON.stringify(response), {
+        status: response.status,
+        headers: headers,
+    });
+    // return NextResponse.json({response: response}, {status: response.status}, {headers: {"Set-Cookie": serialized}});
 }
