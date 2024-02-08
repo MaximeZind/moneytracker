@@ -13,9 +13,9 @@ interface CustomResponse {
 }
 
 interface User {
-    email: string;
-    userId: string;
-    username: string;
+    email?: string;
+    userId?: string;
+    username?: string;
 }
 
 export async function GET(request: Request) {
@@ -49,9 +49,11 @@ export async function GET(request: Request) {
             if (error.name === 'TokenExpiredError') {
                 response.status = 401;
                 response.message = 'Token Expired';
+                response.data = {};
             } else {
                 response.status = 401;
                 response.message = 'Unauthorized';
+                response.data = {};
             }
         }
     }
