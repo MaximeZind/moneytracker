@@ -29,10 +29,8 @@ interface Transaction {
   }
 
 // Get user's Transactions
-export async function GET(request: Request) {
-    const req = await request.headers.get('authorization');
+export async function GET() {
     let response: CustomResponse = {};
-    // const token = req ? req.replace('Bearer ', '') : null;
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     if (!token) {
