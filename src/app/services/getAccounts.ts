@@ -9,6 +9,8 @@ export async function getAccounts() {
         },
     })
 
+    console.log(response);
+    
     const responseData = response.response.data;
     return responseData;
 }

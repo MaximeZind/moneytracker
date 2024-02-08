@@ -7,7 +7,6 @@ export async function customFetch(url: string, options: {
     const defaultHeaders: { [key: string]: string } = {
         Accept: 'application/json',
     };
-
     // Prepare the headers
     const headers = {
         ...defaultHeaders,
@@ -31,6 +30,8 @@ export async function customFetch(url: string, options: {
     try {
         const response = await fetch(url, fetchOptions);
         const res = await response.json();
+        console.log(res);
+        
         return res;
     } catch (error) {
         return error;

@@ -25,11 +25,13 @@ export async function GET() {
     let response: CustomResponse = {};
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
+    console.log(token);
+    
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
     try {
-        const userId = verifyToken(token);
+        const userId = verifyToken(token.value);
         if (userId) {
             const user = await prisma.user.findUnique({
                 where: {
