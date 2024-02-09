@@ -11,8 +11,8 @@ export interface Transaction {
     accoundId: string;
     amount: number;
     category: string;
-    date: string; 
+    date: string;
     id: number;
     description: string;
     type: "Income" | "Expense";
-  }
+}
