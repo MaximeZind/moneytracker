@@ -4,11 +4,10 @@ export default function Dashboard() {
 
   const userProfile = '';
 
-    return (
-      <main className={styles.main}>
-        <h1>Dashboard</h1>
-        <TransactionsTable />
-      </main>
-    )
-  }
-  
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <TransactionsTable />
+    </>
+  )
+}

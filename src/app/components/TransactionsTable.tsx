@@ -48,9 +48,6 @@ export default function TransactionsTable() {
     });
 
     return (
-        <>
-            <p>Hello</p>
             <Table headers={tableHeaders} data={tableData}/>
-        </>
     )
 }
