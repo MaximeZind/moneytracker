@@ -1,6 +1,6 @@
 import styles from "./Accounts.module.css";
-import TransactionsTable from "../../../components/TransactionsTable";
-import AccountsSection from "../../../components/AccountsSection"
+import TransactionsTable from "../../../../components/TransactionsTable";
+import AccountsSection from "../../../../components/AccountsSection"
 
 export default function Accounts() {
 

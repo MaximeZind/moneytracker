@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "./LoginForm.module.css";
 import { FormEvent, useEffect, useState } from 'react';
-import { LoginData, LoginUser } from '../services/login';
+import { LoginData, LoginUser } from '../app/services/login';
 import { redirect } from 'next/navigation'
 
 export default function Login() {

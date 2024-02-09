@@ -1,4 +1,4 @@
-import NewAccountForm from "@/app/components/NewAccountForm";
+import NewAccountForm from "@/components/NewAccountForm";
 import styles from "./NewAccount.module.css";
 
 export default function NewAccount() {

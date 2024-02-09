@@ -1,5 +1,5 @@
 import styles from "./Settings.module.css";
-import TransactionsTable from "../../../components/TransactionsTable";
+import TransactionsTable from "../../../../components/TransactionsTable";
 
 export default function Settings() {
 

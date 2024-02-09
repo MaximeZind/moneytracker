@@ -1,5 +1,5 @@
 import styles from './HeroSection.module.css';
-import graphs from '../assets/graphs.png';
+import graphs from '../app/assets/graphs.png';
 import Image from 'next/image';
 
 export default function HeroSection() {

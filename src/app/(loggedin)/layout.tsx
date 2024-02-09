@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from "react";
-import LoggedInHeader from "../components/baselayout/LoggedInHeader";
+import LoggedInHeader from "../../components/baselayout/LoggedInHeader";
 import { getUser } from "../services/getUser";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styles from './LoggedInLayout.module.css';

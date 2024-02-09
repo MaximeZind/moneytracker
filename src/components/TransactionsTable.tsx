@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { getTransactions } from "../services/getTransactions";
+import { getTransactions } from "../app/services/getTransactions";
 import Table from "../components/Table";
 import styles from "./TransactionsTable.module.css";
 
