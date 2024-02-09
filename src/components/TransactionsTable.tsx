@@ -4,16 +4,7 @@ import { useEffect, useState } from "react";
 import { getTransactions } from "../app/services/getTransactions";
 import Table from "../components/Table";
 import styles from "./TransactionsTable.module.css";
-
-interface Transaction {
-    accoundId: string;
-    amount: number;
-    category: string;
-    date: string; 
-    id: number;
-    description: string;
-    type: "Income" | "Expense";
-  }
+import { Transaction } from "@/types/global";
 
 export default function TransactionsTable() {
 

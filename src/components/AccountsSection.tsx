@@ -5,23 +5,7 @@ import { getAccounts } from "../app/services/Accounts";
 import styles from "./AccountsSection.module.css";
 import Link from "next/link";
 import AccountPreview from "./AccountPreview";
-
-interface Account {
-    id: string;
-    name: string;
-    type: string;
-    transactions?: Transaction[];
-}
-
-interface Transaction {
-    accoundId: string;
-    amount: number;
-    category: string;
-    date: string; 
-    id: number;
-    description: string;
-    type: "Income" | "Expense";
-  }
+import { Account } from "@/types/global";
 
 export default function AccountsSection() {
 

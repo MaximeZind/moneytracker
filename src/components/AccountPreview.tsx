@@ -2,22 +2,13 @@
 
 import styles from "./AccountPreview.module.css";
 import Link from "next/link";
+import { Transaction } from "@/types/global";
 
 interface Props {
     name: string;
     type: string;
     transactions?: Transaction[];
 }
-
-interface Transaction {
-    accoundId: string;
-    amount: number;
-    category: string;
-    date: string; 
-    id: number;
-    description: string;
-    type: "Income" | "Expense";
-  }
 
 export default function AccountPreview({name, type, transactions }: Props) {
 
