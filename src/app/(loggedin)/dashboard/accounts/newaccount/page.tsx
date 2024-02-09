@@ -1,3 +1,4 @@
+import NewAccountForm from "@/app/components/NewAccountForm";
 import styles from "./NewAccount.module.css";
 
 export default function NewAccount() {
@@ -5,6 +6,7 @@ export default function NewAccount() {
     return (
       <main className={styles.main}>
         <h1>Create a new Account</h1>
+        <NewAccountForm/>
       </main>
     )
   }

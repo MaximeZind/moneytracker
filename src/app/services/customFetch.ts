@@ -12,6 +12,7 @@ export async function customFetch(url: string, options: {
         ...defaultHeaders,
         ...options.headers,
     };
+console.log(options);
 
     // Prepare the body, if applicable and necessary
     let body;

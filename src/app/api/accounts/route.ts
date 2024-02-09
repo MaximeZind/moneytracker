@@ -67,13 +67,15 @@ export async function POST(request: Request) {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     const data = await request.json();
+    console.log(data);
+    
     if (!token) {
         response.data = [];
         response.status = 401;
         response.message = 'Unauthorized - Token missing';
         return NextResponse.json({response: response}, {status: response.status});
     }
-    const userId = verifyToken(token);
+    const userId = verifyToken(token.value);
     if (userId) {
         const user = await prisma.user.findUnique({
             where: {

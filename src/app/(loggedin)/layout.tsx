@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import LoggedInHeader from "../components/baselayout/LoggedInHeader";
 import { getUser } from "../services/getUser";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import styles from './LoggedInLayout.module.css';
 
 export default function LoggedInLayout({
     children,
@@ -29,7 +30,9 @@ export default function LoggedInLayout({
     return (
         <>
             <LoggedInHeader />
+            <main className={styles.main}>
             {children}
+            </main>
         </>
     )
 }

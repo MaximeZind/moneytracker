@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from "react";
-import { getAccounts } from "../services/getAccounts"
+import { getAccounts } from "../services/Accounts"
 import styles from "./AccountsSection.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -17,16 +17,10 @@ export default function AccountsSection() {
         Accounts();
     }, []);
 
-    const router = useRouter();
-    function handleClick() {
-        router.push("./accounts/newaccount");
-    }
-
     return (
         <>
             <p>Hello</p>
-            <button onClick={handleClick}>Create a new account</button>
-            <Link href="../dashboard/accounts/newaccount">Create a new account</Link>
+            <Link href="/dashboard/accounts/newaccount">Create a new account</Link>
         </>
     )
 }
