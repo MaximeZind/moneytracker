@@ -18,6 +18,7 @@ model User {
   transactions Transaction[]
   accounts     Account[]
   budget       Budget?
+  categories   Category[]
 }
 
 model Account {
@@ -25,7 +26,7 @@ model Account {
   name         String
   type         String
   transactions Transaction[]
-  user         User          @relation(fields: [userId], references: [id])
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String
 }
 
@@ -36,15 +37,24 @@ model Transaction {
   updatedAt       DateTime @updatedAt
   amount          Float
   description     String
-  category        String
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId      String
   type            String //Income or expense
   recurring       Boolean
   frequencyAmount Int?
   frequencyUnit   String?
-  user            User     @relation(fields: [userId], references: [id])
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String
-  account         Account  @relation(fields: [accountId], references: [id])
+  account         Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId       String
+}
+
+model Category {
+  id           String        @id @default(uuid())
+  name         String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  transactions Transaction[]
 }
 
 model Budget {
@@ -52,6 +62,6 @@ model Budget {
   totalAmount Float
   amountGoal  Float
   goalDate    DateTime
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   @unique
 }

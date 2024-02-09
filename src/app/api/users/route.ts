@@ -10,6 +10,6 @@ export async function GET() {
 
 export async function DELETE() {
     const usersData = await prisma.user.deleteMany();
-
+    
     return Response.json(usersData);
 }

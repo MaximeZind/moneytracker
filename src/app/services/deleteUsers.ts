@@ -2,7 +2,7 @@ import { customFetch } from "./customFetch";
 
 export async function deleteUsers() {
 
-    const response = await customFetch('api/users', {
+    const response = await customFetch('/api/users', {
         method: 'DELETE',
         headers: {
             Accept: "application/json",
