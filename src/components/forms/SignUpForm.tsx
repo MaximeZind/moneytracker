@@ -5,7 +5,6 @@ import { SignUpData, signUpUser } from "../../app/services/signup";
 import { getUsers } from "../../app/services/users";
 import styles from "./SignUpForm.module.css";
 import { FormEvent } from 'react';
-// import {signup} from '../services/signup';
 
 export default function SignUp() {
 
@@ -14,7 +13,6 @@ export default function SignUp() {
         event.preventDefault();
         const contactForm = event.target as HTMLFormElement;
         const formData = new FormData(contactForm);
-        // const formJson = Object.fromEntries(formData.entries());
         const formJson: SignUpData = {
             username: formData.get('username') as string,
             email: formData.get('email') as string,
