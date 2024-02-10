@@ -12,11 +12,11 @@ export interface Transaction {
     accountId: string;
     amount: number;
     categoryId: string;
-    category: string;
+    category: Category;
     date: Date;
     id: number;
     description: string;
-    type: "Income" | "Expense";
+    type: string;
     recurring: boolean,
     frequencyAmount?: number;
     frequencyUnit?: string;
@@ -29,7 +29,7 @@ export interface NewTransaction {
     categoryId: string;
     date: Date;
     description: string;
-    type: "Income" | "Expense";
+    type: string;
     recurring: boolean,
     frequencyAmount?: number;
     frequencyUnit?: string;

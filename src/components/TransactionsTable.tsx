@@ -13,6 +13,8 @@ export default function TransactionsTable() {
     useEffect(() => {
         const getProfile = async () => {
                 await getTransactions().then((userTransactions: SetStateAction<Transaction[]>) => {
+                    console.log(userTransactions);
+                    
                     setTransactions(userTransactions);
                 });
         }
@@ -31,9 +33,9 @@ export default function TransactionsTable() {
             month: monthName,
             date: `${dayNumber + "/" + monthNumber + "/" + yearNumber}`,
             description: transaction.description,
-            category: transaction.category,
-            income: transaction.type === "Income" ? transaction.amount : 0,
-            debit: transaction.type === "Expense" ? transaction.amount : 0,
+            category: transaction.category.name,
+            income: transaction.type === "income" ? transaction.amount : 0,
+            debit: transaction.type === "expense" ? transaction.amount : 0,
         }
         tableData.push(newObject);        
     });

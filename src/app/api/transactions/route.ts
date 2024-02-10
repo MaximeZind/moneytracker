@@ -3,6 +3,7 @@ import { verifyToken } from '../verifyToken';
 import { cookies } from "next/headers";
 import { NextResponse } from 'next/server';
 import { COOKIE_NAME } from '@/constants';
+import { Transaction } from '@/types/global';
 require('dotenv').config();
 
 const prisma = new PrismaClient();
@@ -11,22 +12,6 @@ interface CustomResponse {
     status?: number; 
     message?: string; 
 }
-
-interface Transaction {
-    id: string;
-    date: Date;
-    createdAt: Date;
-    updatedAt: Date;
-    amount: number;
-    description: string;
-    category: string;
-    type: string;
-    recurring: boolean;
-    frequencyAmount: number | null;
-    frequencyUnit: string | null;
-    userId: string;
-    accountId: string;
-  }
 
 // Get user's Transactions
 export async function GET() {
@@ -44,7 +29,12 @@ export async function GET() {
                     id: userId
                 },
                 include: {
-                    transactions: true,
+                    transactions: {
+                        include: {
+                            category: true, 
+                            account: true,
+                        },
+                    },
                 },
             })
             response.status = 200;

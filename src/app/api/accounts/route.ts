@@ -41,7 +41,11 @@ export async function GET() {
                     id: userId
                 },
                 include: {
-                    accounts: true,
+                    accounts: {
+                        include: {
+                            transactions: true, 
+                        },
+                    },
                 },
             })        
             response.status = 200;
