@@ -3,6 +3,7 @@ import { verifyToken } from '../verifyToken';
 import { cookies } from 'next/headers';
 import { COOKIE_NAME } from '@/constants';
 import { NextResponse } from 'next/server';
+
 require('dotenv').config();
 
 const prisma = new PrismaClient();

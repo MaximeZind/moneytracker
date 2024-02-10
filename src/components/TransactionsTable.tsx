@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from "react";
-import { getTransactions } from "../app/services/getTransactions";
+import { SetStateAction, useEffect, useState } from "react";
+import { getTransactions } from "../app/services/transactions";
 import Table from "../components/Table";
 import styles from "./TransactionsTable.module.css";
 import { Transaction } from "@/types/global";
@@ -12,7 +12,7 @@ export default function TransactionsTable() {
     
     useEffect(() => {
         const getProfile = async () => {
-                await getTransactions().then((userTransactions) => {
+                await getTransactions().then((userTransactions: SetStateAction<Transaction[]>) => {
                     setTransactions(userTransactions);
                 });
         }

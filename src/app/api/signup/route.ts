@@ -1,4 +1,11 @@
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+
+export interface CustomResponse {
+    data?: {};
+    status?: number; 
+    message?: string; 
+}
+
 const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient();
@@ -18,6 +25,25 @@ export async function POST(request: Request, response: Response) {
             },
             accounts: {
                 create: [] 
+            },
+            categories: {
+                create: [
+                    {
+                        name: "Rent"
+                    },
+                    {
+                        name: "Bills"
+                    },
+                    {
+                        name: "Salary"
+                    },
+                    {
+                        name: "Groceries"
+                    },
+                    {
+                        name: "Health"
+                    },
+                ]
             },
             budget: {
                 create: {

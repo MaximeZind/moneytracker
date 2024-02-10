@@ -3,7 +3,7 @@
 
 import { FormEvent } from 'react';
 import styles from "./NewAccountForm.module.css";
-import { AccountData, newAccount } from "../../app/services/Accounts";
+import { AccountData, newAccount } from "../../app/services/accounts";
 
 export default function NewAccountForm() {
 
@@ -14,6 +14,8 @@ export default function NewAccountForm() {
         const formJson: AccountData = Object.fromEntries(formData.entries()) as unknown as AccountData;
         const newAccountResponse = newAccount(formJson);
         newAccountResponse.then((response) => {
+            console.log(response);
+            
             const status = response.response.status;
             console.log(response);
             

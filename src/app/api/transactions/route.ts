@@ -69,15 +69,12 @@ export async function GET() {
 
 // Create a new Transaction
 export async function POST(request: Request) {
-    const header = await request.headers.get('authorization');
-    const token = header ? header.replace('Bearer ', '') : null;
-
+    const cookieStore = cookies();
+    const token = cookieStore.get(COOKIE_NAME);
     const datas = await request.json()
-
-    if (!token) {
-        return Response.json({ error: 'Unauthorized - Token missing' });
-    }
-    const userId = verifyToken(token);
+    console.log(datas);
+    
+    const userId = verifyToken(token?.value);
     if (userId) {
         const user = await prisma.user.findUnique({
             where: {
@@ -90,13 +87,13 @@ export async function POST(request: Request) {
         });
 
         if (user) {
-            // Create a new account
+            // Create a new transaction
             const newTransaction = await prisma.transaction.create({
                 data: {
                     date: datas.date,
                     amount: datas.amount,
                     description: datas.description,
-                    category: datas.category,
+                    categoryId: datas.categoryId,
                     type: datas.type,
                     recurring: datas.recurring,
                     frequencyAmount: datas.frequencyAmount,
