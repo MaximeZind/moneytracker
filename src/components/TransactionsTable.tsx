@@ -23,19 +23,20 @@ export default function TransactionsTable() {
 
     // Creating datas for the table component
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
-    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; }[] = []
+    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; }[] = []
     transactions && transactions.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', {month: 'long'})
         const dayNumber = new Date(transaction.date).getDay().toLocaleString().padStart(2, '0');
-        const monthNumber = new Date(transaction.date).getMonth().toLocaleString().padStart(2, '0');
+        const monthNumber = (new Date(transaction.date).getMonth() + 1).toLocaleString().padStart(2, '0');
         const yearNumber = new Date(transaction.date).getFullYear();
         const newObject = {
-            month: monthName,
+            month: `${monthName[0].toLocaleUpperCase()}${monthName.slice(1).toLocaleLowerCase()}`,
             date: `${dayNumber + "/" + monthNumber + "/" + yearNumber}`,
-            description: transaction.description,
+            description: `${transaction.description[0].toLocaleUpperCase()}${transaction.description.slice(1).toLocaleLowerCase()}`,
             category: transaction.category.name,
             income: transaction.type === "income" ? transaction.amount : 0,
             debit: transaction.type === "expense" ? transaction.amount : 0,
+            type: transaction.type,
         }
         tableData.push(newObject);        
     });

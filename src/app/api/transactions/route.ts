@@ -30,6 +30,9 @@ export async function GET() {
                 },
                 include: {
                     transactions: {
+                        orderBy: {
+                            date: 'asc',
+                        },
                         include: {
                             category: true, 
                             account: true,

@@ -1,0 +1,25 @@
+.table {
+    border-spacing: 7px;
+    color: var(--light-quinary);
+}
+
+.header_cell {
+    background-color: rgb(68,81,201, 0.8);
+}
+
+.content_cell {
+    background-color: rgb(68,81,201, 0.6);
+}
+
+.cell {
+    padding: 5px 10px;
+    border-radius: 7px;
+    text-align: center;
+}
+.green_cell {
+    background-color: green;
+}
+
+.red_cell {
+    background-color: red;
+}
