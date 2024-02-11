@@ -35,16 +35,27 @@ export default function Table({headers,data}: TableProps) {
                                 <tr key={index}>
                                     {
                                         headers.map((header:string, index) => {
-                                            console.log(object.type);
+                                            console.log(object);
                                             
                                             console.log(header.toLowerCase());
                                             
                                             // console.log(object.type, object[header.toLowerCase()]);
                                             
                                             if (header !== "Balance") {
-                                                return (
-                                                    <td className={object.type === object[header.toLowerCase()] ? `${styles.content_cell} ${styles.cell} ${cellColor}` : `${styles.content_cell} ${styles.cell}`} key={index}>{object[header.toLowerCase()]}</td>
-                                                )
+                                                if (header.toLowerCase() === 'income' && object.income > 0){
+                                                    return (
+                                                        <td className={`${styles.content_cell} ${styles.cell} ${styles.income}`} key={index}>{object[header.toLowerCase()]}</td>
+                                                    )
+                                                } else if (header.toLowerCase() === 'debit' && object.debit > 0) {
+                                                    return (
+                                                        <td className={`${styles.content_cell} ${styles.cell} ${styles.expense}`} key={index}>{object[header.toLowerCase()]}</td>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <td className={`${styles.content_cell} ${styles.cell}`} key={index}>{object[header.toLowerCase()]}</td>
+                                                    )
+                                                }
+
                                             }
                                         })
                                     }

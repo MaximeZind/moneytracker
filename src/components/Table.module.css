@@ -16,10 +16,10 @@
     border-radius: 7px;
     text-align: center;
 }
-.green_cell {
+.income {
     background-color: green;
 }
 
-.red_cell {
+.expense {
     background-color: red;
 }
