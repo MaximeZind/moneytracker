@@ -111,8 +111,8 @@ export default function NewTransactionForm() {
                 {isRecurring &&
                     <div className={styles.recurring_frequency}>
                         <p>Every</p>
-                        <label htmlFor="frequencyAmount">Amount</label>
-                        <input type="number" name="frequencyAmount" id="frequencyAmount" />
+                        <TextInput name="frequencyAmount" type='number' label='Amount'/>
+                        <label htmlFor="frequencyUnit">Unit</label>
                         <select name="frequencyUnit" id="frequencyUnit">
                             <option value="days">Days</option>
                             <option value="months">Months</option>

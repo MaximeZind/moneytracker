@@ -19,3 +19,10 @@
     align-items: center;
     gap: 20px;
 }
+
+.recurring_frequency {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
