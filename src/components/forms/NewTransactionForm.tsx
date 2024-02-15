@@ -1,11 +1,12 @@
 'use client'
 
 import { FormEvent, useEffect, useState } from 'react';
-import styles from "./NewAccountForm.module.css";
+import styles from "./NewTransactionForm.module.css";
 import { getAccounts } from "../../app/services/accounts";
 import { Account, Category, Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
+import TextInput from './formscomponents/TextInput';
 
 export default function NewTransactionForm() {
 
@@ -44,7 +45,7 @@ export default function NewTransactionForm() {
             type: formJson.type,
             accountId: formJson.accountId,
             categoryId: formJson.categoryId,
-            recurring: isRecurring, 
+            recurring: isRecurring,
             frequencyAmount: Number(formJson.frequencyAmount),
             frequencyUnit: formJson.frequencyUnit,
         }
@@ -52,22 +53,26 @@ export default function NewTransactionForm() {
         newTransactionResponse.then((response) => {
             const status = response.response.status;
             console.log(response);
-         if (status !== 200) {
+            if (status !== 200) {
                 console.log(response.responseData.message)
             }
         })
     }
 
     return (
-        <form onSubmit={handleSubmit} className={styles.login_form}>
+        <form onSubmit={handleSubmit} className={styles.new_transaction_form}>
             <div className={styles.main_infos}>
                 <div className={styles.main_infos_left}>
                     <label htmlFor="date">Date of the transaction</label>
                     <input type="date" name="date" id="date" />
-                    <label htmlFor="amount">Amount</label>
-                    <input type="number" name="amount" id="amount" />
-                    <label htmlFor="description">Description</label>
-                    <input type="text" name="description" id="description" />
+                    <TextInput
+                        name='amount'
+                        type='number'
+                        label='Amount' />
+                    <TextInput
+                        name='description'
+                        type='text'
+                        label='Description' />
                 </div>
                 <div className={styles.main_infos_right}>
                     <div className={styles.main_infos_right_type}>
