@@ -9,12 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@prisma/client": "^5.11.0",
-=======
-    "@fontsource/roboto": "^5.0.8",
-    "@prisma/client": "^5.9.1",
->>>>>>> 05a88f27738f53d839b9613c275ca127c07287e9
     "bcrypt": "^5.1.1",
     "cookie": "^0.6.0",
     "dayjs": "^1.11.10",
@@ -34,7 +29,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",
-    "prisma": "^5.9.1",
+    "prisma": "^5.11.0",
     "typescript": "^5"
   }
 }
