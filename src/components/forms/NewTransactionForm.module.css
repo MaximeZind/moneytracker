@@ -1,0 +1,28 @@
+.new_transaction_form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.main_infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.main_infos_left, .main_infos_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.recurring_frequency {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
