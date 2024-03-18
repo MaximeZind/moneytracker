@@ -7,6 +7,7 @@ import { Account, Category, Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
+import SelectInput from './formscomponents/SelectInput';
 
 export default function NewTransactionForm() {
 
@@ -59,6 +60,8 @@ export default function NewTransactionForm() {
         })
     }
 
+    const frequencyUnits = ["Days", "Months", "Years"];
+
     return (
         <form onSubmit={handleSubmit} className={styles.new_transaction_form}>
             <div className={styles.main_infos}>
@@ -91,7 +94,7 @@ export default function NewTransactionForm() {
                             })
                         }
                     </select>
-                    <label htmlFor="categoryId">Category</label>
+                    {/* <label htmlFor="categoryId">Category</label>
                     <select name="categoryId" id="categoryId">
                         {
                             categories && categories.map((category: Category) => {
@@ -100,7 +103,8 @@ export default function NewTransactionForm() {
                                 )
                             })
                         }
-                    </select>
+                    </select> */}
+                    {/* <SelectInput name="categoryId" label='Category' options={categories} /> */}
                 </div>
             </div>
             <div className={styles.recurring}>
@@ -112,12 +116,13 @@ export default function NewTransactionForm() {
                     <div className={styles.recurring_frequency}>
                         <p>Every</p>
                         <TextInput name="frequencyAmount" type='number' label='Amount'/>
-                        <label htmlFor="frequencyUnit">Unit</label>
+                        <SelectInput name="frequencyUnit" label='Unit' options={frequencyUnits} />
+                        {/* <label htmlFor="frequencyUnit">Unit</label>
                         <select name="frequencyUnit" id="frequencyUnit">
                             <option value="days">Days</option>
                             <option value="months">Months</option>
                             <option value="years">Years</option>
-                        </select>
+                        </select> */}
                     </div>
                 }
             </div>
