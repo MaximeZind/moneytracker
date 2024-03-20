@@ -34,13 +34,7 @@ export default function Table({headers,data}: TableProps) {
                             return (
                                 <tr key={index}>
                                     {
-                                        headers.map((header:string, index) => {
-                                            console.log(object);
-                                            
-                                            console.log(header.toLowerCase());
-                                            
-                                            // console.log(object.type, object[header.toLowerCase()]);
-                                            
+                                        headers.map((header:string, index) => {                                            
                                             if (header !== "Balance") {
                                                 if (header.toLowerCase() === 'income' && object.income > 0){
                                                     return (
