@@ -1,50 +1,81 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState, RefObject, useRef } from 'react';
 import styles from "./SelectInput.module.css";
 
 interface SelectInputProps {
     name: string;
-    options: string[] | number[];
+    options: string[] | number[] | Option[];
     label?: string;
     errorMsg?: string;
     defaultValue?: string;
-    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+    defaultDisplayedValue?: string;
+    onChange?: Function;
 }
 
-export default function SelectInput({ name, label, options, errorMsg, defaultValue, onChange }: SelectInputProps) {
+interface Option {
+    name: string;
+    id: string;
+}
+
+export default function SelectInput({ name, label, options, errorMsg, defaultValue, defaultDisplayedValue, onChange }: SelectInputProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string | number | null>(defaultValue ? defaultValue : null);
+    const [displayedValue, setDisplayedValue] = useState<string | number | null>(defaultValue ? defaultValue : null);
+    const dropdownMenu: RefObject<HTMLDivElement> = useRef(null)
 
-    const handleOptionClick = (optionValue: string | number) => {
+
+    const handleOptionClick = (optionValue: string | number, name?: string) => {
         setSelectedValue(optionValue);
-        setIsOpen(false); // Optionally close the selection box upon selection
+        setDisplayedValue(name ? name : optionValue);
+        // setIsOpen(false); // Optionally close the selection box upon selection
+        close();
         if (onChange) {
-            // Fake an input change event if an onChange handler is provided
-            const fakeEvent = {
-                target: { name, value: optionValue },
-            } as unknown as ChangeEvent<HTMLInputElement>;
-            onChange(fakeEvent);
+            onChange(optionValue);
         }
     };
 
     function handleClick() {
         if (isOpen) {
-            setIsClosing(true);
-            setTimeout(() => {
-                setIsClosing(false)
-                setIsOpen(false);
-            }, 300);
+            close();
         } else if (!isOpen) {
-            setIsOpen(true);
+            open();
         }
     }
 
+    function open() {
+        setIsOpen(true);
+    }
+
+    function close() {
+        setIsClosing(true);
+        setTimeout(() => {
+            setIsClosing(false)
+            setIsOpen(false);
+        }, 300);
+    }
+
+    function handleClickOutside(event:Event) {
+        if (event.target !== null) {
+            if (isOpen && dropdownMenu.current && !dropdownMenu.current.contains(event.target as Node)) {
+                close();
+            }
+        }
+
+    }
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isOpen]);
+
     return (
-        <div className={styles.select_container}>
+        <div className={styles.select_container} ref={dropdownMenu}>
             <label className={errorMsg ? `${styles.select_label} ${styles.error}` : styles.select_label} htmlFor={name}>{label}</label>
+            <input className={styles.hidden} name={name} id={name} readOnly value={selectedValue ? selectedValue : ""}></input>
             <div className={isOpen ? `${styles.select_box} ${styles.open}` : styles.select_box} onClick={handleClick}>
-                <p className={styles.select_box_selected_value}>{selectedValue ? selectedValue : "Select an option"}</p>
-                <span className={(isOpen || isClosing) ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
+                <p className={styles.select_box_selected_value}>{displayedValue ? displayedValue : "Select an option"}</p>
+                <span className={(isOpen && !isClosing) ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="7px" viewBox="0 0 12 7" version="1.1">
                         <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                             <g id="Rounded" transform="translate(-616.000000, -2467.000000)">
@@ -65,10 +96,14 @@ export default function SelectInput({ name, label, options, errorMsg, defaultVal
                 {isOpen && (
                     <div className={isClosing ? `${styles.selection_box} ${styles.closing}` : styles.selection_box}>
                         {options.map((option, index) => (
-                            <span key={index} className={styles.selection_box_option}
-                                onClick={() => handleOptionClick(option)}>
-                                {option}
-                            </span>
+                            typeof option === 'string' || typeof option === 'number' ? (
+                                <span key={index} className={styles.selection_box_option} onClick={() => handleOptionClick(option)}>
+                                    {option}
+                                </span>
+                            ) :
+                                <span key={index} className={styles.selection_box_option} onClick={() => handleOptionClick(option.id, option.name)}>
+                                    {option.name}
+                                </span>
                         ))}
                     </div>
                 )}

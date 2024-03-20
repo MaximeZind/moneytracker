@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 import styles from "./NewTransactionForm.module.css";
-import { getAccounts } from "../../app/services/accounts";
+import { getAccounts } from "../../app/services/Accounts";
 import { Account, Category, Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
@@ -11,10 +11,12 @@ import SelectInput from './formscomponents/SelectInput';
 
 export default function NewTransactionForm() {
 
+    
     const [accounts, setAccounts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [isRecurring, setIsRecurring] = useState(false);
 
+    console.log(categories);
     useEffect(() => {
         const fetchAccounts = async () => {
             await getAccounts().then((response) => {
@@ -104,7 +106,7 @@ export default function NewTransactionForm() {
                             })
                         }
                     </select> */}
-                    {/* <SelectInput name="categoryId" label='Category' options={categories} /> */}
+                    <SelectInput name="categoryId" label='Category' options={categories} />
                 </div>
             </div>
             <div className={styles.recurring}>
