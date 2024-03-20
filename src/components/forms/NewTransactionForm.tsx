@@ -52,6 +52,8 @@ export default function NewTransactionForm() {
             frequencyAmount: Number(formJson.frequencyAmount),
             frequencyUnit: formJson.frequencyUnit,
         }
+        console.log(data);
+        
         const newTransactionResponse = newTransaction(data);
         newTransactionResponse.then((response) => {
             const status = response.response.status;
@@ -86,8 +88,8 @@ export default function NewTransactionForm() {
                         <input type="radio" id="expense" name="type" value="expense" />
                         <label htmlFor="expense">Expense</label>
                     </div>
-                    <label htmlFor="accountId">Account</label>
-                    <select name="accountId" id="accountId">
+                    {/* <label htmlFor="accountId">Account</label> */}
+                    {/* <select name="accountId" id="accountId">
                         {
                             accounts && accounts.map((account: Account) => {
                                 return (
@@ -95,17 +97,8 @@ export default function NewTransactionForm() {
                                 )
                             })
                         }
-                    </select>
-                    {/* <label htmlFor="categoryId">Category</label>
-                    <select name="categoryId" id="categoryId">
-                        {
-                            categories && categories.map((category: Category) => {
-                                return (
-                                    <option key={category.id} value={category.id}>{category.name}</option>
-                                )
-                            })
-                        }
                     </select> */}
+                    <SelectInput name="accountId" label='Account' options={accounts} />
                     <SelectInput name="categoryId" label='Category' options={categories} />
                 </div>
             </div>
