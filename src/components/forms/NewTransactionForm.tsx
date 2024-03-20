@@ -71,7 +71,7 @@ export default function NewTransactionForm() {
             <div className={styles.main_infos}>
                 <div className={styles.main_infos_left}>
                     <label htmlFor="date">Date of the transaction</label>
-                    <input type="date" name="date" id="date" />
+                    <input type="date" name="date" id="date" className={styles.date_input}/>
                     <TextInput
                         name='amount'
                         type='number'
@@ -88,16 +88,6 @@ export default function NewTransactionForm() {
                         <input type="radio" id="expense" name="type" value="expense" />
                         <label htmlFor="expense">Expense</label>
                     </div>
-                    {/* <label htmlFor="accountId">Account</label> */}
-                    {/* <select name="accountId" id="accountId">
-                        {
-                            accounts && accounts.map((account: Account) => {
-                                return (
-                                    <option key={account.id} value={account.id}>{`${account.name} (${account.type})`}</option>
-                                )
-                            })
-                        }
-                    </select> */}
                     <SelectInput name="accountId" label='Account' options={accounts} />
                     <SelectInput name="categoryId" label='Category' options={categories} />
                 </div>
@@ -112,12 +102,6 @@ export default function NewTransactionForm() {
                         <p>Every</p>
                         <TextInput name="frequencyAmount" type='number' label='Amount'/>
                         <SelectInput name="frequencyUnit" label='Unit' options={frequencyUnits} />
-                        {/* <label htmlFor="frequencyUnit">Unit</label>
-                        <select name="frequencyUnit" id="frequencyUnit">
-                            <option value="days">Days</option>
-                            <option value="months">Months</option>
-                            <option value="years">Years</option>
-                        </select> */}
                     </div>
                 }
             </div>
