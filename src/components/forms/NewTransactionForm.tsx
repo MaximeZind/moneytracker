@@ -11,7 +11,7 @@ import SelectInput from './formscomponents/SelectInput';
 
 export default function NewTransactionForm() {
 
-    
+
     const [accounts, setAccounts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [isRecurring, setIsRecurring] = useState(false);
@@ -53,7 +53,7 @@ export default function NewTransactionForm() {
             frequencyUnit: formJson.frequencyUnit,
         }
         console.log(data);
-        
+
         const newTransactionResponse = newTransaction(data);
         newTransactionResponse.then((response) => {
             const status = response.response.status;
@@ -71,7 +71,7 @@ export default function NewTransactionForm() {
             <div className={styles.main_infos}>
                 <div className={styles.main_infos_left}>
                     <label htmlFor="date">Date of the transaction</label>
-                    <input type="date" name="date" id="date" className={styles.date_input}/>
+                    <input type="date" name="date" id="date" className={styles.date_input} />
                     <TextInput
                         name='amount'
                         type='number'
@@ -83,10 +83,15 @@ export default function NewTransactionForm() {
                 </div>
                 <div className={styles.main_infos_right}>
                     <div className={styles.main_infos_right_type}>
-                        <input type="radio" id="income" name="type" value="income" />
-                        <label htmlFor="income">Income</label>
-                        <input type="radio" id="expense" name="type" value="expense" />
-                        <label htmlFor="expense">Expense</label>
+                            <p>Transaction type</p>
+                            <div className={styles.transaction_type_option}>
+                                <input type="radio" id="income" name="type" value="income" />
+                                <label htmlFor="income">Income</label>
+                            </div>
+                            <div className={styles.transaction_type_option}>
+                                <input type="radio" id="expense" name="type" value="expense" />
+                                <label htmlFor="expense">Expense</label>
+                            </div>
                     </div>
                     <SelectInput name="accountId" label='Account' options={accounts} />
                     <SelectInput name="categoryId" label='Category' options={categories} />
@@ -100,7 +105,7 @@ export default function NewTransactionForm() {
                 {isRecurring &&
                     <div className={styles.recurring_frequency}>
                         <p>Every</p>
-                        <TextInput name="frequencyAmount" type='number' label='Amount'/>
+                        <TextInput name="frequencyAmount" type='number' label='Amount' />
                         <SelectInput name="frequencyUnit" label='Unit' options={frequencyUnits} />
                     </div>
                 }

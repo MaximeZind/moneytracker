@@ -34,6 +34,22 @@
     outline: 3px solid var(--senary-color);
 }
 
+.main_infos_right_type {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.main_infos_right_type > p {
+    font-weight: bold;
+}
+
+.transaction_type_option {
+    display: flex;
+    gap: 10px;
+}
+
 .recurring_frequency {
     display: flex;
     flex-direction: row;
