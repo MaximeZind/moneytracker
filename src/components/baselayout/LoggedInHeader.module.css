@@ -20,6 +20,7 @@
     justify-content: space-between;
     gap: 10px;
     padding: 10px 20px;
-    background-color: rgba(68, 81, 201, 0.5);
+    /* background-color: rgba(68, 81, 201, 0.5); */
+    background-color: var(--ternary-color);
     border-radius: 25px;
 }

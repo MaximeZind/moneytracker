@@ -23,13 +23,21 @@
   --senary-color: Links color 
   --septenary-color: Accent text color*/
 
-  --light-primary: #1128D9;
+  /* --light-primary: #1128D9;
   --light-secondary: #0b2994;
   --light-ternary: #3560C4;
   --light-quarternary: #0D2354;
   --light-quinary: #BCF4DA;
   --light-senary: #49D3AF;
-  --light-septenary: #E57822;
+  --light-septenary: #E57822; */
+
+  --light-primary: #FFFFFF; /* White */
+  --light-secondary: #F0F0F0; /* Light Gray */
+  --light-ternary: #E0E0E0; /* Lighter Gray */
+  --light-quarternary: #3F51B5; /* Royal Blue */
+  --light-quinary: #212121; /* Dark Gray */
+  --light-senary: #1976D2; /* Blue */
+  --light-septenary: #FFC107; /* Amber */
 
   --dark-primary: #081530;
   --dark-secondary: #0F2B3B;
