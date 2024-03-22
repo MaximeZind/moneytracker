@@ -8,6 +8,7 @@ import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
 import SelectInput from './formscomponents/SelectInput';
+import SubmitButton from './formscomponents/SubmitButton';
 
 export default function NewTransactionForm() {
 
@@ -110,7 +111,8 @@ export default function NewTransactionForm() {
                     </div>
                 }
             </div>
-            <button value='submit'>Create A new transaction</button>
+            {/* <button value='submit'></button> */}
+            <SubmitButton value='submit' text='Create a new transaction' />
         </form>
     )
 }
