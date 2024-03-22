@@ -84,15 +84,15 @@ export default function NewTransactionForm() {
                 </div>
                 <div className={styles.main_infos_right}>
                     <div className={styles.main_infos_right_type}>
-                            <p>Transaction type</p>
-                            <div className={styles.transaction_type_option}>
-                                <input type="radio" id="income" name="type" value="income" />
-                                <label htmlFor="income">Income</label>
-                            </div>
-                            <div className={styles.transaction_type_option}>
-                                <input type="radio" id="expense" name="type" value="expense" />
-                                <label htmlFor="expense">Expense</label>
-                            </div>
+                        <p>Transaction type</p>
+                        <div className={styles.transaction_type_option}>
+                            <input type="radio" id="income" name="type" value="income" />
+                            <label htmlFor="income">Income</label>
+                        </div>
+                        <div className={styles.transaction_type_option}>
+                            <input type="radio" id="expense" name="type" value="expense" />
+                            <label htmlFor="expense">Expense</label>
+                        </div>
                     </div>
                     <SelectInput name="accountId" label='Account' options={accounts} />
                     <SelectInput name="categoryId" label='Category' options={categories} />
@@ -104,14 +104,20 @@ export default function NewTransactionForm() {
                     <label htmlFor="recurring">Recurring</label>
                 </div>
                 {isRecurring &&
-                    <div className={styles.recurring_frequency}>
-                        <p>Every</p>
-                        <TextInput name="frequencyAmount" type='number' label='Amount' />
-                        <SelectInput name="frequencyUnit" label='Unit' options={frequencyUnits} />
+                    <div className={styles.recurring}>
+                        <div className={styles.recurring_frequency}>
+                            <p>Every</p>
+                            <TextInput name="frequencyAmount" type='number' label='Amount' />
+                            <SelectInput name="frequencyUnit" label='Unit' options={frequencyUnits} />
+                        </div>
+                        <div className={styles.recurring_ending}>
+                            <p>Until</p>
+                            <input type="date" name="date" id="date" className={styles.date_input} />
+                        </div>
                     </div>
+
                 }
             </div>
-            {/* <button value='submit'></button> */}
             <SubmitButton value='submit' text='Create a new transaction' />
         </form>
     )

@@ -28,6 +28,8 @@
     width: 100%;
     transition: outline .1s;
     font-size: 1rem;
+    font-family: 'Quicksand';
+    font-weight: bold;
 }
 
 .date_input:focus {
@@ -50,10 +52,26 @@
     gap: 10px;
 }
 
+.recurring {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .recurring_frequency {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.recurring_frequency > p, .recurring_ending > p {
+    font-weight: bold;
+}
+
+.recurring_ending {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
 }
-
