@@ -25,3 +25,9 @@
 .expense {
     background-color: red;
 }
+
+.balance_cell {
+    background-color: rgb(68,81,201, 0.6);
+    font-weight: bold;
+    color: var(--primary-color);
+}

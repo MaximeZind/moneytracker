@@ -53,7 +53,7 @@ export default function Table({headers,data}: TableProps) {
                                             }
                                         })
                                     }
-                                    <td className={`${styles.content_cell} ${styles.cell}`}>{balance}</td>
+                                    <td className={`${styles.content_cell} ${styles.cell}  ${styles.balance_cell}`}>{balance}</td>
                                 </tr>
                             )
                         })
