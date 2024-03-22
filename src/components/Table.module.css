@@ -5,10 +5,12 @@
 
 .header_cell {
     background-color: rgb(68,81,201, 0.8);
+    color: var(--primary-color);
 }
 
 .content_cell {
-    background-color: rgb(68,81,201, 0.6);
+    /* background-color: rgb(68,81,201, 0.6); */
+    background-color: var(--quarternary-color);
 }
 
 .cell {

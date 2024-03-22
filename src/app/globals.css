@@ -34,7 +34,7 @@
   --light-primary: #FFFFFF; /* White */
   --light-secondary: #F0F0F0; /* Light Gray */
   --light-ternary: #E0E0E0; /* Lighter Gray */
-  --light-quarternary: #3F51B5; /* Royal Blue */
+  --light-quarternary: rgba(63, 81, 181, 0.3); /* Royal Blue with 30% opacity */
   --light-quinary: #212121; /* Dark Gray */
   --light-senary: #1976D2; /* Blue */
   --light-septenary: #FFC107; /* Amber */
