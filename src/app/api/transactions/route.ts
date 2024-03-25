@@ -91,6 +91,7 @@ export async function POST(request: Request) {
                     recurring: datas.recurring,
                     frequencyAmount: datas.frequencyAmount,
                     frequencyUnit: datas.frequencyUnit,
+                    recurringEndingDate: datas.recurringEndingDate,
                     userId: userId,
                     accountId: datas.accountId
                 },
