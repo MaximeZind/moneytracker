@@ -34,7 +34,7 @@ export default function Table({headers,data}: TableProps) {
                             return (
                                 <tr key={index}>
                                     {
-                                        headers.map((header:string, index) => {                                            
+                                        headers.map((header:string, index) => {         
                                             if (header !== "Balance") {
                                                 if (header.toLowerCase() === 'income' && object.income > 0){
                                                     return (
@@ -50,10 +50,13 @@ export default function Table({headers,data}: TableProps) {
                                                     )
                                                 }
 
+                                            } else if (header === "Balance") {
+                                                return (
+                                                <td className={`${styles.content_cell} ${styles.cell}  ${styles.balance_cell}`}>{balance}</td>
+                                                )
                                             }
                                         })
                                     }
-                                    <td className={`${styles.content_cell} ${styles.cell}  ${styles.balance_cell}`}>{balance}</td>
                                 </tr>
                             )
                         })
