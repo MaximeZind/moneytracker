@@ -8,7 +8,6 @@ export async function getCategories() {
             Accept: "application/json",
         },
     })
-    console.log(response);
     
     const responseData = response.response.data;
     return responseData;

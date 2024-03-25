@@ -13,7 +13,7 @@ export interface Transaction {
     amount: number;
     categoryId: string;
     category: Category;
-    date: date;
+    date: Date;
     id: string;
     description: string;
     type: string;
@@ -28,13 +28,13 @@ export interface NewTransaction {
     accountId: string;
     amount: number;
     categoryId: string;
-    date: date;
+    date: Date;
     description: string;
     type: string;
     recurring: boolean,
-    frequencyAmount?: number;
-    frequencyUnit?: string;
-    recurringEndingDate?: date;
+    frequencyAmount?: number | null;
+    frequencyUnit?: string | null;
+    recurringEndingDate?: Date | null;
 }
 
 export interface Category {

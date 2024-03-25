@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import styles from "./NewTransactionForm.module.css";
 import { getAccounts } from "../../app/services/Accounts";
-import { Account, Category, Transaction } from '@/types/global';
+import { Account, Category, NewTransaction, Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
@@ -12,12 +12,10 @@ import SubmitButton from './formscomponents/SubmitButton';
 
 export default function NewTransactionForm() {
 
-
     const [accounts, setAccounts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [isRecurring, setIsRecurring] = useState(false);
 
-    console.log(categories);
     useEffect(() => {
         const fetchAccounts = async () => {
             await getAccounts().then((response) => {
@@ -27,7 +25,6 @@ export default function NewTransactionForm() {
 
         const fetchCategories = async () => {
             await getCategories().then((response) => {
-                console.log(response);
                 setCategories(response);
             });
         }
@@ -41,7 +38,7 @@ export default function NewTransactionForm() {
         const contactForm = event.target as HTMLFormElement;
         const formData = new FormData(contactForm);
         formData.set('recurring', isRecurring.toString());
-        const formJson = Object.fromEntries(formData.entries()) as unknown as Transaction;
+        const formJson = Object.fromEntries(formData.entries()) as unknown as NewTransaction;
         const data = {
             date: new Date(formJson.date),
             amount: Number(formJson.amount),
@@ -52,7 +49,9 @@ export default function NewTransactionForm() {
             recurring: isRecurring,
             frequencyAmount: Number(formJson.frequencyAmount),
             frequencyUnit: formJson.frequencyUnit,
+            recurringEndingDate: formJson.recurringEndingDate && new Date(formJson.recurringEndingDate),
         }
+        console.log('new transaction data: ' + data);
         console.log(data);
 
         const newTransactionResponse = newTransaction(data);
@@ -112,7 +111,7 @@ export default function NewTransactionForm() {
                         </div>
                         <div className={styles.recurring_ending}>
                             <p>Until</p>
-                            <input type="date" name="date" id="date" className={styles.date_input} />
+                            <input type="date" name="recurringEndingDate" id="recurringEndingDate" className={styles.date_input} />
                         </div>
                     </div>
 
