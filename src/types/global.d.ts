@@ -13,13 +13,14 @@ export interface Transaction {
     amount: number;
     categoryId: string;
     category: Category;
-    date: Date;
-    id: number;
+    date: date;
+    id: string;
     description: string;
     type: string;
     recurring: boolean,
-    frequencyAmount?: number;
-    frequencyUnit?: string;
+    frequencyAmount?: number | null;
+    frequencyUnit?: string | null;
+    recurringEndingDate?: Date | null;
 }
 
 //Transaction sent to the server
@@ -27,12 +28,13 @@ export interface NewTransaction {
     accountId: string;
     amount: number;
     categoryId: string;
-    date: Date;
+    date: date;
     description: string;
     type: string;
     recurring: boolean,
     frequencyAmount?: number;
     frequencyUnit?: string;
+    recurringEndingDate?: date;
 }
 
 export interface Category {

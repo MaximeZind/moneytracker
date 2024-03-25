@@ -43,6 +43,7 @@ model Transaction {
   recurring       Boolean
   frequencyAmount Int?
   frequencyUnit   String?
+  recurringEndingDate DateTime?
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          String
   account         Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)

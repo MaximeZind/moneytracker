@@ -41,7 +41,7 @@ export async function GET() {
                 },
             })
             response.status = 200;
-            response.data = user?.transactions
+            response.data = user?.transactions;
         } 
     } catch (error) {
         if (error instanceof Error) {
