@@ -25,8 +25,7 @@ export async function newTransaction(data: NewTransaction) {
         },
         body: data,
     })
-    console.log(response);
-    
-    const responseData = response.response.data;
+
+    const responseData = response.response;
     return responseData;
 }

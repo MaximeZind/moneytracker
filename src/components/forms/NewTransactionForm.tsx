@@ -30,7 +30,6 @@ export default function NewTransactionForm() {
         }
         fetchAccounts();
         fetchCategories();
-
     }, [])
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -51,15 +50,11 @@ export default function NewTransactionForm() {
             frequencyUnit: formJson.frequencyUnit,
             recurringEndingDate: formJson.recurringEndingDate && new Date(formJson.recurringEndingDate),
         }
-        console.log('new transaction data: ' + data);
-        console.log(data);
-
         const newTransactionResponse = newTransaction(data);
         newTransactionResponse.then((response) => {
-            const status = response.response.status;
-            console.log(response);
+            const status = response.status;
             if (status !== 200) {
-                console.log(response.responseData.message)
+                console.log(response.message)
             }
         })
     }

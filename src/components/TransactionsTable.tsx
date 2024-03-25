@@ -21,6 +21,14 @@ export default function TransactionsTable() {
         getProfile();
     }, []);
 
+    function extendTransactionsList (transactions: Transaction[]) {
+        transactions.map(transaction => {
+            if (transaction.recurring === true) {
+                
+            }
+        })
+    }
+
     // Creating datas for the table component
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
     let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; }[] = []
