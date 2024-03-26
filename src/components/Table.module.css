@@ -30,4 +30,46 @@
     background-color: rgb(68,81,201, 0.6);
     font-weight: bold;
     color: var(--primary-color);
+    display: flex; 
+    flex-direction: row;
+}
+
+.options {
+    display: none;
+    width: 100%;
+}
+
+.options > span {
+    width: 24px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options > span:hover {
+    cursor: pointer;
+}
+
+.options > span > svg {
+    fill: var(--primary-color);
+}
+
+.cell {
+    transition: box-shadow .3s ease;
+}
+
+.row:hover > td {
+    box-shadow: 0 12px 16px #0000003d, 0 17px 50px #00000030;
+}
+
+tr:hover > .balance_cell > .balance_cell_balance {
+    display: none;
+}
+
+tr:hover > .balance_cell > .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
