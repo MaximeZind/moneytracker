@@ -19,11 +19,11 @@
     text-align: center;
 }
 .income {
-    background-color: green;
+    background-color: rgb(117, 177, 117);
 }
 
 .expense {
-    background-color: red;
+    background-color: rgb(255, 86, 86);
 }
 
 .balance_cell {
