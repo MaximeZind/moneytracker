@@ -4,10 +4,10 @@ import styles from "./NewAccount.module.css";
 export default function NewAccount() {
 
     return (
-      <main className={styles.main}>
+      <section className={styles.new_account_section}>
         <h1>Create a new Account</h1>
         <NewAccountForm/>
-      </main>
+      </section>
     )
   }
   

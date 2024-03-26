@@ -6,6 +6,7 @@ import styles from "./AccountsSection.module.css";
 import Link from "next/link";
 import AccountPreview from "./AccountPreview";
 import { Account } from "@/types/global";
+import SubmitButton from "../components/forms/formscomponents/SubmitButton";
 
 export default function AccountsSection() {
 
@@ -23,14 +24,16 @@ export default function AccountsSection() {
         <section className={styles.accounts_section}>
             <div className={styles.accounts_section_gallery}>
                 {
-                    accounts && accounts.map((account:Account) => {
+                    accounts && accounts.map((account: Account) => {
                         return (
                             <AccountPreview key={account.id} name={account.name} type={account.type} transactions={account.transactions} />
                         )
                     })
                 }
             </div>
-            <Link href="/dashboard/accounts/newaccount">Create a new account</Link>
+            <Link href="/dashboard/accounts/newaccount">
+                <SubmitButton text="Create a new account" value="" />
+            </Link>
         </section>
     )
 }
