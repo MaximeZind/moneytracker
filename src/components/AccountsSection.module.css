@@ -1,4 +1,13 @@
+.accounts_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+}
+
 .accounts_section_gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }

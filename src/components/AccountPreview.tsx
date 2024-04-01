@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Transaction } from "@/types/global";
 import { useEffect, useState } from "react";
 import generateRecurringInstances from "../utils/transactions";
+import SubmitButton from "../components/forms/formscomponents/SubmitButton";
 
 interface Props {
     name: string;
@@ -17,6 +18,7 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
 
     const [amount, setAmount] = useState(0);
     const [transactionList, setTransactionList] = useState(transactions);
+    const currency ="$";
 
     useEffect(() => {
         function getAllTransactions(transactionItems: Transaction[]) {
@@ -56,30 +58,32 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
             }
         })
         return runningAmount;
-    }    
+    }
 
-    const lastTransaction = transactionList?.at(-1);    
+    const lastTransaction = transactionList?.at(-1);
     return (
-        
-            <div className={styles.account_preview}>
-                <header className={styles.account_preview_header}>
-                    <h2 className={styles.account_preview_title}>{name}</h2>
-                    <p className={styles.account_preview_type}>Type: {type}</p>
-                </header>
-                <p className={styles.account_preview_amount}>{amount}</p>
-                <div className={styles.account_preview_lastrow}>
-                    <div className={styles.account_preview_last_transaction}>
-                        <p>Last Transaction:</p>
-                        <div className={styles.account_preview_last_transactions_details}>
-                            {                                
-                                lastTransaction && lastTransaction.type === "income" ?
-                                    <p>+</p> : <p>-</p>
-                            }
-                            <p>{lastTransaction?.amount}</p>
-                        </div>
+
+        <div className={styles.account_preview}>
+            <header className={styles.account_preview_header}>
+                <h2 className={styles.account_preview_title}>{name}</h2>
+                <p className={styles.account_preview_type}>Type: {type}</p>
+            </header>
+            <p className={styles.account_preview_amount}>{currency}{amount}</p>
+            <div className={styles.account_preview_lastrow}>
+                <div className={styles.account_preview_last_transaction}>
+                    <p>Last Transaction:</p>
+                    <div className={styles.account_preview_last_transactions_details}>
+                        {
+                            lastTransaction && lastTransaction.type === "income" ?
+                                <p className={styles.income}>+{currency}{lastTransaction?.amount}</p> : <p className={styles.expense}>-{currency}{lastTransaction?.amount}</p>
+                        }
+                        <p></p>
                     </div>
-                    <Link href={`/dashboard/accounts/${id}`}>See Account</Link>
                 </div>
             </div>
+            <Link href={`/dashboard/accounts/${id}`}>
+                <SubmitButton text="See Account" value="" />
+            </Link>
+        </div>
     )
 }

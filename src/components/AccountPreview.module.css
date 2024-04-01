@@ -1,7 +1,13 @@
 .account_preview {
-    background-color: var(--quarternary-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--senary-color);
     padding: 15px 25px;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    color: var(--senary-color);
 }
 
 .account_preview_header {
@@ -9,11 +15,22 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 40px;
+    border-bottom: 1px dashed var(--senary-color);
 }
 
 .account_preview_title {
     color: var(--septenary-color);
+}
+
+.account_preview_type {
+    font-size: 0.8rem;
+}
+
+.account_preview_amount {
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: var(--quinary-color);
 }
 
 .account_preview_last_transactions_details {
@@ -21,4 +38,27 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.account_preview_last_transaction {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.income, .expense {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.income {
+    background-color: var(--green);
+    color: var(--quinary-color);
+}
+
+.expense {
+    background-color: var(--red);
+    color: var(--quinary-color);
 }
