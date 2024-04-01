@@ -10,9 +10,10 @@ interface Props {
     name: string;
     type: string;
     transactions?: Transaction[];
+    id: string;
 }
 
-export default function AccountPreview({ name, type, transactions }: Props) {
+export default function AccountPreview({ name, type, transactions, id }: Props) {
 
     const [amount, setAmount] = useState(0);
     const [transactionList, setTransactionList] = useState(transactions);
@@ -59,7 +60,7 @@ export default function AccountPreview({ name, type, transactions }: Props) {
 
     const lastTransaction = transactionList?.at(-1);    
     return (
-        <Link href={""}>
+        
             <div className={styles.account_preview}>
                 <header className={styles.account_preview_header}>
                     <h2 className={styles.account_preview_title}>{name}</h2>
@@ -77,9 +78,8 @@ export default function AccountPreview({ name, type, transactions }: Props) {
                             <p>{lastTransaction?.amount}</p>
                         </div>
                     </div>
-                    <p>See Account</p>
+                    <Link href={`/dashboard/accounts/${id}`}>See Account</Link>
                 </div>
             </div>
-        </Link>
     )
 }

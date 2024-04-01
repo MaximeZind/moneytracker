@@ -26,7 +26,7 @@ export default function AccountsSection() {
                 {
                     accounts && accounts.map((account: Account) => {
                         return (
-                            <AccountPreview key={account.id} name={account.name} type={account.type} transactions={account.transactions} />
+                            <AccountPreview key={account.id} name={account.name} type={account.type} transactions={account.transactions} id={account.id} />
                         )
                     })
                 }
