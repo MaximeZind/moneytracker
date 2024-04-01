@@ -37,7 +37,7 @@
   --light-quarternary: rgba(63, 81, 181, 0.3); /* Royal Blue with 30% opacity */
   --light-quinary: #212121; /* Dark Gray */
   --light-senary: #1976D2; /* Blue */
-  --light-septenary: #FFC107; /* Amber */
+  --light-septenary: #f8bf13; /* Amber */
 
   --dark-primary: #081530;
   --dark-secondary: #0F2B3B;
@@ -74,6 +74,9 @@ body {
   --quarternary-color: var(--light-quarternary);
   --quinary-color: var(--light-quinary);
   --senary-color: var(--light-senary);
+  --septenary-color: var(--light-septenary);
+  --red: rgb(255, 86, 86);
+  --green: rgb(117, 177, 117);
   background: linear-gradient(128deg, var(--secondary-color) 0%, var(--primary-color) 33%, var(--quarternary-color) 83%);
 }
 

@@ -3,3 +3,22 @@
     padding: 15px 25px;
     border-radius: 15px;
 }
+
+.account_preview_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.account_preview_title {
+    color: var(--septenary-color);
+}
+
+.account_preview_last_transactions_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
