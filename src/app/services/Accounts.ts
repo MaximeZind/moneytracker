@@ -13,6 +13,18 @@ export async function getAccounts() {
     return responseData;
 }
 
+export async function getAccount(id: string) {
+    const response = await customFetch(`/api/accounts/${id}`, {
+        method: 'GET',
+        headers: {
+            Accept: "application/json",
+        },
+    })
+    
+    const responseData = response.response.data;
+    return responseData;
+}
+
 export interface AccountData {
     name: string;
     type: string;
