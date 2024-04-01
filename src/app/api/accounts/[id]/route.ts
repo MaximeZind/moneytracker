@@ -16,12 +16,17 @@ interface CustomResponse {
 }
 
 // Get Account by ID
-export async function GET(context: any) {
+export async function GET(request: Request, context: any) {
     const { params } = context;
+    console.log('params: ' + params);
+    console.log('id: ' + params.id);
     const accountId = params.id;
+
     let response: CustomResponse = {};
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
+    console.log(token);
+    
     if (!token) {
         response.data = undefined;
         response.status = 401;
@@ -30,7 +35,7 @@ export async function GET(context: any) {
     }
 
     try {
-        const userId = verifyToken(token);
+        const userId = verifyToken(token.value);
         if (userId) {
             const account = await prisma.account.findUnique({
                 where: {

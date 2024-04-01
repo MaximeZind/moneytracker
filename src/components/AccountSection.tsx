@@ -12,8 +12,11 @@ export default function AccountPreview({ id }: Props) {
     const [account, setAccount] = useState(null);
     useEffect(() => {
         async function Account() {
-
+            await getAccount(id).then((response => {
+                console.log(response);
+            }))
         }
+        Account();
     });
 
     return (
