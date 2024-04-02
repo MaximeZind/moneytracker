@@ -18,8 +18,6 @@ interface CustomResponse {
 // Get Account by ID
 export async function GET(request: Request, context: any) {
     const { params } = context;
-    console.log('params: ' + params);
-    console.log('id: ' + params.id);
     const accountId = params.id;
 
     let response: CustomResponse = {};

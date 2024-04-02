@@ -1,9 +1,10 @@
 "use client"
 import { useEffect, useState } from "react";
-import { Account } from "@/types/global";
+import { Account, Transaction } from "@/types/global";
 import styles from "./AccountSection.module.css";
 import { getAccount } from "@/app/services/accounts";
 import Table from "@/components/Table";
+import generateRecurringInstances from "@/utils/transactions";
 
 interface Props {
     id: string;
@@ -12,10 +13,20 @@ interface Props {
 export default function AccountPreview({ id }: Props) {
 
     const [account, setAccount] = useState<Account | null>(null)
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
     useEffect(() => {
         async function Account() {
             await getAccount(id).then((response => {
+                const transactions = response.response.data.transactions;
+                const allTransactions = transactions.flatMap((transaction: Transaction) => {
+                    if (transaction.recurring === true && transaction.frequencyAmount && transaction.frequencyUnit && transaction.recurringEndingDate) {
+                        return [transaction, ...generateRecurringInstances(transaction)];
+                    } else {
+                        return [transaction];
+                    }
+                }).sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
                 setAccount(response.response.data);
+                setTransactions(allTransactions);
             }))
         }
         Account();
@@ -26,7 +37,7 @@ export default function AccountPreview({ id }: Props) {
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
     let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; }[] = [];
 
-    account?.transactions && account.transactions.map((transaction) => {
+    transactions && transactions.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
         const dayNumber = new Date(transaction.date).getDate().toLocaleString().padStart(2, '0');
         const monthNumber = (new Date(transaction.date).getMonth() + 1).toLocaleString().padStart(2, '0');
