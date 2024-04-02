@@ -25,8 +25,6 @@ export async function GET(request: Request, context: any) {
     let response: CustomResponse = {};
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
-    console.log(token);
-    
     if (!token) {
         response.data = undefined;
         response.status = 401;
@@ -52,6 +50,8 @@ export async function GET(request: Request, context: any) {
             response.status = 200;
             response.data = account;
         }
+        console.log(response);
+        
     } catch (error) {
         if (error instanceof Error) {
             if (error.name === 'TokenExpiredError') {

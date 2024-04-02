@@ -3,6 +3,10 @@
     color: var(--light-quinary);
 }
 
+.today {
+    font-weight: bold;
+}
+
 .header_cell {
     background-color: rgb(68,81,201, 0.8);
     color: var(--primary-color);

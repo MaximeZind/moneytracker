@@ -2,12 +2,47 @@ import styles from "./Table.module.css";
 
 interface TableProps {
     headers: string[];
-    data: Record<string, any>[];
+    data: TransactionObject[];
 }
 
-export default function Table({ headers, data }: TableProps) {
+interface TransactionObject {
+    month: string;
+    category: string;
+    date: string;
+    debit: number;
+    description: string;
+    income: number;
+    type: string;
+}
 
+const headerMapping: { [key: string]: keyof TransactionObject } = {
+    Month: 'month',
+    Category: 'category',
+    Date: 'date',
+    Debit: 'debit',
+    Description: 'description',
+    Income: 'income',
+    Type: 'type',
+};
+
+export default function Table({ headers, data }: TableProps) {
     let balance = 0;
+
+    function getLastTransactionToDate(transactions: TransactionObject[]) {
+        const currentDate = new Date(); // Current date as Date object
+
+        const sortedTransactions = [...transactions].sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+
+        const lastTransactionToDate = sortedTransactions.find(transaction => {
+            return new Date(transaction.date) <= currentDate;
+        });
+
+        return lastTransactionToDate;
+    }
+
+    const lastTransactionToDate = data && getLastTransactionToDate(data);
     return (
         <table className={styles.table}>
             <thead>
@@ -28,25 +63,30 @@ export default function Table({ headers, data }: TableProps) {
                         let cellColor: string;
                         if (object.type === 'income' && object.income > 0) {
                             cellColor = styles.green_cell;
-                        } else if (object.type === 'expense' && object.expense > 0) {
+                        } else if (object.type === 'expense' && object.debit > 0) {
                             cellColor = styles.red_cell;
                         }
+                        let isToday: Boolean = false;
+                        if (object === lastTransactionToDate) {
+                            isToday = true;
+                        }
                         return (
-                            <tr key={index} className={styles.row}>
+                            <tr key={index} className={isToday ? `${styles.row} ${styles.today}` : styles.row}>
                                 {
                                     headers.map((header: string, index) => {
+                                        const property = headerMapping[header];
                                         if (header !== "Balance") {
                                             if (header.toLowerCase() === 'income' && object.income > 0) {
                                                 return (
-                                                    <td className={`${styles.content_cell} ${styles.cell} ${styles.income}`} key={index}>{object[header.toLowerCase()]}</td>
+                                                    <td className={`${styles.content_cell} ${styles.cell} ${styles.income}`} key={index}>{object[property]}</td>
                                                 )
                                             } else if (header.toLowerCase() === 'debit' && object.debit > 0) {
                                                 return (
-                                                    <td className={`${styles.content_cell} ${styles.cell} ${styles.expense}`} key={index}>{object[header.toLowerCase()]}</td>
+                                                    <td className={`${styles.content_cell} ${styles.cell} ${styles.expense}`} key={index}>{object[property]}</td>
                                                 )
                                             } else {
                                                 return (
-                                                    <td className={`${styles.content_cell} ${styles.cell}`} key={index}>{object[header.toLowerCase()]}</td>
+                                                    <td className={`${styles.content_cell} ${styles.cell}`} key={index}>{object[property]}</td>
                                                 )
                                             }
 

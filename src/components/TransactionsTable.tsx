@@ -38,7 +38,7 @@ export default function TransactionsTable() {
         const yearNumber = new Date(transaction.date).getFullYear();
         const newObject = {
             month: `${monthName[0].toLocaleUpperCase()}${monthName.slice(1).toLocaleLowerCase()}`,
-            date: `${dayNumber + "/" + monthNumber + "/" + yearNumber}`,
+            date: `${monthNumber + "/" + dayNumber + "/" + yearNumber}`,
             description: `${transaction.description[0].toLocaleUpperCase()}${transaction.description.slice(1).toLocaleLowerCase()}`,
             category: transaction.category.name,
             income: transaction.type === "income" ? transaction.amount : 0,

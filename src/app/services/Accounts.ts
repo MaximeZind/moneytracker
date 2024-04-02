@@ -20,10 +20,7 @@ export async function getAccount(id: string) {
             Accept: "application/json",
         },
     })
-    console.log(response);
-    
-    const responseData = response.response.data;
-    return responseData;
+    return response;
 }
 
 export interface AccountData {
