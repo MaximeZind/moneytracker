@@ -61,4 +61,5 @@
 .expense {
     background-color: var(--red);
     color: var(--quinary-color);
+    filter: saturate(80%) brightness(90%);
 }

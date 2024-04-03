@@ -28,6 +28,7 @@
 
 .expense {
     background-color: rgb(255, 86, 86);
+    filter: saturate(80%) brightness(90%);
 }
 
 .balance_cell {
