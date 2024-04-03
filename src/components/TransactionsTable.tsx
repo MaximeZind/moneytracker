@@ -4,29 +4,42 @@ import { useEffect, useState } from "react";
 import { getTransactions } from "../app/services/transactions";
 import Table from "../components/Table";
 import styles from "./TransactionsTable.module.css";
-import { Transaction } from "@/types/global";
+import { Account, Transaction } from "@/types/global";
 import generateRecurringInstances from "../utils/transactions";
+import Collapse from "./Collapse";
+import { getAccounts } from "@/app/services/accounts";
 
 export default function TransactionsTable() {
 
     const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [accounts, setAccounts] = useState<Account[]>([]);
 
     useEffect(() => {
         const getProfile = async () => {
             await getTransactions().then((userTransactions: Transaction[]) => {
-                    const allTransactions = userTransactions.flatMap((transaction) => {
-                        if (transaction.recurring === true && transaction.frequencyAmount && transaction.frequencyUnit && transaction.recurringEndingDate) {
-                            return [transaction, ...generateRecurringInstances(transaction)];
-                        } else {
-                            return [transaction];
-                        }
-                    }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-                    
+                const allTransactions = userTransactions.flatMap((transaction) => {
+                    if (transaction.recurring === true && transaction.frequencyAmount && transaction.frequencyUnit && transaction.recurringEndingDate) {
+                        return [transaction, ...generateRecurringInstances(transaction)];
+                    } else {
+                        return [transaction];
+                    }
+                }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
                 setTransactions(allTransactions);
             });
         }
+
+        const fetchAccount = async () => {
+            await getAccounts().then((response) => {
+                setAccounts(response);
+            })
+        }
         getProfile();
-    }, []);    
+        fetchAccount();
+    }, []);
+
+    console.log(accounts);
+    
 
     // Creating datas for the table component
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
@@ -49,6 +62,17 @@ export default function TransactionsTable() {
     });
 
     return (
-        <Table headers={tableHeaders} data={tableData} />
+        <section className={styles.transactions_section}>
+            <Collapse title="Accounts">
+                {
+                    accounts.map((account) => {
+                        return (
+                            <p key={account.id}>{account.name}</p>
+                        )
+                    })
+                }
+            </Collapse>
+            <Table headers={tableHeaders} data={tableData} />
+        </section>
     )
 }
