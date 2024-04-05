@@ -58,7 +58,7 @@ export default function AccountPreview({ id }: Props) {
             {account &&
                 <>
                     <h1>{account.name}</h1>
-                    <Table headers={tableHeaders} data={tableData} />
+                    <Table headers={tableHeaders} data={tableData} hiddenIndexes={[]} />
                 </>
             }
         </section>
