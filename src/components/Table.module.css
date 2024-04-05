@@ -78,3 +78,7 @@ tr:hover > .balance_cell > .options {
     justify-content: space-around;
     align-items: center;
 }
+
+.hidden {
+    display: none;
+}

@@ -3,6 +3,7 @@ import styles from "./Table.module.css";
 interface TableProps {
     headers: string[];
     data: TransactionObject[];
+    hiddenIndexes: number[];
 }
 
 interface TransactionObject {
@@ -25,7 +26,7 @@ const headerMapping: { [key: string]: keyof TransactionObject } = {
     Type: 'type',
 };
 
-export default function Table({ headers, data }: TableProps) {
+export default function Table({ headers, data, hiddenIndexes }: TableProps) {
     let balance = 0;
 
     function getLastTransactionToDate(transactions: TransactionObject[]) {
@@ -59,6 +60,7 @@ export default function Table({ headers, data }: TableProps) {
             <tbody>
                 {
                     data && data.map((object, index) => {
+                        const hidden = hiddenIndexes.includes(index);
                         balance = balance + object.income - object.debit;
                         let cellColor: string;
                         if (object.type === 'income' && object.income > 0) {
@@ -71,7 +73,7 @@ export default function Table({ headers, data }: TableProps) {
                             isToday = true;
                         }
                         return (
-                            <tr key={index} className={isToday ? `${styles.row} ${styles.today}` : styles.row}>
+                            <tr key={index} className={`${isToday ? `${styles.row} ${styles.today}` : styles.row} ${hidden ? styles.hidden : ''}`}>
                                 {
                                     headers.map((header: string, index) => {
                                         const property = headerMapping[header];

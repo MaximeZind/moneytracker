@@ -13,7 +13,6 @@ import { getCategories } from "@/app/services/categories";
 export default function TransactionsTable() {
 
     const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [filterOptions, setFilterOptions] = useState({
@@ -25,6 +24,7 @@ export default function TransactionsTable() {
             dateUntil: null as null | Date,
         }
     });
+    const [hiddenIndexes, setHiddenIndexes] = useState<number[]>([]);
 
     useEffect(() => {
         const getProfile = async () => {
@@ -38,8 +38,7 @@ export default function TransactionsTable() {
                 }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
                 const accountsSet = new Set<string>();
                 const categoriesSet = new Set<string>();
-                const transactionTypesSet = new Set<string>();
-
+                const transactionTypesSet = new Set<string>();                
                 userTransactions.map((transaction) => {
                     accountsSet.add(transaction.accountId);
                     categoriesSet.add(transaction.categoryId);
@@ -55,7 +54,6 @@ export default function TransactionsTable() {
                     },
                 };
                 setTransactions(allTransactions);
-                setFilteredTransactions(allTransactions);
                 setFilterOptions(filterOptions);
             });
         }
@@ -79,7 +77,7 @@ export default function TransactionsTable() {
 
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
     let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; }[] = []
-    filteredTransactions && filteredTransactions.map((transaction) => {
+    transactions && transactions.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
         const dayNumber = new Date(transaction.date).getDate().toLocaleString().padStart(2, '0');
         const monthNumber = (new Date(transaction.date).getMonth() + 1).toLocaleString().padStart(2, '0');
@@ -130,20 +128,22 @@ export default function TransactionsTable() {
                     ? previousOptions.transactionsTypes.filter(transaction => transaction !== transactionClicked)
                     : [...previousOptions.transactionsTypes, transactionClicked],
             };
-            console.log(updatedOptions);
             filterTransactions(updatedOptions);
             return updatedOptions; 
         });
     }
     
     function filterTransactions(updatedOptions: typeof filterOptions) {
-        const newTransactionList = transactions.filter((transaction) => {
+        let indexOfHiddenTransactions: number[] = [];
+        transactions.map((transaction, index) => {
             const isAccountOk = updatedOptions.accounts.includes(transaction.accountId);
             const isCategoryOk = updatedOptions.categories.includes(transaction.categoryId);
             const isTransactionTypeOk = updatedOptions.transactionsTypes.includes(transaction.type);
-            return isAccountOk && isCategoryOk && isTransactionTypeOk;
-        });
-        setFilteredTransactions(newTransactionList);
+            if (!isAccountOk || !isCategoryOk || !isTransactionTypeOk ) {
+                indexOfHiddenTransactions.push(index)
+            }
+        })
+        setHiddenIndexes(indexOfHiddenTransactions);
     }
     
     return (
@@ -223,7 +223,7 @@ export default function TransactionsTable() {
                     </div>
                 </Collapse>
             </div>
-            <Table headers={tableHeaders} data={tableData} />
+            <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
         </section>
     )
 }
