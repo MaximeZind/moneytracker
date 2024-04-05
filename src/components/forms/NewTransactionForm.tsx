@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 import styles from "./NewTransactionForm.module.css";
-import { getAccounts } from "../../app/services/accounts";
+import { getAccounts } from "../../app/services/acc";
 import { Account, Category, NewTransaction, Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';

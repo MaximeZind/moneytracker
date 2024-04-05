@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { getAccounts } from "../app/services/accounts";
+import { getAccounts } from "../app/services/acc";
 import styles from "./AccountsSection.module.css";
 import Link from "next/link";
 import AccountPreview from "./AccountPreview";

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Account, Transaction } from "@/types/global";
 import styles from "./AccountSection.module.css";
-import { getAccount } from "@/app/services/accounts";
+import { getAccount } from "@/app/services/acc";
 import Table from "@/components/Table";
 import generateRecurringInstances from "@/utils/transactions";
 
@@ -58,7 +58,7 @@ export default function AccountPreview({ id }: Props) {
             {account &&
                 <>
                     <h1>{account.name}</h1>
-                    <Table headers={tableHeaders} data={tableData} />
+                    <Table headers={tableHeaders} data={tableData} hiddenIndexes={[]} />
                 </>
             }
         </section>
