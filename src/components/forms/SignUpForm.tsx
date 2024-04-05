@@ -1,8 +1,8 @@
 'use client'
 
-import { deleteUsers } from "../../app/services/deleteUsers";
-import { SignUpData, signUpUser } from "../../app/services/signup";
-import { getUsers } from "../../app/services/users";
+import { deleteUsers } from "@/app/services/deleteUsers";
+import { SignUpData, signUpUser } from "@/app/services/signup";
+import { getUsers } from "@/app/services/users";
 import styles from "./SignUpForm.module.css";
 import { FormEvent } from 'react';
 

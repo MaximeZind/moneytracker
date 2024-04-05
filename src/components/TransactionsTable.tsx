@@ -49,8 +49,8 @@ export default function TransactionsTable() {
                     categories: Array.from(categoriesSet),
                     transactionsTypes: Array.from(transactionTypesSet),
                     dates: {
-                        dateFrom: new Date(userTransactions[0].date),
-                        dateUntil: new Date(userTransactions[userTransactions.length - 1].date),
+                        dateFrom: new Date(allTransactions[0].date),
+                        dateUntil: new Date(allTransactions[allTransactions.length - 1].date),
                     },
                 };
                 setTransactions(allTransactions);
@@ -132,6 +132,21 @@ export default function TransactionsTable() {
             return updatedOptions; 
         });
     }
+
+    function handleDateChange(event: React.FormEvent<HTMLInputElement>) {
+        const inputElement = event.target as HTMLInputElement;
+        setFilterOptions(previousOptions => {
+            const updatedOptions = {
+                ...previousOptions,
+                dates: {
+                    dateFrom: inputElement.id === "dateFrom" ? new Date(inputElement.value) : previousOptions.dates.dateFrom,
+                    dateUntil: inputElement.id === "dateUntil" ? new Date(inputElement.value) : previousOptions.dates.dateUntil,
+                },
+            };
+            filterTransactions(updatedOptions);
+            return updatedOptions; 
+        });
+    }
     
     function filterTransactions(updatedOptions: typeof filterOptions) {
         let indexOfHiddenTransactions: number[] = [];
@@ -139,13 +154,22 @@ export default function TransactionsTable() {
             const isAccountOk = updatedOptions.accounts.includes(transaction.accountId);
             const isCategoryOk = updatedOptions.categories.includes(transaction.categoryId);
             const isTransactionTypeOk = updatedOptions.transactionsTypes.includes(transaction.type);
-            if (!isAccountOk || !isCategoryOk || !isTransactionTypeOk ) {
+            let isDateFromOk = false;
+            let isDateUntilOk = false;
+            if (updatedOptions.dates.dateFrom) {
+                isDateFromOk = new Date(updatedOptions.dates.dateFrom)  <= new Date(transaction.date);
+            }
+            if (updatedOptions.dates.dateUntil) {
+                isDateUntilOk = new Date(updatedOptions.dates.dateUntil) >= new Date(transaction.date);
+            }
+
+            if (!isAccountOk || !isCategoryOk || !isTransactionTypeOk || !isDateFromOk || !isDateUntilOk) {
                 indexOfHiddenTransactions.push(index)
             }
         })
         setHiddenIndexes(indexOfHiddenTransactions);
     }
-    
+
     return (
         <section className={styles.transactions_section}>
             <div className={styles.transactions_section_filters}>
@@ -215,11 +239,23 @@ export default function TransactionsTable() {
                 <Collapse title="Dates">
                     <div className={styles.dates_from}>
                         <label htmlFor="dateFrom">Transactions from </label>
-                        <input type="date" name="dateFrom" id="dateFrom" className={styles.date_input} />
+                        <input 
+                        type="date" 
+                        name="dateFrom" 
+                        id="dateFrom" 
+                        className={styles.date_input} 
+                        onChange={handleDateChange}
+                        />
                     </div>
                     <div className={styles.dates_until}>
                         <label htmlFor="dateUntil">Until </label>
-                        <input type="date" name="dateUntil" id="dateUntil" className={styles.date_input} />
+                        <input 
+                        type="date" 
+                        name="dateUntil" 
+                        id="dateUntil" 
+                        className={styles.date_input}
+                        onChange={handleDateChange}
+                         />
                     </div>
                 </Collapse>
             </div>
