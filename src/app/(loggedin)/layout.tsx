@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import LoggedInHeader from "../../components/baselayout/LoggedInHeader";
 import { getUser } from "../services/getUser";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styles from './LoggedInLayout.module.css';
 
 export default function LoggedInLayout({
@@ -11,9 +11,6 @@ export default function LoggedInLayout({
 }: {
     children: React.ReactNode
 }) {
-
-    const pathName = usePathname();
-    const searchParams = useSearchParams();
     const router = useRouter();
     useEffect(() => {
         const getProfile = async () => {
@@ -24,7 +21,7 @@ export default function LoggedInLayout({
             });
         }
         getProfile();
-    }, [pathName, searchParams])
+    }, [router])
 
 
     return (
