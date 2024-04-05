@@ -1,0 +1,108 @@
+.select_container {
+    width: 100%;
+    max-width: 250px;
+}
+
+.select_container:hover {
+    cursor: pointer;
+}
+
+.select_label {
+    font-weight: bold;
+}
+
+.select_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 1px 10px;
+    border-radius: 3px;
+    gap: 10px;
+    transition: outline .1s;
+    width: 100%;
+}
+
+.open {
+    outline: 2px solid var(--senary-color);
+}
+
+.arrow {
+    transition: transform .3s;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+.selection_box_wrapper {
+    position: relative;
+}
+
+.selection_box {
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 4px 8px #a9a9a966, 0 6px 20px #a9a9a959;
+    animation-name: fade_slide_in;
+    animation-duration: .35s;
+    animation-fill-mode: backwards;
+    animation-timing-function: ease;
+}
+
+.selection_box_option {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.selection_box_option:hover {
+    background-color: var(--quarternary-color);
+}
+
+.closing {
+    animation-name: fade_slide_out;
+    animation-duration: .35s;
+    animation-fill-mode: backwards;
+    animation-timing-function: ease;
+}
+
+.hidden {
+    height: 0;
+    width: 0;
+    position: fixed;
+    left: -500px;
+}
+
+@keyframes fade_slide_in {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade_slide_out {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+}

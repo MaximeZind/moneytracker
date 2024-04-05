@@ -1,0 +1,84 @@
+.table {
+    border-spacing: 7px;
+    color: var(--light-quinary);
+}
+
+.today {
+    font-weight: bold;
+}
+
+.header_cell {
+    background-color: rgb(68,81,201, 0.8);
+    color: var(--primary-color);
+}
+
+.content_cell {
+    /* background-color: rgb(68,81,201, 0.6); */
+    background-color: var(--quarternary-color);
+}
+
+.cell {
+    padding: 5px 10px;
+    border-radius: 7px;
+    text-align: center;
+}
+.income {
+    background-color: rgb(117, 177, 117);
+}
+
+.expense {
+    background-color: rgb(255, 86, 86);
+    filter: saturate(80%) brightness(90%);
+}
+
+.balance_cell {
+    background-color: rgb(68,81,201, 0.6);
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex; 
+    flex-direction: row;
+}
+
+.options {
+    display: none;
+    width: 100%;
+}
+
+.options > span {
+    width: 24px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options > span:hover {
+    cursor: pointer;
+}
+
+.options > span > svg {
+    fill: var(--primary-color);
+}
+
+.cell {
+    transition: box-shadow .3s ease;
+}
+
+.row:hover > td {
+    box-shadow: 0 12px 16px #0000003d, 0 17px 50px #00000030;
+}
+
+tr:hover > .balance_cell > .balance_cell_balance {
+    display: none;
+}
+
+tr:hover > .balance_cell > .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,5 @@
+.new_transaction_section {
+    background-color: var(--quarternary-color);
+    padding: 15px 25px;
+    border-radius: 15px;
+}

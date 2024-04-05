@@ -1,0 +1,82 @@
+.new_transaction_form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+.main_infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.main_infos_left, .main_infos_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.date_input {
+    padding: 3px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    width: 100%;
+    transition: outline .1s;
+    font-size: 1rem;
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
+.date_input:focus {
+    outline: 3px solid var(--senary-color);
+}
+
+.main_infos_right_type {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.main_infos_right_type > p {
+    font-weight: bold;
+}
+
+.transaction_type_option {
+    display: flex;
+    gap: 10px;
+}
+
+.recurring {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recurring_checkbox {
+    align-self: center;
+}
+
+.recurring_frequency {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.recurring_frequency > p, .recurring_ending > p {
+    font-weight: bold;
+}
+
+.recurring_ending {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}

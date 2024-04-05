@@ -1,0 +1,29 @@
+.textinput_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.textinput_label {
+    font-weight: bold;
+}
+
+.textinput_field {
+    padding: 5px;
+    border-radius: 3px;
+    border: none;
+    transition: outline .1s;
+}
+
+.textinput_field:focus {
+    outline: 3px solid var(--senary-color);
+}
+
+.error_msg {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.error {
+    outline: 3px solid red;
+}
