@@ -67,7 +67,7 @@ export default function SelectInput({ name, label, options, errorMsg, defaultVal
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [isOpen]);
+    }, [isOpen, handleClickOutside]);
 
     return (
         <div className={styles.select_container} ref={dropdownMenu}>

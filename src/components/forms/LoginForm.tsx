@@ -44,7 +44,7 @@ export default function Login() {
                 errorMsg && <p>{errorMsg}</p>
             }
             <button value='submit'>Valider</button>
-            <p>You don't have an account yet? <Link href={'/signup'}>Sign Up!</Link></p>
+            <p>You don't have an account yet? <Link href={"/signup"}>Sign Up!</Link></p>
         </form>
     )
 }

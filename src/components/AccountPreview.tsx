@@ -41,7 +41,7 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
             }
         }
         transactions && getAllTransactions(transactions);
-    }, [])
+    }, [transactions])
 
     useEffect(() => {
         transactionList && setAmount(calculateTotalAmount(transactionList));
