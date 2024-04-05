@@ -34,7 +34,7 @@ export default function SignUp() {
     }
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form className={styles.submit_form} onSubmit={handleSubmit}>
                 <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username" />
                 <label htmlFor="email">Email</label>
