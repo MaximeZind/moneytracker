@@ -7,7 +7,7 @@ import styles from "./TransactionsTable.module.css";
 import { Account, Category, Transaction } from "@/types/global";
 import generateRecurringInstances from "../utils/transactions";
 import Collapse from "./Collapse";
-import { getAccounts } from "@/app/services/acc";
+import { getAccounts } from "@/app/services/accounts";
 import { getCategories } from "@/app/services/categories";
 
 export default function TransactionsTable() {

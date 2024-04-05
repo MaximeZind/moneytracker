@@ -3,7 +3,7 @@
 
 import { FormEvent } from 'react';
 import styles from "./NewAccountForm.module.css";
-import { AccountData, newAccount } from "../../app/services/acc";
+import { AccountData, newAccount } from "../../app/services/accounts";
 
 export default function NewAccountForm() {
 
