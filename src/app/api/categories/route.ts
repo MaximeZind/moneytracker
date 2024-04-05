@@ -3,9 +3,10 @@ import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { verifyToken } from '../verifyToken';
+import { Category } from '@/types/global';
 
 export interface CustomResponse {
-    data?: string[];
+    data?: Category[];
     status?: number;
     message?: string;
 }
@@ -52,7 +53,7 @@ export async function GET() {
     return NextResponse.json({ response: response }, { status: response.status });
 }
 
-// Create a new Account
+// Create a new Category
 export async function POST(request: Request) {
     let response: CustomResponse = {};
     const cookieStore = cookies();
@@ -80,14 +81,17 @@ export async function POST(request: Request) {
             });
 
             if (user) {
-                // Create a new account
+                // Create a new category
                 const newCategory = await prisma.category.create({
                     data: {
                         name: data,
+                        user: {
+                            connect: { id: userId },
+                        },
                     },
                 });
 
-                // Update the user's accounts by adding the new account
+                // Update the user's categories by adding the new account
                 const updatedUser = await prisma.user.update({
                     where: {
                         id: userId,
