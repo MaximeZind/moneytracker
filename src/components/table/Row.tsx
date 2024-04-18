@@ -4,6 +4,7 @@ import Pencil from "./Pencil";
 import Garbage from "./Garbage";
 import Modal from "@/components/Modal";
 import Button from "@/components/forms/formscomponents/SubmitButton";
+import { deleteTransaction } from "@/app/services/transactions";
 
 interface TableProps {
     headers: string[];
@@ -46,6 +47,18 @@ export default function Row({ headers, transaction, balance, isToday, isHidden }
         setModalContent(string);
     }
 
+    async function handleDeleteTransaction(id: string) {
+        const deleteTransactionResponse = deleteTransaction(id);
+        deleteTransactionResponse.then((response) => {
+            const status = response.status;
+            if (status !== 200) {
+                console.log(response.message);
+            } else if (status === 200) {
+                window.location.reload();
+            }
+        })
+    }
+
     return (
         <tr className={`${isToday ? `${styles.row} ${styles.today}` : styles.row} ${isHidden ? styles.hidden : ''}`}>
             {
@@ -71,20 +84,22 @@ export default function Row({ headers, transaction, balance, isToday, isHidden }
                             <td key={index} className={`${styles.content_cell} ${styles.cell}  ${styles.balance_cell}`}>
                                 <p className={styles.balance_cell_balance}>{balance}</p>
                                 <div className={styles.options}>
-                                    <Pencil openModal={openModal}/>
-                                    <Garbage openModal={openModal}/>
+                                    <Pencil openModal={openModal} />
+                                    <Garbage openModal={openModal} />
                                 </div>
                                 {
-                                    modalContent !== '' && <Modal closeModal={closeModal}>
-                                        <div className={styles.modal_content}>
-                                            <p>{`Do you really want to ${modalContent} this transaction?`}</p>
-                                            <div className={styles.modal_buttons}>
-                                                {modalContent === 'edit' && <Button text="Yes" value="none" onClick={closeModal} />}
-                                                {modalContent === 'delete' && <Button text="Yes" value="none" onClick={closeModal} />}
-                                                <Button text="Cancel" value="none" onClick={closeModal} />
+                                    (modalContent === 'edit' || modalContent === 'delete') && (
+                                        <Modal closeModal={closeModal}>
+                                            <div className={styles.modal_content}>
+                                                <p>{`Do you really want to ${modalContent} this transaction?`}</p>
+                                                <div className={styles.modal_buttons}>
+                                                    {modalContent === 'edit' && <Button text="Yes" value="none" onClick={closeModal} />}
+                                                    {modalContent === 'delete' && <Button text="Yes" value="none" onClick={() => handleDeleteTransaction(transaction.id)} />}
+                                                    <Button text="Cancel" value="none" onClick={closeModal} />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Modal>
+                                        </Modal>
+                                    )
                                 }
                             </td>
                         )

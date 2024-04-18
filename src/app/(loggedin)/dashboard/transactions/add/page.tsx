@@ -1,5 +1,5 @@
 import styles from "./AddTransaction.module.css";
-import TransactionsTable from "../../../../components/TransactionsTable";
+import TransactionsTable from "../../../../../components/TransactionsTable";
 import NewTransactionForm from "@/components/forms/NewTransactionForm";
 
 export default function AddTransaction() {

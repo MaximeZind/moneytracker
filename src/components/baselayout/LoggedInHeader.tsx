@@ -18,8 +18,8 @@ export default function LoggedInHeader() {
                 <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard">
                     Overview
                 </Link>
-                <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard/addtransaction">
-                    Add Transaction
+                <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard/transactions">
+                    Transactions
                 </Link>
                 <Link className={`${styles.link} ${pathname === '/' ? styles.active : ''}`} href="/dashboard/accounts">
                     Accounts

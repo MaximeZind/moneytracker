@@ -38,23 +38,25 @@ export default function TransactionsTable() {
                 }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
                 const accountsSet = new Set<string>();
                 const categoriesSet = new Set<string>();
-                const transactionTypesSet = new Set<string>();                
-                userTransactions.map((transaction) => {
-                    accountsSet.add(transaction.accountId);
-                    categoriesSet.add(transaction.categoryId);
-                    transactionTypesSet.add(transaction.type);
-                });
-                const filterOptions = {
-                    accounts: Array.from(accountsSet),
-                    categories: Array.from(categoriesSet),
-                    transactionsTypes: Array.from(transactionTypesSet),
-                    dates: {
-                        dateFrom: new Date(allTransactions[0].date),
-                        dateUntil: new Date(allTransactions[allTransactions.length - 1].date),
-                    },
-                };
+                const transactionTypesSet = new Set<string>();
+                if (userTransactions.length > 0) {
+                    userTransactions.map((transaction) => {
+                        accountsSet.add(transaction.accountId);
+                        categoriesSet.add(transaction.categoryId);
+                        transactionTypesSet.add(transaction.type);
+                    });
+                    const filterOptions = {
+                        accounts: Array.from(accountsSet),
+                        categories: Array.from(categoriesSet),
+                        transactionsTypes: Array.from(transactionTypesSet),
+                        dates: {
+                            dateFrom: new Date(allTransactions[0].date),
+                            dateUntil: new Date(allTransactions[allTransactions.length - 1].date),
+                        },
+                    };
+                    setFilterOptions(filterOptions);
+                }
                 setTransactions(allTransactions);
-                setFilterOptions(filterOptions);
             });
         }
 
@@ -104,10 +106,10 @@ export default function TransactionsTable() {
                     : [...previousOptions.accounts, accountClicked],
             };
             filterTransactions(updatedOptions);
-            return updatedOptions; 
+            return updatedOptions;
         });
     }
-    
+
     function handleCategoryClick(categoryClicked: string) {
         setFilterOptions(previousOptions => {
             const updatedOptions = {
@@ -120,7 +122,7 @@ export default function TransactionsTable() {
             return updatedOptions;
         });
     }
-    
+
     function handleTransactionTypeClick(transactionClicked: string) {
         setFilterOptions(previousOptions => {
             const updatedOptions = {
@@ -130,7 +132,7 @@ export default function TransactionsTable() {
                     : [...previousOptions.transactionsTypes, transactionClicked],
             };
             filterTransactions(updatedOptions);
-            return updatedOptions; 
+            return updatedOptions;
         });
     }
 
@@ -145,10 +147,10 @@ export default function TransactionsTable() {
                 },
             };
             filterTransactions(updatedOptions);
-            return updatedOptions; 
+            return updatedOptions;
         });
     }
-    
+
     function filterTransactions(updatedOptions: typeof filterOptions) {
         let indexOfHiddenTransactions: number[] = [];
         transactions.map((transaction, index) => {
@@ -158,7 +160,7 @@ export default function TransactionsTable() {
             let isDateFromOk = false;
             let isDateUntilOk = false;
             if (updatedOptions.dates.dateFrom) {
-                isDateFromOk = new Date(updatedOptions.dates.dateFrom)  <= new Date(transaction.date);
+                isDateFromOk = new Date(updatedOptions.dates.dateFrom) <= new Date(transaction.date);
             }
             if (updatedOptions.dates.dateUntil) {
                 isDateUntilOk = new Date(updatedOptions.dates.dateUntil) >= new Date(transaction.date);
@@ -240,23 +242,23 @@ export default function TransactionsTable() {
                 <Collapse title="Dates">
                     <div className={styles.dates_from}>
                         <label htmlFor="dateFrom">Transactions from </label>
-                        <input 
-                        type="date" 
-                        name="dateFrom" 
-                        id="dateFrom" 
-                        className={styles.date_input} 
-                        onChange={handleDateChange}
+                        <input
+                            type="date"
+                            name="dateFrom"
+                            id="dateFrom"
+                            className={styles.date_input}
+                            onChange={handleDateChange}
                         />
                     </div>
                     <div className={styles.dates_until}>
                         <label htmlFor="dateUntil">Until </label>
-                        <input 
-                        type="date" 
-                        name="dateUntil" 
-                        id="dateUntil" 
-                        className={styles.date_input}
-                        onChange={handleDateChange}
-                         />
+                        <input
+                            type="date"
+                            name="dateUntil"
+                            id="dateUntil"
+                            className={styles.date_input}
+                            onChange={handleDateChange}
+                        />
                     </div>
                 </Collapse>
             </div>

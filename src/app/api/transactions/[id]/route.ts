@@ -36,17 +36,22 @@ export async function GET(request: Request, context: any) {
     }
 }
 
-export async function DELETE(context: any) {
+export async function DELETE(request: Request, context: any) {
     let response: CustomResponse = {};
     const { params } = context;
+    console.log(request);
+    
+    console.log(params);
     const transactionId = params.id;
+
+    
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
     try {
-        const userId = verifyToken(token);
+        const userId = verifyToken(token.value);
         if (userId) {
             await prisma.transaction.delete({
                 where: {
