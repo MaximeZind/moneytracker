@@ -40,3 +40,16 @@ export async function deleteTransaction(data: string) {
     const responseData = response.response;
     return responseData;
 }
+
+export async function updateTransaction(data: Transaction) {
+    const response = await customFetch(`/api/transactions/${data.id}`, {
+        method: 'PATCH',
+        headers: {
+            Accept: "application/json",
+        },
+        body: data,
+    })
+
+    const responseData = response.response;
+    return responseData;
+}
