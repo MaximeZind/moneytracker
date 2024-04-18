@@ -15,8 +15,6 @@ export async function getTransactions() {
 }
 
 export async function newTransaction(data: NewTransaction) {
-
-    console.log(data);
     
     const response = await customFetch('/api/transactions', {
         method: 'POST',
@@ -24,6 +22,19 @@ export async function newTransaction(data: NewTransaction) {
             Accept: "application/json",
         },
         body: data,
+    })
+
+    const responseData = response.response;
+    return responseData;
+}
+
+export async function deleteTransaction(data: string) {
+    
+    const response = await customFetch(`/api/transactions/${data}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: "application/json",
+        },
     })
 
     const responseData = response.response;
