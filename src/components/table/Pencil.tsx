@@ -1,7 +1,4 @@
-import { MouseEventHandler, useState } from "react";
 import styles from "./Pencil.module.css";
-import Modal from "@/components/Modal";
-import Button from "@/components/forms/formscomponents/SubmitButton";
 
 interface TableProps {
     openModal: (string: string) => void;

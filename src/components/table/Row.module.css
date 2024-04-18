@@ -76,3 +76,19 @@ tr:hover > .balance_cell > .options {
 .hidden {
     display: none;
 }
+
+/* Modal */
+
+.modal_content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: var(--quinary-color);
+}
+
+.modal_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
