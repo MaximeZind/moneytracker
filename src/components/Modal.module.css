@@ -29,6 +29,7 @@
     animation-fill-mode: backwards;
     animation-timing-function: ease;
     overflow: hidden;
+    padding: 40px;
 }
 
 .modal_cross{
