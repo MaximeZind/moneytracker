@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getTransactions } from "../app/services/transactions";
-import Table from "../components/Table";
+import Table from "./table/Table";
 import styles from "./TransactionsTable.module.css";
 import { Account, Category, Transaction } from "@/types/global";
 import generateRecurringInstances from "../utils/transactions";

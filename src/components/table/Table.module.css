@@ -1,0 +1,15 @@
+.table {
+    border-spacing: 7px;
+    color: var(--light-quinary);
+}
+
+.header_cell {
+    background-color: rgb(68,81,201, 0.8);
+    color: var(--primary-color);
+}
+
+.cell {
+    padding: 5px 10px;
+    border-radius: 7px;
+    text-align: center;
+}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Account, Transaction } from "@/types/global";
 import styles from "./AccountSection.module.css";
 import { getAccount } from "@/app/services/accounts";
-import Table from "@/components/Table";
+import Table from "@/components/table/Table";
 import generateRecurringInstances from "@/utils/transactions";
 
 interface Props {
