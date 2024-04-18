@@ -15,6 +15,7 @@ interface TransactionObject {
     description: string;
     income: number;
     type: string;
+    id: string;
 }
 
 export default function Table({ headers, data, hiddenIndexes }: TableProps) {

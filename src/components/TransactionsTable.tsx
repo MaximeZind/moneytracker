@@ -76,7 +76,7 @@ export default function TransactionsTable() {
     }, []);
 
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
-    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; }[] = []
+    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; id: string; }[] = []
     transactions && transactions.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
         const dayNumber = new Date(transaction.date).getDate().toLocaleString().padStart(2, '0');
@@ -90,6 +90,7 @@ export default function TransactionsTable() {
             income: transaction.type === "income" ? transaction.amount : 0,
             debit: transaction.type === "expense" ? transaction.amount : 0,
             type: transaction.type,
+            id: transaction.id
         }
         tableData.push(newObject);
     });
