@@ -13,7 +13,7 @@ export interface Transaction {
     account?: Account;
     amount: number;
     categoryId: string;
-    category: Category;
+    category?: Category;
     date: Date;
     id: string;
     description: string;

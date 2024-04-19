@@ -128,6 +128,8 @@ export async function PATCH(request: Request, context: any) {
     if (!token) {
         return Response.json({ error: 'Unauthorized - Token missing' });
     }
+    console.log(token);
+    
     try {
         const userId = verifyToken(token.value);
         if (userId) {

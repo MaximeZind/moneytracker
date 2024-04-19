@@ -1,5 +1,5 @@
 import styles from "./UpdateTransaction.module.css";
-import UpdateTransactionForm from "@/components/forms/UpdateTransactionForm";
+import UpdateTransactionSection from "@/components/sections/UpdateTransactionSection";
 
 export default function UpdateTransaction({ params }: { params: { id: string}}) {
 
@@ -7,7 +7,7 @@ export default function UpdateTransaction({ params }: { params: { id: string}}) 
   return (
     <section className={styles.update_transaction_section}>
       <h1>Update Transaction</h1>
-      <UpdateTransactionForm transactionId={transactionId} />
+      <UpdateTransactionSection transactionId={transactionId} />
     </section>
   )
 }

@@ -1,47 +1,24 @@
 'use client'
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from "./UpdateTransactionForm.module.css";
-import { getAccounts } from "../../app/services/accounts";
 import { Account, Category, NewTransaction, Transaction } from '@/types/global';
-import { getCategories } from '@/app/services/categories';
-import { newTransaction, getTransaction } from '@/app/services/transactions';
+import { newTransaction, updateTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
 import SelectInput from './formscomponents/SelectInput';
 import SubmitButton from './formscomponents/SubmitButton';
 
-export default function UpdateTransactionForm({ transactionId }: { transactionId: string }) {
+interface Props {
+    transaction: Transaction;
+    accounts: Account[];
+    categories: Category[];
+}
 
-    const [transaction, setTransaction] = useState<Transaction | null>(null);
-    const [accounts, setAccounts] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [isRecurring, setIsRecurring] = useState(transaction ? transaction.recurring : false);
 
+export default function UpdateTransactionForm({ transaction, accounts, categories }: Props) {
 
-    useEffect(() => {
-        const fetchAccounts = async () => {
-            await getAccounts().then((response) => {
-                setAccounts(response);
-            });
-        }
+    const [isRecurring, setIsRecurring] = useState(transaction.recurring);
 
-        const fetchCategories = async () => {
-            await getCategories().then((response) => {
-                setCategories(response);
-            });
-        }
-
-        const fetchTransaction = async () => {
-            await getTransaction(transactionId).then((response) => {
-                const transactionToUpdate = response.data;
-                setTransaction(transactionToUpdate);
-            });
-        }
-        fetchAccounts();
-        fetchCategories();
-        fetchTransaction();
-    }, []);
-    
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const contactForm = event.target as HTMLFormElement;
@@ -49,6 +26,7 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
         formData.set('recurring', isRecurring.toString());
         const formJson = Object.fromEntries(formData.entries()) as unknown as NewTransaction;
         const data = {
+            id: transaction.id,
             date: new Date(formJson.date),
             amount: Number(formJson.amount),
             description: formJson.description,
@@ -60,8 +38,8 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
             frequencyUnit: formJson.frequencyUnit,
             recurringEndingDate: formJson.recurringEndingDate && new Date(formJson.recurringEndingDate),
         }
-        const newTransactionResponse = newTransaction(data);
-        newTransactionResponse.then((response) => {
+        const updatedTransactionResponse = updateTransaction(data);
+        updatedTransactionResponse.then((response) => {
             const status = response.status;
             if (status !== 200) {
                 console.log(response.message)
@@ -117,27 +95,27 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
                         name="accountId"
                         label='Account'
                         options={accounts}
-                        defaultValue={transaction.accountId} 
+                        defaultValue={transaction.accountId}
                         defaultDisplayedValue={transaction.account && transaction.account.name}
-                        />
+                    />
                     <SelectInput
                         name="categoryId"
                         label='Category'
                         options={categories}
-                        defaultValue={transaction.categoryId} 
-                        defaultDisplayedValue={transaction.category.name}
-                        />
+                        defaultValue={transaction.categoryId}
+                        defaultDisplayedValue={transaction.category && transaction.category.name}
+                    />
                 </div>
             </div>
             <div className={styles.recurring}>
                 <div className={styles.recurring_checkbox}>
-                    <input 
-                    type="checkbox" 
-                    id="recurring" 
-                    name="recurring" 
-                    value="" 
-                    onClick={() => setIsRecurring(!isRecurring)}
-                    defaultChecked={isRecurring} 
+                    <input
+                        type="checkbox"
+                        id="recurring"
+                        name="recurring"
+                        value=""
+                        onClick={() => setIsRecurring(!isRecurring)}
+                        defaultChecked={isRecurring}
                     />
                     <label htmlFor="recurring">Recurring</label>
                 </div>
@@ -160,7 +138,13 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
                         </div>
                         <div className={styles.recurring_ending}>
                             <p>Until</p>
-                            <input type="date" name="recurringEndingDate" id="recurringEndingDate" className={styles.date_input} />
+                            <input
+                                type="date"
+                                name="recurringEndingDate"
+                                id="recurringEndingDate"
+                                className={styles.date_input}
+                                defaultValue={transaction.recurringEndingDate ? new Date(transaction.recurringEndingDate).toLocaleDateString('en-CA') : undefined}
+                            />
                         </div>
                     </div>
 
