@@ -59,8 +59,7 @@ export async function POST(request: Request) {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     const data = await request.json();
-    console.log(data);
-
+    
     if (!token) {
         response.data = [];
         response.status = 401;
@@ -79,18 +78,19 @@ export async function POST(request: Request) {
                     categories: true,
                 },
             });
-
+            
             if (user) {
+                
                 // Create a new category
                 const newCategory = await prisma.category.create({
                     data: {
-                        name: data,
+                        name: data.data,
                         user: {
                             connect: { id: userId },
                         },
                     },
                 });
-
+                
                 // Update the user's categories by adding the new account
                 const updatedUser = await prisma.user.update({
                     where: {

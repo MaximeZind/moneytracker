@@ -1,11 +1,11 @@
 'use client'
 
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from "./UpdateTransactionSection.module.css";
 import { getAccounts } from "../../app/services/accounts";
-import { Account, Category, NewTransaction, Transaction } from '@/types/global';
+import { Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
-import { newTransaction, getTransaction } from '@/app/services/transactions';
+import { getTransaction } from '@/app/services/transactions';
 import UpdateTransactionForm from '../forms/UpdateTransactionForm';
 
 export default function UpdateTransactionSection({ transactionId }: { transactionId: string }) {
