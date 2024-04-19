@@ -1,5 +1,5 @@
 import styles from "./Accounts.module.css";
-import AccountsSection from "../../../../components/AccountsSection"
+import AccountsSection from "@/components/sections/AccountsSection";
 
 export default function Accounts() {
 

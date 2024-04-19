@@ -1,5 +1,5 @@
 import styles from "./Account.module.css";
-import AccountSection from "@/components/AccountSection";
+import AccountSection from "@/components/sections/AccountSection";
 
 export default function Account({ params }: any) {
 

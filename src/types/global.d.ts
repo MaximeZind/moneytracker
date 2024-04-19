@@ -10,6 +10,7 @@ export interface Account {
 //Transaction fetched from the server
 export interface Transaction {
     accountId: string;
+    account?: Account;
     amount: number;
     categoryId: string;
     category: Category;

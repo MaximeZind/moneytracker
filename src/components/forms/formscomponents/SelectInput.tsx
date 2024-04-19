@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState, RefObject, useRef } from 'react';
+import React, { useEffect, useState, RefObject, useRef } from 'react';
 import styles from "./SelectInput.module.css";
 
 interface SelectInputProps {
@@ -20,14 +20,13 @@ export default function SelectInput({ name, label, options, errorMsg, defaultVal
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string | number | null>(defaultValue ? defaultValue : null);
-    const [displayedValue, setDisplayedValue] = useState<string | number | null>(defaultValue ? defaultValue : null);
+    const [displayedValue, setDisplayedValue] = useState<string | number | null>(defaultDisplayedValue ? defaultDisplayedValue : defaultValue ? defaultValue : null);
     const dropdownMenu: RefObject<HTMLDivElement> = useRef(null)
 
 
     const handleOptionClick = (optionValue: string | number, name?: string) => {
         setSelectedValue(optionValue);
         setDisplayedValue(name ? name : optionValue);
-        // setIsOpen(false); // Optionally close the selection box upon selection
         close();
         if (onChange) {
             onChange(optionValue);

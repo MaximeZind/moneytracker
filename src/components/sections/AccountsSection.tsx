@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { getAccounts } from "../app/services/accounts";
+import { getAccounts } from "../../app/services/accounts";
 import styles from "./AccountsSection.module.css";
 import Link from "next/link";
-import AccountPreview from "./AccountPreview";
+import AccountPreview from "../AccountPreview";
 import { Account } from "@/types/global";
-import SubmitButton from "../components/forms/formscomponents/SubmitButton";
+import SubmitButton from "../forms/formscomponents/SubmitButton";
 
 export default function AccountsSection() {
 

@@ -32,6 +32,7 @@ export async function GET(request: Request, context: any) {
                 },
                 include: {
                     category: true,
+                    account: true,
                 },
             });
             if (transaction) {

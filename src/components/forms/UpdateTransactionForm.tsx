@@ -12,10 +12,11 @@ import SubmitButton from './formscomponents/SubmitButton';
 
 export default function UpdateTransactionForm({ transactionId }: { transactionId: string }) {
 
+    const [transaction, setTransaction] = useState<Transaction | null>(null);
     const [accounts, setAccounts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [isRecurring, setIsRecurring] = useState(false);
-    const [transaction, setTransaction] = useState<Transaction | null>(null);
+    const [isRecurring, setIsRecurring] = useState(transaction ? transaction.recurring : false);
+
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -34,13 +35,13 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
             await getTransaction(transactionId).then((response) => {
                 const transactionToUpdate = response.data;
                 setTransaction(transactionToUpdate);
-            })
+            });
         }
         fetchAccounts();
         fetchCategories();
         fetchTransaction();
-    }, [])
-
+    }, []);
+    
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const contactForm = event.target as HTMLFormElement;
@@ -76,7 +77,7 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
             <div className={styles.main_infos}>
                 <div className={styles.main_infos_left}>
                     <label htmlFor="date">Date of the transaction</label>
-                    <input type="date" name="date" id="date" className={styles.date_input} />
+                    <input type="date" name="date" id="date" className={styles.date_input} defaultValue={new Date(transaction.date).toLocaleDateString('en-CA')} />
                     <TextInput
                         name='amount'
                         type='number'
@@ -92,11 +93,23 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
                     <div className={styles.main_infos_right_type}>
                         <p>Transaction type</p>
                         <div className={styles.transaction_type_option}>
-                            <input type="radio" id="income" name="type" value="income" />
+                            <input
+                                type="radio"
+                                id="income"
+                                name="type"
+                                value="income"
+                                defaultChecked={transaction.type === "income"}
+                            />
                             <label htmlFor="income">Income</label>
                         </div>
                         <div className={styles.transaction_type_option}>
-                            <input type="radio" id="expense" name="type" value="expense" />
+                            <input
+                                type="radio"
+                                id="expense"
+                                name="type"
+                                value="expense"
+                                defaultChecked={transaction.type === "expense"}
+                            />
                             <label htmlFor="expense">Expense</label>
                         </div>
                     </div>
@@ -104,17 +117,28 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
                         name="accountId"
                         label='Account'
                         options={accounts}
-                        defaultValue={transaction.accountId} />
+                        defaultValue={transaction.accountId} 
+                        defaultDisplayedValue={transaction.account && transaction.account.name}
+                        />
                     <SelectInput
                         name="categoryId"
                         label='Category'
                         options={categories}
-                        defaultValue={transaction.categoryId} />
+                        defaultValue={transaction.categoryId} 
+                        defaultDisplayedValue={transaction.category.name}
+                        />
                 </div>
             </div>
             <div className={styles.recurring}>
                 <div className={styles.recurring_checkbox}>
-                    <input type="checkbox" id="recurring" name="recurring" value="true" onClick={() => setIsRecurring(!isRecurring)} />
+                    <input 
+                    type="checkbox" 
+                    id="recurring" 
+                    name="recurring" 
+                    value="" 
+                    onClick={() => setIsRecurring(!isRecurring)}
+                    defaultChecked={isRecurring} 
+                    />
                     <label htmlFor="recurring">Recurring</label>
                 </div>
                 {isRecurring &&
@@ -125,13 +149,13 @@ export default function UpdateTransactionForm({ transactionId }: { transactionId
                                 name="frequencyAmount"
                                 type='number'
                                 label='Amount'
-                                defaultValue={transaction.frequencyAmount !== null ? transaction.frequencyAmount: undefined}
+                                defaultValue={transaction.frequencyAmount !== null ? transaction.frequencyAmount : undefined}
                             />
-                            <SelectInput 
-                            name="frequencyUnit" 
-                            label='Unit' 
-                            options={frequencyUnits} 
-                            defaultValue={transaction.frequencyUnit !== null ? transaction.frequencyUnit : undefined}
+                            <SelectInput
+                                name="frequencyUnit"
+                                label='Unit'
+                                options={frequencyUnits}
+                                defaultValue={transaction.frequencyUnit !== null ? transaction.frequencyUnit : undefined}
                             />
                         </div>
                         <div className={styles.recurring_ending}>
