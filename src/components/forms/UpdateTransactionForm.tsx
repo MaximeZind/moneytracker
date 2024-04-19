@@ -5,16 +5,17 @@ import styles from "./UpdateTransactionForm.module.css";
 import { getAccounts } from "../../app/services/accounts";
 import { Account, Category, NewTransaction, Transaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
-import { newTransaction } from '@/app/services/transactions';
+import { newTransaction, getTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
 import SelectInput from './formscomponents/SelectInput';
 import SubmitButton from './formscomponents/SubmitButton';
 
-export default function UpdateTransactionForm() {
+export default function UpdateTransactionForm({ transactionId }: { transactionId: string }) {
 
     const [accounts, setAccounts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [isRecurring, setIsRecurring] = useState(false);
+    const [transaction, setTransaction] = useState<Transaction | null>(null);
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -28,8 +29,16 @@ export default function UpdateTransactionForm() {
                 setCategories(response);
             });
         }
+
+        const fetchTransaction = async () => {
+            await getTransaction(transactionId).then((response) => {
+                const transactionToUpdate = response.data;
+                setTransaction(transactionToUpdate);
+            })
+        }
         fetchAccounts();
         fetchCategories();
+        fetchTransaction();
     }, [])
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -62,6 +71,7 @@ export default function UpdateTransactionForm() {
     const frequencyUnits = ["Days", "Months", "Years"];
 
     return (
+        transaction &&
         <form onSubmit={handleSubmit} className={styles.new_transaction_form}>
             <div className={styles.main_infos}>
                 <div className={styles.main_infos_left}>
@@ -70,11 +80,13 @@ export default function UpdateTransactionForm() {
                     <TextInput
                         name='amount'
                         type='number'
-                        label='Amount' />
+                        label='Amount'
+                        defaultValue={transaction.amount} />
                     <TextInput
                         name='description'
                         type='text'
-                        label='Description' />
+                        label='Description'
+                        defaultValue={transaction.description} />
                 </div>
                 <div className={styles.main_infos_right}>
                     <div className={styles.main_infos_right_type}>
@@ -88,8 +100,16 @@ export default function UpdateTransactionForm() {
                             <label htmlFor="expense">Expense</label>
                         </div>
                     </div>
-                    <SelectInput name="accountId" label='Account' options={accounts} />
-                    <SelectInput name="categoryId" label='Category' options={categories} />
+                    <SelectInput
+                        name="accountId"
+                        label='Account'
+                        options={accounts}
+                        defaultValue={transaction.accountId} />
+                    <SelectInput
+                        name="categoryId"
+                        label='Category'
+                        options={categories}
+                        defaultValue={transaction.categoryId} />
                 </div>
             </div>
             <div className={styles.recurring}>
@@ -101,8 +121,18 @@ export default function UpdateTransactionForm() {
                     <div className={styles.recurring}>
                         <div className={styles.recurring_frequency}>
                             <p>Every</p>
-                            <TextInput name="frequencyAmount" type='number' label='Amount' />
-                            <SelectInput name="frequencyUnit" label='Unit' options={frequencyUnits} />
+                            <TextInput
+                                name="frequencyAmount"
+                                type='number'
+                                label='Amount'
+                                defaultValue={transaction.frequencyAmount !== null ? transaction.frequencyAmount: undefined}
+                            />
+                            <SelectInput 
+                            name="frequencyUnit" 
+                            label='Unit' 
+                            options={frequencyUnits} 
+                            defaultValue={transaction.frequencyUnit !== null ? transaction.frequencyUnit : undefined}
+                            />
                         </div>
                         <div className={styles.recurring_ending}>
                             <p>Until</p>
@@ -112,7 +142,7 @@ export default function UpdateTransactionForm() {
 
                 }
             </div>
-            <SubmitButton value='submit' text='Create a new transaction' />
+            <SubmitButton value='submit' text='Update this transaction' />
         </form>
     )
 }

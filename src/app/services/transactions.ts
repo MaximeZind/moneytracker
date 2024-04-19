@@ -28,6 +28,18 @@ export async function newTransaction(data: NewTransaction) {
     return responseData;
 }
 
+export async function getTransaction(data: string) {
+    const response = await customFetch(`/api/transactions/${data}`, {
+        method: 'GET',
+        headers: {
+            Accept: "application/json",
+        },
+    })
+
+    const responseData = response.response;
+    return responseData;
+}
+
 export async function deleteTransaction(data: string) {
     
     const response = await customFetch(`/api/transactions/${data}`, {

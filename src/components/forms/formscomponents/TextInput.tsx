@@ -6,7 +6,7 @@ interface TextInputProps {
     type: string;
     label: string;
     errorMsg?: string;
-    defaultValue?: string;
+    defaultValue?: string | number | undefined;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
