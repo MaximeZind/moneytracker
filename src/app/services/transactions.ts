@@ -1,4 +1,4 @@
-import { NewTransaction, Transaction } from "@/types/global";
+import { NewTransaction, Transaction, UpdatedTransaction } from "@/types/global";
 import { customFetch } from "./customFetch";
 
 export async function getTransactions() {
@@ -53,7 +53,7 @@ export async function deleteTransaction(data: string) {
     return responseData;
 }
 
-export async function updateTransaction(data: Transaction) {
+export async function updateTransaction(data: UpdatedTransaction) {
     const response = await customFetch(`/api/transactions/${data.id}`, {
         method: 'PATCH',
         headers: {

@@ -13,7 +13,7 @@ export interface Transaction {
     account?: Account;
     amount: number;
     categoryId: string;
-    category?: Category;
+    category: Category;
     date: Date;
     id: string;
     description: string;
@@ -26,6 +26,21 @@ export interface Transaction {
 
 //Transaction sent to the server
 export interface NewTransaction {
+    accountId: string;
+    amount: number;
+    categoryId: string;
+    date: Date;
+    description: string;
+    type: string;
+    recurring: boolean,
+    frequencyAmount?: number | null;
+    frequencyUnit?: string | null;
+    recurringEndingDate?: Date | null;
+}
+
+//Transaction sent to the server
+export interface UpdatedTransaction {
+    id: string;
     accountId: string;
     amount: number;
     categoryId: string;
