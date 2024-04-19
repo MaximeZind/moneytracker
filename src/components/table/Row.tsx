@@ -93,7 +93,7 @@ export default function Row({ headers, transaction, balance, isToday, isHidden }
                                             <div className={styles.modal_content}>
                                                 <p>{`Do you really want to ${modalContent} this transaction?`}</p>
                                                 <div className={styles.modal_buttons}>
-                                                    {modalContent === 'edit' && <Button text="Yes" value="none" onClick={closeModal} />}
+                                                    {modalContent === 'edit' && <a href={`/dashboard/transactions/edit/${transaction.id}`}><Button text="Yes" value="none" /></a>}
                                                     {modalContent === 'delete' && <Button text="Yes" value="none" onClick={() => handleDeleteTransaction(transaction.id)} />}
                                                     <Button text="Cancel" value="none" onClick={closeModal} />
                                                 </div>
