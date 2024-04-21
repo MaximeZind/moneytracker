@@ -1,8 +1,6 @@
 import styles from "./CategoriesBox.module.css";
 import { Category } from "@/types/global";
 import NewCategoryForm from "./forms/NewCategoryForm";
-import TextInput from "./forms/formscomponents/TextInput";
-import Button from "./forms/formscomponents/SubmitButton";
 
 interface Props {
     categories: Category[];

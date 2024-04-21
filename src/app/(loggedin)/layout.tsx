@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import LoggedInHeader from "../../components/baselayout/LoggedInHeader";
 import { getUser } from "../services/getUser";
 import { useRouter } from "next/navigation";
@@ -30,11 +30,11 @@ export default function LoggedInLayout({
 
 
     return (
-        <>
+        <Suspense>
             <LoggedInHeader />
             <main className={styles.main}>
                 {children}
             </main>
-        </>
+        </Suspense>
     )
 }
