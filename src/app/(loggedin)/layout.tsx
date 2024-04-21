@@ -5,7 +5,7 @@ import LoggedInHeader from "../../components/baselayout/LoggedInHeader";
 import { getUser } from "../services/getUser";
 import { useRouter } from "next/navigation";
 import styles from './LoggedInLayout.module.css';
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 export default function LoggedInLayout({
     children,
@@ -14,7 +14,7 @@ export default function LoggedInLayout({
 }) {
     const router = useRouter();
     const pathname = usePathname()
-    const searchParams = useSearchParams()
+    // const searchParams = useSearchParams()
 
     useEffect(() => {
         const getProfile = async () => {
@@ -26,15 +26,15 @@ export default function LoggedInLayout({
             });
         }
         getProfile();
-    }, [pathname, searchParams])
+    }, [pathname])
 
 
     return (
-        <Suspense>
+        <>
             <LoggedInHeader />
             <main className={styles.main}>
                 {children}
             </main>
-        </Suspense>
+        </>
     )
 }
