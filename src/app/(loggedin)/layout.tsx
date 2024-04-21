@@ -15,7 +15,8 @@ export default function LoggedInLayout({
     useEffect(() => {
         const getProfile = async () => {
             await getUser().then((response) => {
-                if (response.status === 401) {
+                console.log(response.status);
+                if (response.status !== 200) {
                     router.push("/login");
                 }
             });

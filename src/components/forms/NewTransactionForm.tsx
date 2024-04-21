@@ -3,12 +3,13 @@
 import { FormEvent, useEffect, useState } from 'react';
 import styles from "./NewTransactionForm.module.css";
 import { getAccounts } from "../../app/services/accounts";
-import { Account, Category, NewTransaction, Transaction } from '@/types/global';
+import { NewTransaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
 import SelectInput from './formscomponents/SelectInput';
 import SubmitButton from './formscomponents/SubmitButton';
+import AddButton from './formscomponents/AddButton';
 
 export default function NewTransactionForm() {
 
@@ -88,8 +89,14 @@ export default function NewTransactionForm() {
                             <label htmlFor="expense">Expense</label>
                         </div>
                     </div>
-                    <SelectInput name="accountId" label='Account' options={accounts} />
-                    <SelectInput name="categoryId" label='Category' options={categories} />
+                    <div className={styles.transaction_account}>
+                        <AddButton name='Add account' url='/dashboard/accounts/newaccount'/>
+                        <SelectInput name="accountId" label='Account' options={accounts} />
+                    </div>
+                    <div className={styles.transaction_category}>
+                    <AddButton name='Add category' url='/dashboard/categories'/>
+                        <SelectInput name="categoryId" label='Category' options={categories} />
+                    </div>
                 </div>
             </div>
             <div className={styles.recurring}>

@@ -53,6 +53,14 @@
     gap: 10px;
 }
 
+.transaction_account, .transaction_category {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 7px;
+}
+
 .recurring {
     display: flex;
     flex-direction: column;

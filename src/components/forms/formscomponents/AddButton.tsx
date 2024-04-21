@@ -10,8 +10,8 @@ interface TextInputProps {
 export default function AddButton({ name, url, onClick }: TextInputProps) {
     return (
         url ?
-            <a href={url}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+            <a href={url} className={styles.add_link}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={styles.add_button}>
                     <title>{name}</title>
                     <g id="_8.add" data-name="8.add">
                         <circle cx="12" cy="12" r="11" />
@@ -20,7 +20,7 @@ export default function AddButton({ name, url, onClick }: TextInputProps) {
                     </g>
                 </svg>
             </a> : onClick &&
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onClick={onClick}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onClick={onClick} className={styles.add_button}>
                 <title>{name}</title>
                 <g id="_8.add" data-name="8.add">
                     <circle cx="12" cy="12" r="11" />

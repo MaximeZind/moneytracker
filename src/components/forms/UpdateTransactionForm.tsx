@@ -3,10 +3,11 @@
 import { FormEvent, useState } from 'react';
 import styles from "./UpdateTransactionForm.module.css";
 import { Account, Category, NewTransaction, Transaction } from '@/types/global';
-import { newTransaction, updateTransaction } from '@/app/services/transactions';
+import { updateTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
 import SelectInput from './formscomponents/SelectInput';
 import SubmitButton from './formscomponents/SubmitButton';
+import AddButton from './formscomponents/AddButton';
 
 interface Props {
     transaction: Transaction;
@@ -91,20 +92,30 @@ export default function UpdateTransactionForm({ transaction, accounts, categorie
                             <label htmlFor="expense">Expense</label>
                         </div>
                     </div>
-                    <SelectInput
-                        name="accountId"
-                        label='Account'
-                        options={accounts}
-                        defaultValue={transaction.accountId}
-                        defaultDisplayedValue={transaction.account && transaction.account.name}
-                    />
-                    <SelectInput
-                        name="categoryId"
-                        label='Category'
-                        options={categories}
-                        defaultValue={transaction.categoryId}
-                        defaultDisplayedValue={transaction.category && transaction.category.name}
-                    />
+                    <div className={styles.transaction_account}>
+                        <AddButton
+                            name='Add account'
+                            url='/dashboard/accounts/newaccount' />
+                        <SelectInput
+                            name="accountId"
+                            label='Account'
+                            options={accounts}
+                            defaultValue={transaction.accountId}
+                            defaultDisplayedValue={transaction.account && transaction.account.name}
+                        />
+                    </div>
+                    <div className={styles.transaction_category}>
+                        <AddButton
+                            name='Add category'
+                            url='/dashboard/categories' />
+                        <SelectInput
+                            name="categoryId"
+                            label='Category'
+                            options={categories}
+                            defaultValue={transaction.categoryId}
+                            defaultDisplayedValue={transaction.category && transaction.category.name}
+                        />
+                    </div>
                 </div>
             </div>
             <div className={styles.recurring}>
@@ -150,7 +161,9 @@ export default function UpdateTransactionForm({ transaction, accounts, categorie
 
                 }
             </div>
-            <SubmitButton value='submit' text='Update this transaction' />
+            <SubmitButton
+                value='submit'
+                text='Update this transaction' />
         </form>
     )
 }

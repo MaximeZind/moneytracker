@@ -1,0 +1,14 @@
+.add_button {
+    width: 24px;
+    height: 24px;
+    fill:none;
+    stroke:#000;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-width:2px;
+}
+
+.add_link {
+    width: 24px;
+    height: 24px;
+}
