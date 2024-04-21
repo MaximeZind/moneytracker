@@ -23,37 +23,40 @@ export async function GET(request: Request) {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     if (!token) {
-        return Response.json({ error: 'Unauthorized - Token missing' });
-    }
-    try {
-        const userId = verifyToken(token.value);
-        if (userId) {
-            const user = await prisma.user.findUnique({
-                where: {
-                    id: userId
-                },
-                include: {
-                    transactions: true,
-                },
-            });
-            const userData: User = {
-                email:<string> user?.email,
-                userId:<string> user?.id,
-                username:<string> user?.username
-            }
-            response.status = 200;
-            response.data = userData;
-        } 
-    } catch (error) {
-        if (error instanceof Error) {
-            if (error.name === 'TokenExpiredError') {
-                response.status = 401;
-                response.message = 'Token Expired';
-                response.data = {};
-            } else {
-                response.status = 401;
-                response.message = 'Unauthorized';
-                response.data = {};
+        response.status = 401;
+        response.message = 'Unauthorized - Token missing';
+        response.data = {};
+    } else if (token) {
+        try {
+            const userId = verifyToken(token.value);
+            if (userId) {
+                const user = await prisma.user.findUnique({
+                    where: {
+                        id: userId
+                    },
+                    include: {
+                        transactions: true,
+                    },
+                });
+                const userData: User = {
+                    email:<string> user?.email,
+                    userId:<string> user?.id,
+                    username:<string> user?.username
+                }
+                response.status = 200;
+                response.data = userData;
+            } 
+        } catch (error) {
+            if (error instanceof Error) {
+                if (error.name === 'TokenExpiredError') {
+                    response.status = 401;
+                    response.message = 'Token Expired';
+                    response.data = {};
+                } else {
+                    response.status = 401;
+                    response.message = 'Unauthorized';
+                    response.data = {};
+                }
             }
         }
     }
