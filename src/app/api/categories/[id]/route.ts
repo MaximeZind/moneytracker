@@ -25,7 +25,12 @@ export async function DELETE(request: Request, context: any) {
         response.data = null;
     } else if (token) {
         try {
-            const userId = verifyToken(token.value);
+            let userId = null;
+            if (token) {
+                await verifyToken(token.value).then((response) => {
+                    userId = response.userId;
+                })
+            }
             if (userId) {
                 await prisma.category.delete({
                     where: {
@@ -74,7 +79,12 @@ export async function PATCH(request: Request, context: any) {
         response.data = [];
     } else if (token) {
         try {
-            const userId = verifyToken(token.value);
+            let userId = null;
+            if (token) {
+                await verifyToken(token.value).then((response) => {
+                    userId = response.userId;
+                })
+            }
             if (userId) {
                 const updatedCategory = await prisma.category.update({
                     where: {

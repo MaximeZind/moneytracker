@@ -28,39 +28,42 @@ export async function GET(request: Request, context: any) {
         response.status = 401;
         response.message = 'Unauthorized - Token missing';
         return NextResponse.json({ response: response }, { status: response.status });
-    }
-
-    try {
-        const userId = verifyToken(token.value);
-        if (userId) {
-            const account = await prisma.account.findUnique({
-                where: {
-                    id: accountId
-                },
-                include: {
-                    transactions: {
-                        include: {
-                            category: true,
-                        }
-                    },
-                },
+    } else if (token) {
+        try {
+            let userId = null;
+            await verifyToken(token.value).then((response) => {
+                userId = response.userId;
             })
-            response.status = 200;
-            response.data = account;
-        }
-        console.log(response);
-        
-    } catch (error) {
-        if (error instanceof Error) {
-            if (error.name === 'TokenExpiredError') {
-                response.status = 401;
-                response.message = 'Token Expired';
-            } else {
-                response.status = 401;
-                response.message = 'Unauthorized';
+            if (userId) {
+                const account = await prisma.account.findUnique({
+                    where: {
+                        id: accountId
+                    },
+                    include: {
+                        transactions: {
+                            include: {
+                                category: true,
+                            }
+                        },
+                    },
+                })
+                response.status = 200;
+                response.data = account;
             }
+            console.log(response);
+            
+        } catch (error) {
+            if (error instanceof Error) {
+                if (error.name === 'TokenExpiredError') {
+                    response.status = 401;
+                    response.message = 'Token Expired';
+                } else {
+                    response.status = 401;
+                    response.message = 'Unauthorized';
+                }
+            }
+            response.data = null;
         }
-        response.data = null;
     }
     return NextResponse.json({ response: response }, { status: response.status });
 }

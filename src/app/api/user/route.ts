@@ -28,7 +28,10 @@ export async function GET(request: Request) {
         response.data = {};
     } else if (token) {
         try {
-            const userId = verifyToken(token.value);
+            let userId = null;
+            await verifyToken(token.value).then((response) => {
+                userId = response.userId;
+            })
             if (userId) {
                 const user = await prisma.user.findUnique({
                     where: {
