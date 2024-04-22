@@ -1,6 +1,7 @@
 import styles from "./CategoriesBox.module.css";
 import { Category } from "@/types/global";
 import NewCategoryForm from "./forms/NewCategoryForm";
+import CategoryItem from "./CategoryItem";
 
 interface Props {
     categories: Category[];
@@ -19,7 +20,8 @@ export default function CategoriesBox({ categories, refresh }: Props) {
             <NewCategoryForm categories={categories} refresh={refresh}/>
             {categories.map((category, index) => {
                 return (
-                    <p key={index}>{category.name}</p>
+                    // <p key={index}>{category.name}</p>
+                    <CategoryItem key={index} category={category} />
                 )
             })}
         </div>

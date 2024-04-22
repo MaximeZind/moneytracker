@@ -26,3 +26,16 @@ export async function newCategory(data: string) {
     
     return response;
 }
+
+export async function updateCategory(data: {name: string; id: string;}) {
+    const response = await customFetch(`/api/categories/${data.id}`, {
+        method: 'PATCH',
+        headers: {
+            Accept: "application/json",
+        },
+        body: data,
+    })
+
+    const responseData = response.response;
+    return responseData;
+}
