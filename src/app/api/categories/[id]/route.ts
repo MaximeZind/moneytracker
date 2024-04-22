@@ -16,12 +16,7 @@ interface CustomResponse {
 export async function DELETE(request: Request, context: any) {
     let response: CustomResponse = {};
     const { params } = context;
-    console.log(request);
-
-    console.log(params);
     const categoryId = params.id;
-
-
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     if (!token) {

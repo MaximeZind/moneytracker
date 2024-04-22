@@ -39,3 +39,15 @@ export async function updateCategory(data: {name: string; id: string;}) {
     const responseData = response.response;
     return responseData;
 }
+
+export async function deleteCategory( id: string) {
+    const response = await customFetch(`/api/categories/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: "application/json",
+        },
+    })
+
+    const responseData = response.response;
+    return responseData;
+}

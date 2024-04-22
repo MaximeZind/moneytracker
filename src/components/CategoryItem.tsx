@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 import Modal from "./Modal";
 import Button from "./forms/formscomponents/SubmitButton";
 import TextInput from "./forms/formscomponents/TextInput";
-import { updateCategory } from "@/app/services/categories";
+import { deleteCategory, updateCategory } from "@/app/services/categories";
 
 interface Props {
     category: Category;
@@ -26,7 +26,12 @@ export default function CategoryItem({ category }: Props) {
     }
 
     function handleDeleteCategory(id: string) {
-        console.log(id);
+        deleteCategory(id).then((response) => {
+            const responseStatus = response.status;
+            if(responseStatus === 200) {
+                window.location.reload();
+            }
+        })
 
     }
 
@@ -68,7 +73,11 @@ export default function CategoryItem({ category }: Props) {
                 modalContent === 'delete' &&
                 <Modal closeModal={closeModal}>
                     <div className={styles.modal_content}>
-                        <p>{`Do you really want to ${modalContent} this transaction?`}</p>
+                        <p>{`Do you really want to ${modalContent} this category?`}</p>
+                        {
+                            category.transactions && category.transactions.length > 0 && 
+                            <p>{`If you ${modalContent} this category, this will also delete the ${category.transactions.length} transaction(s) associated with it.`}</p>
+                        }
                         <Button text="Yes" value="none" onClick={() => handleDeleteCategory(category.id)} />
                         <Button text="Cancel" value="none" onClick={closeModal} />
                     </div>

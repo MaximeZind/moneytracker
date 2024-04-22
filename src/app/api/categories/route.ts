@@ -32,7 +32,15 @@ export async function GET() {
                     id: userId
                 },
                 include: {
-                    categories: true,
+                    categories: {
+                        include: {
+                            transactions: {
+                                include: {
+                                    category: true,
+                                }
+                            },
+                        }
+                    }
                 },
             })
             response.status = 200;
