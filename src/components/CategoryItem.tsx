@@ -62,7 +62,7 @@ export default function CategoryItem({ category }: Props) {
                     </>
                     :
                     <div className={styles.category_item}>
-                        <p>{category.name}</p>
+                        <p className={styles.category_item_text}>{category.name}</p>
                         <div className={styles.icons}>
                             <Pencil openModal={() => setIsEditing(true)} />
                             <Garbage openModal={openModal} />

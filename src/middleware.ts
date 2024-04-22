@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { NextResponse, type NextRequest} from "next/server";
+import { NextResponse, NextRequest} from "next/server";
 import { COOKIE_NAME } from "./constants";
 import { verifyToken } from "./app/api/verifyToken";
 
@@ -11,17 +11,21 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     const pathName = request.nextUrl.toString();
     if (token) {
         await verifyToken(token.value).then((response) => {
-            userId = response.userId;
+            userId = response.userId && response.userId;
             if (pathName.includes("/api/login") || userId) {
                 return NextResponse.next();
             }
         }).catch((error) => {
             console.log(error);
-            return NextResponse.redirect("/login");
+            return NextResponse.redirect(new URL('/login', request.url))
         })
+        if (userId === null) {
+            return NextResponse.redirect(new URL('/login', request.url))
+        }
     }
-    if (!token && pathName !== "/login") {
-        return NextResponse.redirect("/login");
+    
+    if (!token && pathName !== "/api/login") {
+        return NextResponse.redirect(new URL("/login", request.url));
     }
 }
 

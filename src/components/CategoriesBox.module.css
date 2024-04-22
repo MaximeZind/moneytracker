@@ -1,0 +1,10 @@
+.categories_box {
+    background-color: var(--quarternary-color);
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}

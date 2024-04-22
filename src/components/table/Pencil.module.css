@@ -1,0 +1,13 @@
+.pencil {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    box-sizing: border-box;
+    padding: 3px;
+    transition: background-color .3s ease;
+}
+
+.pencil:hover {
+    cursor: pointer;
+    background-color: var(--quarternary-color);
+}

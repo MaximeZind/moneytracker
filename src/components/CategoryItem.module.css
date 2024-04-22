@@ -3,6 +3,26 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    background-color: var(--ternary-color);
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.category_edit_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--ternary-color);
+    padding: 10px;
+    border-radius: 4px;
+    gap: 5px;
+}
+
+.category_item_text {
+    font-weight: bold;
 }
 
 .icons {
@@ -10,10 +30,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
 }
 
-.icons > span {
-    width: 24px;
+.icons > .span {
+    padding: 7px;
 }
 
 .category_edit_form {
