@@ -11,7 +11,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     const pathName = request.nextUrl.toString();
     if (token) {
         await verifyToken(token.value).then((response) => {
-            console.log(response);
             userId = response.userId;
             if (pathName.includes("/api/login") || userId) {
                 return NextResponse.next();
