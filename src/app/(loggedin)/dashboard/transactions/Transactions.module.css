@@ -1,0 +1,6 @@
+.transactions_layout {
+    width: 100%;
+    height: calc(100vh - 100px);
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+}
