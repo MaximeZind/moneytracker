@@ -2,5 +2,32 @@
     width: 100%;
     height: calc(100vh - 100px);
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 18% 64% 18%;
+}
+
+.transactions_left_section {
+    background-color: var(--primary-color);
+    border-right: 1px solid var(--quarternary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.transactions_table {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.transactions_right_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-left: 1px solid var(--quarternary-color);
 }
