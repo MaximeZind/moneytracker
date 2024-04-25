@@ -1,30 +1,36 @@
+.row {
+    border: 1px solid var(--quinary-color);
+}
+
 .today {
     font-weight: bold;
 }
 
 .content_cell {
-    /* background-color: rgb(68,81,201, 0.6); */
-    background-color: var(--quarternary-color);
+    padding: 16px;
+    color: var(--quinary-color);
+    border-bottom: 1px solid var(--ternary-color);
 }
 
 .cell {
-    padding: 5px 10px;
-    border-radius: 7px;
+    padding: 16px;
+    /* border-radius: 7px; */
     text-align: center;
 }
 .income {
-    background-color: rgb(117, 177, 117);
+    color: rgb(100, 161, 100);
 }
 
 .expense {
-    background-color: rgb(255, 86, 86);
+    color: rgb(255, 86, 86);;
+    /* background-color: rgb(255, 86, 86); */
     filter: saturate(80%) brightness(90%);
 }
 
 .balance_cell {
-    background-color: rgb(68,81,201, 0.6);
+    color: rgb(68,81,201, 0.6);
     font-weight: bold;
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
     display: flex; 
     flex-direction: row;
 }
@@ -47,11 +53,7 @@
 }
 
 .options > span > svg {
-    fill: var(--primary-color);
-}
-
-.options > span > svg {
-    fill: var(--primary-color);
+    fill: var(--quinary-color);
 }
 
 .cell {
@@ -59,7 +61,8 @@
 }
 
 .row:hover > td {
-    box-shadow: 0 12px 16px #0000003d, 0 17px 50px #00000030;
+    /* box-shadow: 0 12px 16px #0000003d, 0 17px 50px #00000030; */
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 tr:hover > .balance_cell > .balance_cell_balance {
@@ -71,6 +74,7 @@ tr:hover > .balance_cell > .options {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
 }
 
 .hidden {

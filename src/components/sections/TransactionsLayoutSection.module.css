@@ -2,7 +2,7 @@
     width: 100%;
     height: calc(100vh - 100px);
     display: grid;
-    grid-template-columns: 18% 64% 18%;
+    grid-template-columns: 20% 60% 20%;
 }
 
 .transactions_left_section {
