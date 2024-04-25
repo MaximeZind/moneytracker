@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import { verifyToken } from '../verifyToken';
 import { cookies } from "next/headers";
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { COOKIE_NAME } from '@/constants';
+import { NextApiRequest } from 'next';
 require('dotenv').config();
 
 const prisma = new PrismaClient();
@@ -18,18 +19,31 @@ interface User {
     username?: string;
 }
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
     let response: CustomResponse = {};
+    const headers = request.headers;
+    const authorizationHeader = headers.get('Authorization');
+    let userToken: string | null = null;
+    
+    if (authorizationHeader) {
+        const [, tokenValue] = authorizationHeader.split('Bearer ');
+        userToken = tokenValue.trim();
+    }
     const cookieStore = cookies();
-    const token = cookieStore.get(COOKIE_NAME);
-    if (!token) {
+    const tokenObject = cookieStore.get(COOKIE_NAME);
+    let token = tokenObject?.value; 
+    if (!token && !userToken) {
         response.status = 401;
         response.message = 'Unauthorized - Token missing';
         response.data = {};
-    } else if (token) {
+    } else if (!token && userToken){
+        token = userToken;
+    } 
+    
+    if (token) {
         try {
             let userId = null;
-            await verifyToken(token.value).then((response) => {
+            await verifyToken(token).then((response) => {
                 userId = response.userId;
             })
             if (userId) {

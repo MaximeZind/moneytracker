@@ -8,17 +8,21 @@ import AccountPreview from "../AccountPreview";
 import { Account } from "@/types/global";
 import SubmitButton from "../forms/formscomponents/SubmitButton";
 
-export default function AccountsSection() {
+interface AccountsSectionProps {
+    accounts: Account[];
+}
 
-    const [accounts, setAccounts] = useState([]);
-    useEffect(() => {
-        const Accounts = async () => {
-            await getAccounts().then((response) => {
-                setAccounts(response)
-            });
-        }
-        Accounts();
-    }, []);
+export default function AccountsSection({accounts}: AccountsSectionProps) {
+
+    // const [accounts, setAccounts] = useState([]);
+    // useEffect(() => {
+    //     const Accounts = async () => {
+    //         await getAccounts().then((response) => {
+    //             setAccounts(response)
+    //         });
+    //     }
+    //     Accounts();
+    // }, []);
 
     return (
         <section className={styles.accounts_section}>

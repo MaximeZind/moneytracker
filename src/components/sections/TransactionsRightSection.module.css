@@ -1,6 +1,6 @@
-.transactions_left_section {
+.transactions_right_section {
     background-color: var(--primary-color);
-    border-right: 1px solid var(--quarternary-color);
+    border-left: 1px solid var(--quarternary-color);
     height: 100%;
     display: flex;
     flex-direction: column;

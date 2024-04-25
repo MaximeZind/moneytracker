@@ -3,14 +3,14 @@ import { customFetch } from "./customFetch";
 
 export async function getTransactions() {
 
-    const response = await customFetch('/api/transactions', {
+    const response = await customFetch('api/transactions', {
         method: 'GET',
         headers: {
             Accept: "application/json",
         },
     })
 
-    const responseData = response.response.data;
+    const responseData = response.response;
     return responseData;
 }
 

@@ -4,6 +4,7 @@ export async function customFetch(url: string, options: {
     body?: object;
     token?: string;
 }) {
+    
     const defaultHeaders: { [key: string]: string } = {
         Accept: 'application/json',
     };

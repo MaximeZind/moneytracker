@@ -1,28 +1,57 @@
 import styles from "./Transactions.module.css";
-import TransactionsTable from "@/components/TransactionsTable";
-import Collapse from "@/components/Collapse";
-import CategoriesSection from "@/components/sections/CategoriesSection";
-import NewTransactionForm from "@/components/forms/NewTransactionForm";
-import TransactionsLeftSection from "@/components/sections/TransactionsLeftSection";
+import { getAccountsDatas } from '@/app/(loggedin)/dashboard/accounts/page';
+import { cookies } from "next/headers";
+import { COOKIE_NAME } from "@/constants";
+import TransactionsLayoutSection from "@/components/sections/TransactionsLayoutSection";
 
-export default function Transactions() {
+export default async function Transactions() {
+
+  const transactionsData =  await getTransactions();
+  const categoriesData = await getCategories();
+  const accountsData = await getAccountsDatas();
+  const transactions = transactionsData.response.data;
+  const categories = categoriesData.response.data;
+  const accounts = accountsData.response.data;
 
   return (
-    <div className={styles.transactions_layout}>
-      {/* <section className={styles.add_transaction_category_section}> */}
-      {/* <Collapse title="Add Transaction"> */}
-          {/* <NewTransactionForm /> */}
-        {/* </Collapse> */}
-        {/* <Collapse title="Categories"> */}
-          {/* <CategoriesSection /> */}
-        {/* </Collapse> */}
-      {/* </section> */}
-      <TransactionsLeftSection />
-      <section className={styles.transactions_section}>
-        <h1>Transactions</h1>
-        <a href="/dashboard/transactions/add">Add a Transaction</a>
-        <TransactionsTable />
-      </section>
+    <div className={styles.transactions_pages}>
+      <TransactionsLayoutSection transactions={transactions} categories={categories} accounts={accounts} />
     </div>
   )
+}
+
+const getTransactions = async () => {
+  const cookieStore = cookies();
+  const token = cookieStore.get(COOKIE_NAME);
+  if (token) {
+    const res = await fetch(`${process.env.API_BASE_URL}api/transactions`, {
+      next: { revalidate: 10 },
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        Authorization: 'Bearer ' + token.value,
+      },
+    })
+    return res.json();
+  } else if (!token) {
+    return 
+  }
+}
+
+const getCategories = async () => {
+  const cookieStore = cookies();
+  const token = cookieStore.get(COOKIE_NAME);
+  if (token) {
+    const res = await fetch(`${process.env.API_BASE_URL}api/categories`, {
+      next: { revalidate: 10 },
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        Authorization: 'Bearer ' + token.value,
+      },
+    })
+    return res.json();
+  } else if (!token) {
+    return 
+  }
 }
