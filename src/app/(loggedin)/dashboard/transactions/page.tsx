@@ -1,5 +1,4 @@
 import styles from "./Transactions.module.css";
-import { getAccountsDatas } from '@/app/(loggedin)/dashboard/accounts/page';
 import { cookies } from "next/headers";
 import { COOKIE_NAME } from "@/constants";
 import TransactionsLayoutSection from "@/components/sections/TransactionsLayoutSection";
@@ -25,7 +24,6 @@ const getTransactions = async () => {
   const token = cookieStore.get(COOKIE_NAME);
   if (token) {
     const res = await fetch(`${process.env.API_BASE_URL}api/transactions`, {
-      next: { revalidate: 10 },
       method: 'GET',
       headers: {
         Accept: "application/json",
@@ -43,7 +41,6 @@ const getCategories = async () => {
   const token = cookieStore.get(COOKIE_NAME);
   if (token) {
     const res = await fetch(`${process.env.API_BASE_URL}api/categories`, {
-      next: { revalidate: 10 },
       method: 'GET',
       headers: {
         Accept: "application/json",
@@ -51,6 +48,24 @@ const getCategories = async () => {
       },
     })
     return res.json();
+  } else if (!token) {
+    return 
+  }
+}
+
+const getAccountsDatas = async () => {
+  const cookieStore = cookies();
+  const token = cookieStore.get(COOKIE_NAME);
+  if (token) {
+    const res = await fetch(`${process.env.API_BASE_URL}api/accounts`, {
+      next: { revalidate: 10 },
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        Authorization: 'Bearer ' + token.value,
+      },
+    })
+    return res.json()
   } else if (!token) {
     return 
   }

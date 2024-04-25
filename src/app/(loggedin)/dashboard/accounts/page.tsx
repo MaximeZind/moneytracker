@@ -15,7 +15,7 @@ export default async function Accounts() {
     )
   }
   
-  export const getAccountsDatas = async () => {
+  const getAccountsDatas = async () => {
     const cookieStore = cookies();
     const token = cookieStore.get(COOKIE_NAME);
     if (token) {
