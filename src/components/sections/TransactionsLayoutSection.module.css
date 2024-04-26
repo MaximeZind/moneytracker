@@ -20,6 +20,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow-y: scroll;
 }
 
 .transactions_right_section {

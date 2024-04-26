@@ -4,6 +4,7 @@
 
 .today {
     font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 .content_cell {
@@ -24,7 +25,7 @@
 .expense {
     color: rgb(255, 86, 86);;
     /* background-color: rgb(255, 86, 86); */
-    filter: saturate(80%) brightness(90%);
+    /* filter: saturate(80%) brightness(90%); */
 }
 
 .balance_cell {

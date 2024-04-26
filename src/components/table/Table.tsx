@@ -37,7 +37,7 @@ export default function Table({ headers, data, hiddenIndexes }: TableProps) {
     const lastTransactionToDate = data && getLastTransactionToDate(data);
     return (
         <table className={styles.table}>
-            <thead>
+            <thead className={styles.table_header}>
                 <tr>
                     {
                         headers && headers.map((header, index) => {

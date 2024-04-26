@@ -5,13 +5,15 @@
     border: 1px solid var(--ternary-color);
 }
 
-.header_cell {
-    /* background-color: rgb(68,81,201, 0.8); */
-    color: var(--quinary-color);
+.table_header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--primary-color);
 }
 
-.cell {
-    padding: 5px 10px;
-    border-radius: 7px;
-    text-align: center;
+.header_cell {
+    color: var(--quinary-color);
+    border-bottom: 1px solid var(--ternary-color);
+    padding: 18px 10px;
 }
