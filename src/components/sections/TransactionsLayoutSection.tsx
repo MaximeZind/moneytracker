@@ -22,7 +22,6 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
     const [categoriesList, setCategoriesList] = useState<Category[]>(categories);
     const [transactionsList, setTransactionsList] = useState<Transaction[]>(sortTransactions(transactions));
     const [hiddenIndexes, setHiddenIndexes] = useState<number[]>([]);
-    console.log(hiddenIndexes);
 
     // Setting up the data for the transactions table
     function sortTransactions(transactions: Transaction[]) {

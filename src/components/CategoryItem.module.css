@@ -4,9 +4,8 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    /* background-color: var(--ternary-color); */
-    padding: 10px;
-    /* border-radius: 4px; */
+    padding-left: 10px;
+    padding-right: 10px;
     border-bottom: 1px solid var(--ternary-color);
 }
 

@@ -18,7 +18,7 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
 
     const [amount, setAmount] = useState(0);
     const [transactionList, setTransactionList] = useState(transactions);
-    const currency ="$";
+    const currency = "$";
 
     useEffect(() => {
         function getAllTransactions(transactionItems: Transaction[]) {
@@ -61,6 +61,13 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
     }
 
     const lastTransaction = transactionList?.at(-1);
+    console.log(lastTransaction);
+
+    let lastTransactionDate
+    if (lastTransaction !== undefined) {
+        lastTransactionDate = new Date(lastTransaction.date);
+    }
+
     return (
 
         <div className={styles.account_preview}>
@@ -69,21 +76,22 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
                 <p className={styles.account_preview_type}>Type: {type}</p>
             </header>
             <p className={styles.account_preview_amount}>{currency}{amount}</p>
-            <div className={styles.account_preview_lastrow}>
-                <div className={styles.account_preview_last_transaction}>
-                    <p>Last Transaction:</p>
-                    <div className={styles.account_preview_last_transactions_details}>
-                        {
-                            lastTransaction && lastTransaction.type === "income" ?
-                                <p className={styles.income}>+{currency}{lastTransaction?.amount}</p> : <p className={styles.expense}>-{currency}{lastTransaction?.amount}</p>
-                        }
-                        <p></p>
-                    </div>
+            <div className={styles.account_preview_last_transaction}>
+                <p>Last Transaction:</p>
+                <div className={styles.account_preview_last_transactions_details}>
+                    {
+                        lastTransaction && lastTransaction.type === "income" ?
+                            <p className={styles.income}>+{currency}{lastTransaction?.amount}</p>
+                            :
+                            <p className={styles.expense}>-{currency}{lastTransaction?.amount}</p>
+                    }
+                    {
+                        lastTransactionDate !== undefined &&
+                        <p>{`${lastTransactionDate.toDateString()}`}</p>
+                    }
                 </div>
             </div>
-            <Link href={`/dashboard/accounts/${id}`}>
-                <SubmitButton text="See Account" value="" />
-            </Link>
+            <SubmitButton text="See Account" value="" url={`/dashboard/accounts/${id}`} />
         </div>
     )
 }
