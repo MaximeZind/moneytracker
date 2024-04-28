@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     const token = cookieStore.get(COOKIE_NAME);
     let userId = null;
     const pathName = request.nextUrl.toString();
+
     if (token) {
         await verifyToken(token.value).then((response) => {
             userId = response.userId && response.userId;

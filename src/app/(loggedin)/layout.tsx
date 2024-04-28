@@ -1,5 +1,3 @@
-'use client';
-
 import LoggedInHeader from "../../components/baselayout/LoggedInHeader";
 import styles from './LoggedInLayout.module.css';
 
