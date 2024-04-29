@@ -10,9 +10,7 @@ export default async function Accounts() {
   const categories = categoriesData.response.data;
 
   return (
-        <section className={styles.accounts_section}>
         <AccountsSection accounts={accounts} categories={categories}/>
-      </section>
     )
   }
   

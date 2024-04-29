@@ -1,42 +1,46 @@
 "use client"
-import { useEffect, useState } from "react";
-import { Account, Transaction } from "@/types/global";
+import { Account, Category, Transaction } from "@/types/global";
 import styles from "./AccountSection.module.css";
-import { getAccount } from "@/app/services/accounts";
 import Table from "@/components/table/Table";
 import generateRecurringInstances from "@/utils/transactions";
+import Button from "../forms/formscomponents/SubmitButton";
+import CategoriesBox from "../CategoriesBox";
+import { useState } from "react";
+import TransactionsFilters from "../TransactionsFilters";
 
 interface Props {
-    id: string;
+    account: Account;
+    categories: Category[];
 }
 
-export default function AccountPreview({ id }: Props) {
+export default function AccountPreview({ account, categories }: Props) {
 
-    const [account, setAccount] = useState<Account | null>(null)
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
-    useEffect(() => {
-        async function Account() {
-            await getAccount(id).then((response => {
-                const transactions = response.response.data.transactions;
-                const allTransactions = transactions.flatMap((transaction: Transaction) => {
-                    if (transaction.recurring === true && transaction.frequencyAmount && transaction.frequencyUnit && transaction.recurringEndingDate) {
-                        return [transaction, ...generateRecurringInstances(transaction)];
-                    } else {
-                        return [transaction];
-                    }
-                }).sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
-                setAccount(response.response.data);
-                setTransactions(allTransactions);
-            }))
-        }
-        Account();
-    }, [id]);
+    const [categoriesList, setCategoriesList] = useState<Category[]>(categories);
+    const [hiddenIndexes, setHiddenIndexes] = useState<number[]>([]);
+
+    function sortTransactions(transactions: Transaction[]) {
+        const sortedTransactions = transactions.flatMap((transaction) => {
+            if (transaction.recurring === true && transaction.frequencyAmount && transaction.frequencyUnit && transaction.recurringEndingDate) {
+                return [transaction, ...generateRecurringInstances(transaction)];
+            } else {
+                return [transaction];
+            }
+        }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        return sortedTransactions;
+    }
+
+    let transactions: Transaction[] = [];
+
+    if (account.transactions) {
+        transactions = sortTransactions(account.transactions);
+    }
+
 
     // Creating datas for the table component
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
     let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; id: string; }[] = [];
 
-    transactions && transactions.map((transaction) => {
+    transactions?.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
         const dayNumber = new Date(transaction.date).getDate().toLocaleString().padStart(2, '0');
         const monthNumber = (new Date(transaction.date).getMonth() + 1).toLocaleString().padStart(2, '0');
@@ -53,14 +57,24 @@ export default function AccountPreview({ id }: Props) {
         }
         tableData.push(newObject);
     })
+
+    function refresh(list: Category[]) {
+        setCategoriesList(list);
+    }
     return (
         <section className={styles.account_section}>
-            {account &&
-                <>
-                    <h1>{account.name}</h1>
-                    <Table headers={tableHeaders} data={tableData} hiddenIndexes={[]} />
-                </>
-            }
+            <section className={styles.categories_section}>
+                <h1>Categories</h1>
+                <CategoriesBox categories={categoriesList} refresh={refresh} />
+            </section>
+            <section className={styles.account_section_transactions}>
+                <h1>{account.name}</h1>
+                <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
+            </section>
+            <section className={styles.filters_section}>
+                <h1>Filters</h1>
+                <TransactionsFilters transactions={transactions} accounts={[account]} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
+            </section>
         </section>
     )
 }
