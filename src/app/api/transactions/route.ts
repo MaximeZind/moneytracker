@@ -103,7 +103,6 @@ export async function POST(request: Request) {
                     },
                     include: {
                         transactions: true,
-                        budget: true,
                     },
                 });
     
@@ -122,30 +121,6 @@ export async function POST(request: Request) {
                             recurringEndingDate: datas.recurringEndingDate,
                             userId: userId,
                             accountId: datas.accountId
-                        },
-                    });
-    
-                    const newTotalAmount = newTransaction.type === "income" ? (user.budget?.totalAmount || 0) + datas.amount : (user.budget?.totalAmount || 0) - datas.amount;
-                    // Update the User and  user's accounts by adding the new transaction
-                    await prisma.user.update({
-                        where: {
-                            id: userId,
-                        },
-                        data: {
-                            transactions: {
-                                connect: {
-                                    id: newTransaction.id,
-                                },
-                            },
-                            budget: {
-                                update: {
-                                    totalAmount: newTotalAmount,
-                                },
-                            }
-                        },
-                        include: {
-                            transactions: true,
-                            budget: true,
                         },
                     });
     

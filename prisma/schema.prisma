@@ -17,7 +17,7 @@ model User {
   email        String        @unique
   transactions Transaction[]
   accounts     Account[]
-  budget       Budget?
+  settings     Settings?
   categories   Category[]
 }
 
@@ -31,23 +31,23 @@ model Account {
 }
 
 model Transaction {
-  id              String   @id @default(uuid())
-  date            DateTime
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  amount          Float
-  description     String
-  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId      String
-  type            String //Income or expense
-  recurring       Boolean
-  frequencyAmount Int?
-  frequencyUnit   String?
+  id                  String    @id @default(uuid())
+  date                DateTime
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  amount              Float
+  description         String
+  category            Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId          String
+  type                String //Income or Expense
+  recurring           Boolean
+  frequencyAmount     Int?
+  frequencyUnit       String?
   recurringEndingDate DateTime?
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId          String
-  account         Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  accountId       String
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String
+  account             Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId           String
 }
 
 model Category {
@@ -58,11 +58,12 @@ model Category {
   transactions Transaction[]
 }
 
-model Budget {
-  id          String   @id @default(uuid())
-  totalAmount Float
-  amountGoal  Float
-  goalDate    DateTime
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String   @unique
+model Settings {
+  id         String   @id @default(uuid())
+  darkMode   Boolean
+  currency   String
+  amountGoal Float
+  goalDate   DateTime
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String   @unique
 }
