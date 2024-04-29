@@ -5,13 +5,15 @@ require('dotenv').config();
 
 export default async function Settings() {
 
-  const data = await getUserDatas();
-
+  const userDatas = await getUserDatas();
+  const user = userDatas.response.data;
+  console.log(user);
+  
 
   return (
     <main className={styles.main}>
       <h1>Settings</h1>
-      <p> {data.response.data.username}</p>
+      <p> {user.username}</p>
       <p></p>
     </main>
   )
