@@ -3,7 +3,6 @@ import { Account, Category, Transaction } from "@/types/global";
 import styles from "./AccountSection.module.css";
 import Table from "@/components/table/Table";
 import generateRecurringInstances from "@/utils/transactions";
-import Button from "../forms/formscomponents/SubmitButton";
 import CategoriesBox from "../CategoriesBox";
 import { useState } from "react";
 import TransactionsFilters from "../TransactionsFilters";
