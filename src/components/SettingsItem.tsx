@@ -35,15 +35,20 @@ export default function SettingsSignInItem({ title, content, user }: SettingsSig
 
     return (
         <div className={styles.settings_item}>
-            <strong>{modifiedTitle}:</strong>
-            <p>{content}</p>
+            <div className={styles.settings_item_text}>
+                <strong>{modifiedTitle}:</strong>
+                <p>{content}</p>
+            </div>
             <Pencil openModal={handleClickPencil} />
             {
                 isModal &&
                 <Modal closeModal={() => setIsModal(false)}>
                     <form onSubmit={handleFormSubmit}>
                         <TextInput label={modifiedTitle} type="text" name={title} defaultValue={content} />
-                        <Button value="submit" text="Update" />
+                        <div className={styles.buttons}>
+                            <Button value="submit" text="Update" />
+                            <Button value="" text="Cancel" onClick={() => setIsModal(false)} />
+                        </div>
                     </form>
                 </Modal>
             }

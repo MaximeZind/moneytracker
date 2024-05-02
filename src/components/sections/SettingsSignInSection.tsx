@@ -11,15 +11,17 @@ interface SettingsSignInSectionProps {
     user: User;
 }
 
-export default function SettingsSignInSection({username, email, user} : SettingsSignInSectionProps) {
+export default function SettingsSignInSection({ username, email, user }: SettingsSignInSectionProps) {
 
 
-  return (
-    <section className={styles.settings_signin_section}>
-      <h1>Sign In</h1>
-      <SettingsSignInItem title="username" content={username} user={user} />
-      <SettingsSignInItem title="email" content={email} user={user} />
-      <SettingsSignInItem title="password" content={'**********'} user={user} />
-    </section>
-  )
+    return (
+        <section className={styles.settings_signin_section}>
+            <h2>Sign In</h2>
+            <div className={styles.settings_signin_items}>
+                <SettingsSignInItem title="username" content={username} user={user} />
+                <SettingsSignInItem title="email" content={email} user={user} />
+                <SettingsSignInItem title="password" content={'**********'} user={user} />
+            </div>
+        </section>
+    )
 }
