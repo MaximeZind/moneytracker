@@ -13,6 +13,7 @@
     border-radius: 3px;
     border: none;
     transition: outline .1s;
+    outline: 1px solid var(--ternary-color);
 }
 
 .textinput_field:focus {

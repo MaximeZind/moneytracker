@@ -58,3 +58,9 @@ export interface Category {
     name: string;
     transactions?: Transaction[];
 }
+
+export interface User {
+    username: string;
+    email: string;
+    password: string;
+}

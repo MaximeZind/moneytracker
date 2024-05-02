@@ -45,9 +45,10 @@ export async function POST(request: Request, response: Response) {
                     },
                 ]
             },
-            budget: {
+            settings: {
                 create: {
-                    totalAmount: 0, 
+                    darkMode: false, 
+                    currency: '$',
                     amountGoal: 0,
                     goalDate: new Date(),
                 }
