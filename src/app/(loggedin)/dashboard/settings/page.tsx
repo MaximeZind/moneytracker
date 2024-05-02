@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { COOKIE_NAME } from "@/constants";
 import Pencil from '@/components/table/Pencil';
 import SettingsSignInSection from "@/components/sections/SettingsSignInSection";
+import SettingsGoalSection from "@/components/sections/SettingsGoalSection";
 require('dotenv').config();
 
 export default async function Settings() {
@@ -10,23 +11,28 @@ export default async function Settings() {
   const userDatas = await getSettingsDatas();
   const user = userDatas.response.data;
   const settings = user.settings;
+  console.log(user);
+
 
   function handleClickPencil() {
 
   }
 
   return (
-    <main className={styles.main}>
+    <section className={styles.main}>
       <h1>Settings</h1>
-      <SettingsSignInSection username={user.username} email={user.email} user={user} />
-        <div>
+      <div className={styles.settings_sections}>
+        <SettingsSignInSection username={user.username} email={user.email} user={user} />
+        <SettingsGoalSection goal={settings.amountGoal} goalDate={settings.goalDate} user={user} />
+      </div>
+      <div>
         <strong>Currency:</strong>
         <p>{settings.currency}</p>
         <span>
           {/* <Pencil openModal={handleClickPencil} /> */}
         </span>
       </div>
-    </main>
+    </section>
   )
 }
 
