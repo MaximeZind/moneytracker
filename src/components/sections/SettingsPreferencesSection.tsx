@@ -1,5 +1,5 @@
 import { User } from "@/types/global";
-import SettingsSignInItem from "../SettingsItem";
+import SettingsItem from "../SettingsItem";
 import styles from "./SettingsGoalSection.module.css";
 require('dotenv').config();
 
@@ -15,8 +15,8 @@ export default function SettingsPreferencesSection({ darkMode, currency, user }:
         <section className={styles.settings_goal_section}>
             <h2>Preferences</h2>
             <div className={styles.settings_goal_items}>
-                <SettingsSignInItem title="dark mode" content={darkMode} user={user} />
-                <SettingsSignInItem title="currency" content={currency} user={user} />
+                <SettingsItem title="dark mode" content={darkMode} label="darkMode" user={user} />
+                <SettingsItem title="currency" content={currency} label="currency" user={user} />
             </div>
         </section>
     )

@@ -7,15 +7,17 @@ import Modal from '@/components/Modal';
 import { FormEvent, useState } from "react";
 import TextInput from "./forms/formscomponents/TextInput";
 import Button from "./forms/formscomponents/SubmitButton";
+import { updateSettings } from '@/app/services/settings'
 require('dotenv').config();
 
 interface SettingsItemProps {
     title: string;
     content: string | number | Date | Boolean;
+    label: string;
     user: User;
 }
 
-export default function SettingsItem({ title, content, user }: SettingsItemProps) {
+export default function SettingsItem({ title, content, label, user }: SettingsItemProps) {
 
     const [isModal, setIsModal] = useState(false);
     const modifiedTitle = `${title[0].toUpperCase()}${title.slice(1)}`;
@@ -29,7 +31,9 @@ export default function SettingsItem({ title, content, user }: SettingsItemProps
         const updateForm = event.target as HTMLFormElement;
         const formData = new FormData(updateForm);
         const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
+        updateSettings(formJson).then((response) => {
+            console.log(response);
+        })
     }
 
     return (
@@ -57,21 +61,21 @@ export default function SettingsItem({ title, content, user }: SettingsItemProps
                     <form onSubmit={handleFormSubmit}>
                         {
                             typeof (content) === 'string' &&
-                            <TextInput label={modifiedTitle} type='text' name={title} defaultValue={content} />
+                            <TextInput label={modifiedTitle} type='text' name={label} defaultValue={content} />
                         }
                         {
                             typeof (content) === 'number' &&
-                            <TextInput label={modifiedTitle} type='number' name={title} defaultValue={content} />
+                            <TextInput label={modifiedTitle} type='number' name={label} defaultValue={content} />
                         }
                         {
                             typeof (content) === 'object' &&
-                            <input type="date" name="goalDate" id="goalDate" className={styles.date_input} />
+                            <input type="date" name={label} id={label} className={styles.date_input} />
                         }
                         {
                             typeof (content) === 'boolean' &&
                             <>
-                                <input type="checkbox" id="darkMode" name="darkMode" defaultChecked={content} />
-                                <label htmlFor="darkMode">{title}</label>
+                                <input type="checkbox" id={label} name={label} defaultChecked={content} />
+                                <label htmlFor={label}>{title}</label>
                             </>
                         }
                         <div className={styles.buttons}>

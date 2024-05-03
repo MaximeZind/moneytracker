@@ -11,7 +11,7 @@ interface Props {
 }
 
 
-export default function NewCategoryForm({categories, refresh} : Props) {
+export default function NewCategoryForm({ categories, refresh }: Props) {
 
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
