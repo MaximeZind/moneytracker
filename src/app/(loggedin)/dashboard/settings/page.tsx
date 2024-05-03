@@ -4,6 +4,7 @@ import { COOKIE_NAME } from "@/constants";
 import Pencil from '@/components/table/Pencil';
 import SettingsSignInSection from "@/components/sections/SettingsSignInSection";
 import SettingsGoalSection from "@/components/sections/SettingsGoalSection";
+import SettingsPreferencesSection from "@/components/sections/SettingsPreferencesSection";
 require('dotenv').config();
 
 export default async function Settings() {
@@ -24,13 +25,7 @@ export default async function Settings() {
       <div className={styles.settings_sections}>
         <SettingsSignInSection username={user.username} email={user.email} user={user} />
         <SettingsGoalSection goal={settings.amountGoal} goalDate={settings.goalDate} user={user} />
-      </div>
-      <div>
-        <strong>Currency:</strong>
-        <p>{settings.currency}</p>
-        <span>
-          {/* <Pencil openModal={handleClickPencil} /> */}
-        </span>
+        <SettingsPreferencesSection darkMode={settings.darkMode} currency={settings.currency} user={user} />
       </div>
     </section>
   )

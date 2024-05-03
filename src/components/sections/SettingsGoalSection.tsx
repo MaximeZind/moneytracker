@@ -10,11 +10,7 @@ interface SettingsGoalSectionProps {
     user: User;
 }
 
-export default function SettingsGoalInSection({ goal, goalDate, user }: SettingsGoalSectionProps) {
-
-console.log(new Date(goalDate).toDateString());
-console.log(goal);
-
+export default function SettingsGoalSection({ goal, goalDate, user }: SettingsGoalSectionProps) {
 
     return (
         <section className={styles.settings_goal_section}>

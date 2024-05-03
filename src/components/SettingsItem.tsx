@@ -11,7 +11,7 @@ require('dotenv').config();
 
 interface SettingsItemProps {
     title: string;
-    content: string | number | Date;
+    content: string | number | Date | Boolean;
     user: User;
 }
 
@@ -32,18 +32,20 @@ export default function SettingsItem({ title, content, user }: SettingsItemProps
         console.log(formJson);
     }
 
-    console.log(typeof (content));
-
     return (
         <div className={styles.settings_item}>
             <div className={styles.settings_item_text}>
                 <strong>{modifiedTitle}:</strong>
                 {
-                    (typeof (content) === 'string') || typeof (content) === 'number' &&
+                    (typeof (content) === 'string') &&
+                    <p>{content}</p>
+                }
+                {
+                    (typeof (content) === 'number') &&
                     <p>{content.toLocaleString()}</p>
                 }
                 {
-                    (typeof (content) === 'object') &&
+                    (typeof (content) === 'object') && content instanceof Date &&
                     <p>{content.toDateString()}</p>
                 }
 
@@ -64,7 +66,13 @@ export default function SettingsItem({ title, content, user }: SettingsItemProps
                         {
                             typeof (content) === 'object' &&
                             <input type="date" name="goalDate" id="goalDate" className={styles.date_input} />
-
+                        }
+                        {
+                            typeof (content) === 'boolean' &&
+                            <>
+                                <input type="checkbox" id="darkMode" name="darkMode" defaultChecked={content} />
+                                <label htmlFor="darkMode">{title}</label>
+                            </>
                         }
                         <div className={styles.buttons}>
                             <Button value="submit" text="Update" />
