@@ -45,7 +45,7 @@ export default function SettingsItem({ title, content, user }: SettingsItemProps
                     <p>{content.toLocaleString()}</p>
                 }
                 {
-                    (typeof (content) === 'object') && content instanceof Date &&
+                    content instanceof Date &&
                     <p>{content.toDateString()}</p>
                 }
 
