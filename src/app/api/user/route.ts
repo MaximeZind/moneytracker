@@ -79,3 +79,68 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({response: response}, {status: response.status});
 }
+
+export async function PATCH(request: NextRequest) {
+    let response: CustomResponse = {};
+    const datas = await request.json();
+    console.log(datas);
+    const headers = request.headers;
+    const authorizationHeader = headers.get('Authorization');
+    let userToken: string | null = null;
+    
+    if (authorizationHeader) {
+        const [, tokenValue] = authorizationHeader.split('Bearer ');
+        userToken = tokenValue.trim();
+    }
+    const cookieStore = cookies();
+    const tokenObject = cookieStore.get(COOKIE_NAME);
+    let token = tokenObject?.value; 
+    if (!token && !userToken) {
+        response.status = 401;
+        response.message = 'Unauthorized - Token missing';
+        response.data = {};
+    } else if (!token && userToken){
+        token = userToken;
+    } 
+    
+    if (token) {
+        try {
+            let userId = null;
+            await verifyToken(token).then((response) => {
+                userId = response.userId;
+            })
+            if (userId) {
+                const updatedUser = await prisma.user.update({
+                    where: {
+                        id: userId
+                    },
+                    data: {
+                        username: datas.username && datas.username,
+                        email: datas.email && datas.email,
+                    }
+                })
+                const userData: User = {
+                    email:<string> updatedUser?.email,
+                    userId:<string> updatedUser?.id,
+                    username:<string> updatedUser?.username
+                }
+                response.status = 200;
+                response.data = userData;
+            } 
+        } catch (error) {
+            if (error instanceof Error) {
+                if (error.name === 'TokenExpiredError') {
+                    response.status = 401;
+                    response.message = 'Token Expired';
+                    response.data = {};
+                } else {
+                    response.status = 401;
+                    response.message = 'Unauthorized';
+                    response.data = {};
+                }
+            }
+        }
+    }
+    
+    return NextResponse.json({response: response}, {status: response.status});
+}

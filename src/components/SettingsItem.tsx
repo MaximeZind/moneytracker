@@ -2,13 +2,13 @@
 
 import styles from "./SettingsItem.module.css";
 import Pencil from '@/components/table/Pencil';
-import { User } from '@/types/global';
 import { FormEvent, useState } from "react";
 import TextInput from "./forms/formscomponents/TextInput";
 import Button from "./forms/formscomponents/SubmitButton";
 import { updateSettings } from '@/app/services/settings';
 import SelectInput from "./forms/formscomponents/SelectInput";
 import currencies from '@/data/currencies.json';
+import { updateuser } from "@/app/services/user";
 
 interface SettingsItemProps {
     title: string;
@@ -16,7 +16,7 @@ interface SettingsItemProps {
     label: string;
 }
 
-export default function SettingsItem({ title, content, label}: SettingsItemProps) {
+export default function SettingsItem({ title, content, label }: SettingsItemProps) {
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const modifiedTitle = `${title[0].toUpperCase()}${title.slice(1)}`;
@@ -38,14 +38,26 @@ export default function SettingsItem({ title, content, label}: SettingsItemProps
             const formData = new FormData(updateForm);
             formJson = Object.fromEntries(formData.entries());
         }
-        updateSettings(formJson).then((response) => {
-            const status = response.status;
-            if (status === 200) {
-                window.location.reload();
-            } else if (status !== 200) {
-                console.log(response.message);
-            }
-        })
+        if (label === 'password' || 'email' || 'username') {
+            console.log(label);
+            updateuser(formJson).then((response) => {
+                const status = response.status;
+                if (status === 200) {
+                    window.location.reload();
+                } else if (status !== 200) {
+                    console.log(response.message);
+                }
+            })
+        } else if (label !== 'password' || 'email' || 'username') {
+            updateSettings(formJson).then((response) => {
+                const status = response.status;
+                if (status === 200) {
+                    window.location.reload();
+                } else if (status !== 200) {
+                    console.log(response.message);
+                }
+            })
+        }
     }
 
     function renderLabel(string: string) {
@@ -120,7 +132,7 @@ export default function SettingsItem({ title, content, label}: SettingsItemProps
     return (
         <div className={styles.settings_item}>
             <div className={styles.settings_item_text} style={{
-                width: isFormOpen ? '100%': 'auto'
+                width: isFormOpen ? '100%' : 'auto'
             }}>
                 {
                     isFormOpen ?
@@ -133,7 +145,7 @@ export default function SettingsItem({ title, content, label}: SettingsItemProps
                                 <Button value="" text="Cancel" onClick={() => setIsFormOpen(false)} />
                             </div>
                         </form>
-                        :<div>
+                        : <div>
                             <strong>{`${modifiedTitle}:`}</strong>
                             {renderLabel(label)}
                         </div>
