@@ -119,10 +119,12 @@ export default function SettingsItem({ title, content, label}: SettingsItemProps
 
     return (
         <div className={styles.settings_item}>
-            <div className={styles.settings_item_text}>
+            <div className={styles.settings_item_text} style={{
+                width: isFormOpen ? '100%': 'auto'
+            }}>
                 {
                     isFormOpen ?
-                        <form onSubmit={handleFormSubmit}>
+                        <form className={styles.settings_item_update_form} onSubmit={handleFormSubmit}>
                             {
                                 renderForm(label)
                             }
@@ -137,7 +139,9 @@ export default function SettingsItem({ title, content, label}: SettingsItemProps
                         </div>
                 }
             </div>
-            <Pencil openModal={handleClickPencil} />
+            {
+                !isFormOpen && <Pencil openModal={handleClickPencil} />
+            }
         </div>
     )
 }
