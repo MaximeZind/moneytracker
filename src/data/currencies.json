@@ -1,0 +1,74 @@
+[
+    {
+        "name": "USD",
+        "id": "$"
+    },
+    {
+        "name": "EUR",
+        "id": "€"
+    },
+    {
+        "name": "GBP",
+        "id": "£"
+    },
+    {
+        "name": "JPY",
+        "id": "¥"
+    },
+    {
+        "name": "CHF",
+        "id": "₣"
+    },
+    {
+        "name": "RUB",
+        "id": "₽"
+    },
+    {
+        "name": "INR",
+        "id": "₹"
+    },
+    {
+        "name": "KRW",
+        "id": "₩"
+    },
+    {
+        "name": "ILS",
+        "id": "₪"
+    },
+    {
+        "name": "VND",
+        "id": "₫"
+    },
+    {
+        "name": "UAH",
+        "id": "₴"
+    },
+    {
+        "name": "PHP",
+        "id": "₱"
+    },
+    {
+        "name": "PYG",
+        "id": "₲"
+    },
+    {
+        "name": "GHS",
+        "id": "₵"
+    },
+    {
+        "name": "AED",
+        "id": "د.إ"
+    },
+    {
+        "name": "DZD",
+        "id": "د.ج"
+    },
+    {
+        "name": "KWD",
+        "id": "د.ك"
+    },
+    {
+        "name": "MAD",
+        "id": "د.م."
+    }
+]

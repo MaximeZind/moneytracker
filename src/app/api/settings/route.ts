@@ -93,6 +93,8 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
     let response: CustomResponse = {};
     const datas = await request.json();
+    console.log(datas);
+    
     const headers = request.headers;
     const authorizationHeader = headers.get('Authorization');
     let userToken: string | null = null;
@@ -135,14 +137,16 @@ export async function PATCH(request: NextRequest) {
                     data: {
                         darkMode: datas.darkMode && datas.darkMode,
                         currency: datas.currency && datas.currency,
-                        amountGoal: Number(datas.amountGoal) && Number(datas.amountGoal),
-                        goalDate: new datas.goalDate && datas.goalDate,
+                        amountGoal: datas.amountGoal && Number(datas.amountGoal),
+                        goalDate: datas.goalDate && new Date(datas.goalDate),
                     }
                 })
                 response.status = 200;
                 response.data = updatedSettings;
             }
         } catch (error) {
+            console.log(error);
+            
             if (error instanceof Error) {
                 if (error.name === 'TokenExpiredError') {
                     response.status = 401;
