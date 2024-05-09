@@ -3,29 +3,26 @@
 import styles from "./SettingsItem.module.css";
 import Pencil from '@/components/table/Pencil';
 import { User } from '@/types/global';
-import Modal from '@/components/Modal';
 import { FormEvent, useState } from "react";
 import TextInput from "./forms/formscomponents/TextInput";
 import Button from "./forms/formscomponents/SubmitButton";
 import { updateSettings } from '@/app/services/settings';
 import SelectInput from "./forms/formscomponents/SelectInput";
 import currencies from '@/data/currencies.json';
-require('dotenv').config();
 
 interface SettingsItemProps {
     title: string;
     content: string | number | Date | Boolean;
     label: string;
-    user: User;
 }
 
-export default function SettingsItem({ title, content, label, user }: SettingsItemProps) {
+export default function SettingsItem({ title, content, label}: SettingsItemProps) {
 
-    const [isModal, setIsModal] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false);
     const modifiedTitle = `${title[0].toUpperCase()}${title.slice(1)}`;
 
     function handleClickPencil() {
-        setIsModal(true)
+        setIsFormOpen(true)
     }
 
     function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
@@ -42,7 +39,12 @@ export default function SettingsItem({ title, content, label, user }: SettingsIt
             formJson = Object.fromEntries(formData.entries());
         }
         updateSettings(formJson).then((response) => {
-            console.log(response);
+            const status = response.status;
+            if (status === 200) {
+                window.location.reload();
+            } else if (status !== 200) {
+                console.log(response.message);
+            }
         })
     }
 
@@ -81,7 +83,7 @@ export default function SettingsItem({ title, content, label, user }: SettingsIt
     function renderForm(string: string) {
         // Renders the form depending on the label
         switch (string) {
-            case 'userName':
+            case 'username':
                 if (typeof (content) === 'string') {
                     return <TextInput label={modifiedTitle} type='text' name={label} defaultValue={content} />
                 }
@@ -118,26 +120,24 @@ export default function SettingsItem({ title, content, label, user }: SettingsIt
     return (
         <div className={styles.settings_item}>
             <div className={styles.settings_item_text}>
-                <strong>{modifiedTitle}:</strong>
                 {
-                    renderLabel(label)
+                    isFormOpen ?
+                        <form onSubmit={handleFormSubmit}>
+                            {
+                                renderForm(label)
+                            }
+                            <div className={styles.buttons}>
+                                <Button value="submit" text="Update" />
+                                <Button value="" text="Cancel" onClick={() => setIsFormOpen(false)} />
+                            </div>
+                        </form>
+                        :<div>
+                            <strong>{`${modifiedTitle}:`}</strong>
+                            {renderLabel(label)}
+                        </div>
                 }
             </div>
             <Pencil openModal={handleClickPencil} />
-            {
-                isModal &&
-                <Modal closeModal={() => setIsModal(false)}>
-                    <form onSubmit={handleFormSubmit}>
-                        {
-                            renderForm(label)
-                        }
-                        <div className={styles.buttons}>
-                            <Button value="submit" text="Update" />
-                            <Button value="" text="Cancel" onClick={() => setIsModal(false)} />
-                        </div>
-                    </form>
-                </Modal>
-            }
         </div>
     )
 }

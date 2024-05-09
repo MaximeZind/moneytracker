@@ -1,7 +1,6 @@
 import styles from "./Settings.module.css";
 import { cookies } from "next/headers";
 import { COOKIE_NAME } from "@/constants";
-import Pencil from '@/components/table/Pencil';
 import SettingsSignInSection from "@/components/sections/SettingsSignInSection";
 import SettingsGoalSection from "@/components/sections/SettingsGoalSection";
 import SettingsPreferencesSection from "@/components/sections/SettingsPreferencesSection";
@@ -12,20 +11,14 @@ export default async function Settings() {
   const userDatas = await getSettingsDatas();
   const user = userDatas.response.data;
   const settings = user.settings;
-  console.log(user);
-
-
-  function handleClickPencil() {
-
-  }
 
   return (
     <section className={styles.main}>
       <h1>Settings</h1>
       <div className={styles.settings_sections}>
-        <SettingsSignInSection username={user.username} email={user.email} user={user} />
-        <SettingsGoalSection goal={settings.amountGoal} goalDate={settings.goalDate} user={user} />
-        <SettingsPreferencesSection darkMode={settings.darkMode} currency={settings.currency} user={user} />
+        <SettingsSignInSection username={user.username} email={user.email} />
+        <SettingsGoalSection goal={settings.amountGoal} goalDate={settings.goalDate}/>
+        <SettingsPreferencesSection darkMode={settings.darkMode} currency={settings.currency}/>
       </div>
     </section>
   )
