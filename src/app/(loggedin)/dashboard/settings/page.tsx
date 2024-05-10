@@ -17,7 +17,7 @@ export default async function Settings() {
       <h1>Settings</h1>
       <div className={styles.settings_sections}>
         <SettingsSignInSection username={user.username} email={user.email} />
-        <SettingsGoalSection goal={settings.amountGoal} goalDate={settings.goalDate}/>
+        <SettingsGoalSection goal={settings.amountGoal} goalDate={settings.goalDate} currency={settings.currency} />
         <SettingsPreferencesSection darkMode={settings.darkMode} currency={settings.currency}/>
       </div>
     </section>

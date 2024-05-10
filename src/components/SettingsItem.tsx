@@ -15,9 +15,10 @@ interface SettingsItemProps {
     title: string;
     content: string | number | Date | Boolean;
     label: string;
+    currency?: string;
 }
 
-export default function SettingsItem({ title, content, label }: SettingsItemProps) {
+export default function SettingsItem({ title, content, label, currency }: SettingsItemProps) {
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(content);
@@ -84,7 +85,7 @@ export default function SettingsItem({ title, content, label }: SettingsItemProp
                 return <p>********</p>
             case 'amountGoal':
                 if (typeof (updatedContent) === 'number') {
-                    return <p>{updatedContent.toLocaleString()}</p>
+                    return <p>{currency}{updatedContent.toLocaleString()}</p>
                 }
             case 'goalDate':
                 if (updatedContent instanceof Date) {
