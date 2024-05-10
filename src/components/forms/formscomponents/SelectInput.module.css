@@ -16,12 +16,17 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: var(--primary-color);
     padding: 1px 10px;
     border-radius: 3px;
     gap: 10px;
     transition: outline .1s;
     width: 100%;
+    outline: 1px solid var(--secondary-color);
+}
+
+.select_box:hover {
+    outline: 2px solid var(--ternary-color);
 }
 
 .open {
@@ -57,12 +62,15 @@
     animation-duration: .35s;
     animation-fill-mode: backwards;
     animation-timing-function: ease;
+    height: calc(8 * var(--select-option-height));
+    overflow-y: scroll;
 }
 
 .selection_box_option {
     width: 100%;
     padding-left: 5px;
     padding-right: 5px;
+    height: var(--select-option-height);
 }
 
 .selection_box_option:hover {

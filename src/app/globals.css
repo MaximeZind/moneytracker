@@ -77,7 +77,9 @@ body {
   --septenary-color: var(--light-septenary);
   --red: rgb(255, 86, 86);
   --green: rgb(117, 177, 117);
-  /* background: linear-gradient(128deg, var(--secondary-color) 0%, var(--primary-color) 33%, var(--quarternary-color) 83%); */
+
+  /* Select input component */
+  --select-option-height: 24px;
   background-color: rgba(0, 0, 0, 0.04);
 }
 
