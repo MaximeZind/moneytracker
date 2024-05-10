@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const prisma = new PrismaClient();
 interface CustomResponse {
-    data?: User;
+    data?: User | Settings | null;
     status?: number;
     message?: string;
 }
@@ -93,8 +93,6 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
     let response: CustomResponse = {};
     const datas = await request.json();
-    console.log(datas);
-    
     const headers = request.headers;
     const authorizationHeader = headers.get('Authorization');
     let userToken: string | null = null;
@@ -130,7 +128,18 @@ export async function PATCH(request: NextRequest) {
                     },
                 });
                 const settingsId = user?.settings?.id;
-                const updatedSettings = await prisma.settings.update({
+                // const updatedSettings = await prisma.settings.update({
+                //     where: {
+                //         id: settingsId
+                //     },
+                //     data: {
+                //         darkMode: datas.darkMode && datas.darkMode,
+                //         currency: datas.currency && datas.currency,
+                //         amountGoal: datas.amountGoal && Number(datas.amountGoal),
+                //         goalDate: datas.goalDate && new Date(datas.goalDate),
+                //     }
+                // })
+                await prisma.settings.update({
                     where: {
                         id: settingsId
                     },
@@ -141,7 +150,19 @@ export async function PATCH(request: NextRequest) {
                         goalDate: datas.goalDate && new Date(datas.goalDate),
                     }
                 })
+
+                const updatedSettings = await prisma.settings.findUnique({
+                    where: {
+                        id: settingsId
+                    },
+                })
+
+                
                 response.status = 200;
+                console.log('settings');
+                
+                console.log(updatedSettings);
+                
                 response.data = updatedSettings;
             }
         } catch (error) {

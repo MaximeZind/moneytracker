@@ -9,7 +9,6 @@ import { updateSettings } from '@/app/services/settings';
 import SelectInput from "./forms/formscomponents/SelectInput";
 import currencies from '@/data/currencies.json';
 import { updateuser } from "@/app/services/user";
-import { useRouter } from 'next/navigation'
 
 interface SettingsItemProps {
     title: string;
@@ -22,8 +21,6 @@ export default function SettingsItem({ title, content, label, currency }: Settin
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(content);
-    const router = useRouter()
-
 
     const modifiedTitle = `${title[0].toUpperCase()}${title.slice(1)}`;
 
@@ -44,24 +41,25 @@ export default function SettingsItem({ title, content, label, currency }: Settin
             const formData = new FormData(updateForm);
             formJson = Object.fromEntries(formData.entries());
         }
-        if (label === 'password' || 'email' || 'username') {
-            console.log(label);
+        if ((label === 'password') || (label === 'email') || (label === 'username')) {
             updateuser(formJson).then((response) => {
                 const status = response.status;
                 if (status === 200) {
-                    router.refresh();
                     setUpdatedContent(response.data[label]);
                     setIsFormOpen(false);
                 } else if (status !== 200) {
                     console.log(response.message);
                 }
             })
-        } else if (label !== 'password' || 'email' || 'username') {
+        } else if ((label !== 'password') && (label !== 'email') && (label !== 'username')) {
             updateSettings(formJson).then((response) => {
                 const status = response.status;
                 if (status === 200) {
-                    router.refresh();
-                    setUpdatedContent(response.data[label]);
+                    if (label === 'goalDate') {
+                        setUpdatedContent(new Date(response.data[label]));
+                    } else {
+                        setUpdatedContent(response.data[label]);
+                    }
                     setIsFormOpen(false);
                 } else if (status !== 200) {
                     console.log(response.message);
@@ -89,7 +87,8 @@ export default function SettingsItem({ title, content, label, currency }: Settin
                 }
             case 'goalDate':
                 if (updatedContent instanceof Date) {
-                    return <p>{updatedContent.toDateString()}</p>
+                    const formattedDate = updatedContent.toDateString();
+                    return <p>{formattedDate}</p>
                 }
             case 'darkMode':
                 if (typeof (updatedContent) === 'boolean') {
@@ -99,6 +98,8 @@ export default function SettingsItem({ title, content, label, currency }: Settin
                 if (typeof (updatedContent) === 'string') {
                     return <p>{updatedContent}</p>
                 }
+            default:
+                return <p>default</p>
         }
     }
 
