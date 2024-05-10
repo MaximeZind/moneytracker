@@ -9,6 +9,7 @@ import { updateSettings } from '@/app/services/settings';
 import SelectInput from "./forms/formscomponents/SelectInput";
 import currencies from '@/data/currencies.json';
 import { updateuser } from "@/app/services/user";
+import { useRouter } from 'next/navigation'
 
 interface SettingsItemProps {
     title: string;
@@ -19,6 +20,10 @@ interface SettingsItemProps {
 export default function SettingsItem({ title, content, label }: SettingsItemProps) {
 
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [updatedContent, setUpdatedContent] = useState(content);
+    const router = useRouter()
+
+
     const modifiedTitle = `${title[0].toUpperCase()}${title.slice(1)}`;
 
     function handleClickPencil() {
@@ -43,7 +48,9 @@ export default function SettingsItem({ title, content, label }: SettingsItemProp
             updateuser(formJson).then((response) => {
                 const status = response.status;
                 if (status === 200) {
-                    window.location.reload();
+                    router.refresh();
+                    setUpdatedContent(response.data[label]);
+                    setIsFormOpen(false);
                 } else if (status !== 200) {
                     console.log(response.message);
                 }
@@ -52,7 +59,9 @@ export default function SettingsItem({ title, content, label }: SettingsItemProp
             updateSettings(formJson).then((response) => {
                 const status = response.status;
                 if (status === 200) {
-                    window.location.reload();
+                    router.refresh();
+                    setUpdatedContent(response.data[label]);
+                    setIsFormOpen(false);
                 } else if (status !== 200) {
                     console.log(response.message);
                 }
@@ -64,30 +73,30 @@ export default function SettingsItem({ title, content, label }: SettingsItemProp
         // Renders the value of each field depending on the label
         switch (string) {
             case 'username':
-                if (typeof (content) === 'string') {
-                    return <p>{content}</p>
+                if (typeof (updatedContent) === 'string') {
+                    return <p>{updatedContent}</p>
                 }
             case 'email':
-                if (typeof (content) === 'string') {
-                    return <p>{content}</p>
+                if (typeof (updatedContent) === 'string') {
+                    return <p>{updatedContent}</p>
                 }
             case 'password':
                 return <p>********</p>
             case 'amountGoal':
-                if (typeof (content) === 'number') {
-                    return <p>{content.toLocaleString()}</p>
+                if (typeof (updatedContent) === 'number') {
+                    return <p>{updatedContent.toLocaleString()}</p>
                 }
             case 'goalDate':
-                if (content instanceof Date) {
-                    return <p>{content.toDateString()}</p>
+                if (updatedContent instanceof Date) {
+                    return <p>{updatedContent.toDateString()}</p>
                 }
             case 'darkMode':
-                if (typeof (content) === 'boolean') {
-                    return <p>{content === true ? 'ON' : 'OFF'}</p>
+                if (typeof (updatedContent) === 'boolean') {
+                    return <p>{updatedContent === true ? 'ON' : 'OFF'}</p>
                 }
             case 'currency':
-                if (typeof (content) === 'string') {
-                    return <p>{content}</p>
+                if (typeof (updatedContent) === 'string') {
+                    return <p>{updatedContent}</p>
                 }
         }
     }
@@ -96,34 +105,34 @@ export default function SettingsItem({ title, content, label }: SettingsItemProp
         // Renders the form depending on the label
         switch (string) {
             case 'username':
-                if (typeof (content) === 'string') {
-                    return <TextInput label={modifiedTitle} type='text' name={label} defaultValue={content} />
+                if (typeof (updatedContent) === 'string') {
+                    return <TextInput label={modifiedTitle} type='text' name={label} defaultValue={updatedContent} />
                 }
             case 'email':
-                if (typeof (content) === 'string') {
-                    return <TextInput label={modifiedTitle} type='text' name={label} defaultValue={content} />
+                if (typeof (updatedContent) === 'string') {
+                    return <TextInput label={modifiedTitle} type='text' name={label} defaultValue={updatedContent} />
                 }
             case 'password':
-                if (typeof (content) === 'string') {
-                    return <TextInput label={modifiedTitle} type='password' name={label} defaultValue={content} />
+                if (typeof (updatedContent) === 'string') {
+                    return <TextInput label={modifiedTitle} type='password' name={label} defaultValue={updatedContent} />
                 }
             case 'amountGoal':
-                if (typeof (content) === 'number') {
-                    return <TextInput label={modifiedTitle} type='number' name={label} defaultValue={content} />
+                if (typeof (updatedContent) === 'number') {
+                    return <TextInput label={modifiedTitle} type='number' name={label} defaultValue={updatedContent} />
                 }
             case 'goalDate':
-                if (content instanceof Date) {
-                    return <input type="date" name={label} id={label} className={styles.date_input} defaultValue={content.toLocaleDateString('en-CA')} />
+                if (updatedContent instanceof Date) {
+                    return <input type="date" name={label} id={label} className={styles.date_input} defaultValue={updatedContent.toLocaleDateString('en-CA')} />
                 }
             case 'darkMode':
-                if (typeof (content) === 'boolean') {
+                if (typeof (updatedContent) === 'boolean') {
                     return <>
-                        <input type="checkbox" id={label} name={label} defaultChecked={content} />
+                        <input type="checkbox" id={label} name={label} defaultChecked={updatedContent} />
                         <label htmlFor={label}>{title}</label>
                     </>
                 }
             case 'currency':
-                if (typeof (content) === 'string') {
+                if (typeof (updatedContent) === 'string') {
                     return <SelectInput name={title} label={label} options={currencies} />
                 }
         }
