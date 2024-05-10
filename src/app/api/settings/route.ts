@@ -128,18 +128,7 @@ export async function PATCH(request: NextRequest) {
                     },
                 });
                 const settingsId = user?.settings?.id;
-                // const updatedSettings = await prisma.settings.update({
-                //     where: {
-                //         id: settingsId
-                //     },
-                //     data: {
-                //         darkMode: datas.darkMode && datas.darkMode,
-                //         currency: datas.currency && datas.currency,
-                //         amountGoal: datas.amountGoal && Number(datas.amountGoal),
-                //         goalDate: datas.goalDate && new Date(datas.goalDate),
-                //     }
-                // })
-                await prisma.settings.update({
+                const updatedSettings = await prisma.settings.update({
                     where: {
                         id: settingsId
                     },
@@ -151,18 +140,23 @@ export async function PATCH(request: NextRequest) {
                     }
                 })
 
-                const updatedSettings = await prisma.settings.findUnique({
+                await prisma.user.update({
                     where: {
-                        id: settingsId
+                        id: userId,
                     },
-                })
-
+                    data: {
+                        settings: {
+                            connect: {
+                                id: settingsId,
+                            },
+                        },
+                    },
+                    include: {
+                        settings: true,
+                    },
+                });
                 
                 response.status = 200;
-                console.log('settings');
-                
-                console.log(updatedSettings);
-                
                 response.data = updatedSettings;
             }
         } catch (error) {

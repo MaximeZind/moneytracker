@@ -9,6 +9,7 @@ import { updateSettings } from '@/app/services/settings';
 import SelectInput from "./forms/formscomponents/SelectInput";
 import currencies from '@/data/currencies.json';
 import { updateuser } from "@/app/services/user";
+import { useRouter } from 'next/navigation';
 
 interface SettingsItemProps {
     title: string;
@@ -21,6 +22,7 @@ export default function SettingsItem({ title, content, label, currency }: Settin
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [updatedContent, setUpdatedContent] = useState(content);
+    const router = useRouter();
 
     const modifiedTitle = `${title[0].toUpperCase()}${title.slice(1)}`;
 
@@ -47,6 +49,7 @@ export default function SettingsItem({ title, content, label, currency }: Settin
                 if (status === 200) {
                     setUpdatedContent(response.data[label]);
                     setIsFormOpen(false);
+                    router.refresh();
                 } else if (status !== 200) {
                     console.log(response.message);
                 }
@@ -61,6 +64,7 @@ export default function SettingsItem({ title, content, label, currency }: Settin
                         setUpdatedContent(response.data[label]);
                     }
                     setIsFormOpen(false);
+                    router.refresh();
                 } else if (status !== 200) {
                     console.log(response.message);
                 }
