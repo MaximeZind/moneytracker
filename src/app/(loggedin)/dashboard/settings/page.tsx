@@ -4,9 +4,13 @@ import { COOKIE_NAME } from "@/constants";
 import SettingsSignInSection from "@/components/sections/SettingsSignInSection";
 import SettingsGoalSection from "@/components/sections/SettingsGoalSection";
 import SettingsPreferencesSection from "@/components/sections/SettingsPreferencesSection";
+import { revalidatePath } from 'next/cache';
+
 require('dotenv').config();
 
 export default async function Settings() {
+
+revalidatePath('/', 'layout')
 
   const userDatas = await getSettingsDatas();
   const user = userDatas.response.data;
