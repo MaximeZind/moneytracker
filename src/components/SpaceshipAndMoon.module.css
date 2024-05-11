@@ -1,0 +1,35 @@
+.spaceship_and_moon {
+    border: 1px solid black;
+    position: relative;
+}
+
+.moon {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    animation: rotateMoon 240s linear infinite;
+}
+
+.spaceship {
+    position: absolute;
+    bottom: 0;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    transition: transform 5s ease-in-out;
+}
+
+.spaceship_and_moon:hover > .spaceship {
+    transform: translateY(calc(100px - 100vh + 100%)) scale(0.55);
+}
+
+@keyframes rotateMoon {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
