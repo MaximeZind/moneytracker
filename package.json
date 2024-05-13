@@ -10,7 +10,6 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@emotion/css": "^11.11.2",
     "@prisma/client": "^5.11.0",
     "@vercel/postgres": "^0.8.0",
     "bcrypt": "^5.1.1",
