@@ -1,6 +1,10 @@
 .spaceship_and_moon {
-    border: 1px solid black;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
 }
 
 .moon {
@@ -18,11 +22,73 @@
     object-fit: contain;
     width: 100%;
     height: auto;
-    transition: transform 5s ease-in-out;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    animation-delay: 2s;
 }
 
-.spaceship_and_moon:hover > .spaceship {
-    transform: translateY(calc(100px - 100vh + 100%)) scale(0.55);
+.spaceship > img {
+    width: 100%;
+    height: auto;
+}
+
+.spaceship_10 {
+    animation-name: spaceship10;
+}
+
+.spaceship_20 {
+    animation-name: spaceship20;
+}
+
+.spaceship_30 {
+    animation-name: spaceship30;
+}
+
+.spaceship_40 {
+    animation-name: spaceship40;
+}
+
+.spaceship_50 {
+    animation-name: spaceship50;
+}
+
+.spaceship_60 {
+    animation-name: spaceship60;
+}
+
+.spaceship_70 {
+    animation-name: spaceship70;
+}
+
+.spaceship_80 {
+    animation-name: spaceship80;
+}
+
+.spaceship_90 {
+    animation-name: spaceship90;
+}
+
+.spaceship_100 {
+    animation-name: spaceship100;
+}
+
+.message_box {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--ternary-color);
+    padding: 20px;
+    animation-name: messageOpen;
+    animation-duration: .3s;
+}
+
+@keyframes messageOpen {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes rotateMoon {
@@ -31,5 +97,96 @@
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* animations of the spaceship depending on % */
+@keyframes spaceship10 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.1)) scale(calc(1 - (0.45 * 0.1)));
+    }
+}
+
+@keyframes spaceship20 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.2)) scale(calc(1 - (0.45 * 0.2)));
+    }
+}
+
+@keyframes spaceship30 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.3)) scale(calc(1 - (0.45 * 0.3)));
+    }
+}
+
+@keyframes spaceship40 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.4)) scale(calc(1 - (0.45 * 0.4)));
+    }
+}
+
+@keyframes spaceship50 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.5)) scale(calc(1 - (0.45 * 0.5)));
+    }
+}
+
+@keyframes spaceship60 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.6)) scale(calc(1 - (0.45 * 0.6)));
+    }
+}
+
+@keyframes spaceship70 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.7)) scale(calc(1 - (0.45 * 0.7)));
+    }
+}
+
+@keyframes spaceship80 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.8)) scale(calc(1 - (0.45 * 0.8)));
+    }
+}
+
+@keyframes spaceship90 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc((100px - 100vh + 100%) * 0.9)) scale(calc(1 - (0.45 * 0.9)));
+    }
+}
+
+@keyframes spaceship100 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(calc(100px - 100vh + 100%)) scale(calc(1 - 0.45));
     }
 }
