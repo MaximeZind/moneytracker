@@ -6,6 +6,8 @@ import { Transaction } from "@/types/global";
 import generateRecurringInstances from "@/utils/transactions";
 import { revalidatePath } from "next/cache";
 
+import SankeyChart from "@/components/charts/SankeyChart";
+
 
 export default async function Dashboard() {
 
@@ -17,13 +19,13 @@ export default async function Dashboard() {
   const categoriesData = await getCategories();
   const categories = categoriesData.response.data;
   const settingsData = await getSettingsDatas();
-  const user = settingsData.response.data; 
+  const user = settingsData.response.data;
 
   // Sorting transactions
   const transactionsList = sortTransactions(transactions);
   const todayBalance = calculateTodaysBalance(transactionsList);
 
-  const amountGoal = user.settings.amountGoal;  
+  const amountGoal = user.settings.amountGoal;
 
   function sortTransactions(transactions: Transaction[]) {
     const sortedTransactions = transactions.flatMap((transaction) => {
@@ -58,7 +60,7 @@ export default async function Dashboard() {
     <>
       <div className={styles.dashboard_layout}>
         <section className={styles.dashboard_graphs}>
-
+          <SankeyChart transactions={transactionsList}/>
         </section>
         <SpaceshipAndMoon balance={todayBalance} goal={amountGoal} />
       </div>
