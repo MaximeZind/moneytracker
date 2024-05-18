@@ -9,4 +9,5 @@
 
 .dashboard_graphs {
     height: 100%;
+    display: flex;
 }

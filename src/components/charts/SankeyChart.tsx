@@ -2,7 +2,7 @@
 
 import { ResponsiveContainer, Sankey, Tooltip } from "recharts";
 import styles from "./SankeyChart.module.css";
-import { Category, Transaction } from "@/types/global";
+import { Transaction } from "@/types/global";
 
 interface Props {
   transactions: Transaction[];
@@ -103,56 +103,53 @@ export default function SankeyChart({ transactions }: Props) {
   const data = setData(transactions);
 
   return (
-
-    <div className={styles.account_preview}>
-      <ResponsiveContainer width={"100%"} height={500}>
-        <Sankey
-          data={data}
-          node={(nodeProps) => (
-            <g>
-              <rect
-                x={nodeProps.x}
-                y={nodeProps.y}
-                width={nodeProps.width}
-                height={nodeProps.height}
-                fill="#5192ca"
-                fillOpacity={1}
-                className="recharts-rectangle"
-                d={`M ${nodeProps.x},${nodeProps.y} h ${nodeProps.width} v ${nodeProps.height} h -${nodeProps.width} Z`}
-              />
-              <text
-                textAnchor="start"
-                x={nodeProps.x + 16}
-                y={nodeProps.y + 17}
-                fontSize={14}
-                stroke="#333"
-              >
-                {nodeProps.payload.name}
-              </text>
-              <text
-                textAnchor="start"
-                x={nodeProps.x + 16}
-                y={nodeProps.y + 30}
-                fontSize={12}
-                stroke="#333"
-                strokeOpacity={0.5}
-              >
-                {nodeProps.payload.value}
-              </text>
-            </g>
-          )}
-          nodePadding={50}
-          margin={{
-            left: 200,
-            right: 200,
-            top: 100,
-            bottom: 100,
-          }}
-          link={{ stroke: '#77c878' }}
-        >
-          <Tooltip />
-        </Sankey>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer width={"60%"} height={500}>
+      <Sankey
+        data={data}
+        node={(nodeProps) => (
+          <g>
+            <rect
+              x={nodeProps.x}
+              y={nodeProps.y}
+              width={nodeProps.width}
+              height={nodeProps.height}
+              fill="#5192ca"
+              fillOpacity={1}
+              className="recharts-rectangle"
+              d={`M ${nodeProps.x},${nodeProps.y} h ${nodeProps.width} v ${nodeProps.height} h -${nodeProps.width} Z`}
+            />
+            <text
+              textAnchor="start"
+              x={nodeProps.x + 16}
+              y={nodeProps.y + 17}
+              fontSize={14}
+              stroke="#333"
+            >
+              {nodeProps.payload.name}
+            </text>
+            <text
+              textAnchor="start"
+              x={nodeProps.x + 16}
+              y={nodeProps.y + 30}
+              fontSize={12}
+              stroke="#333"
+              strokeOpacity={0.5}
+            >
+              {nodeProps.payload.value}
+            </text>
+          </g>
+        )}
+        nodePadding={50}
+        margin={{
+          left: 200,
+          right: 200,
+          top: 100,
+          bottom: 100,
+        }}
+        link={{ stroke: '#77c878' }}
+      >
+        <Tooltip />
+      </Sankey>
+    </ResponsiveContainer>
   )
 }

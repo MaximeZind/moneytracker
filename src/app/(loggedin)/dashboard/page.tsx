@@ -5,7 +5,7 @@ import { COOKIE_NAME } from "@/constants";
 import { Transaction } from "@/types/global";
 import generateRecurringInstances from "@/utils/transactions";
 import { revalidatePath } from "next/cache";
-
+import PieChartExpenses from "@/components/charts/PieChartExpenses";
 import SankeyChart from "@/components/charts/SankeyChart";
 
 
@@ -61,6 +61,7 @@ export default async function Dashboard() {
       <div className={styles.dashboard_layout}>
         <section className={styles.dashboard_graphs}>
           <SankeyChart transactions={transactionsList}/>
+          <PieChartExpenses transactions={transactionsList} />
         </section>
         <SpaceshipAndMoon balance={todayBalance} goal={amountGoal} />
       </div>
