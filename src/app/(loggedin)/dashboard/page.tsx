@@ -7,6 +7,7 @@ import generateRecurringInstances from "@/utils/transactions";
 import { revalidatePath } from "next/cache";
 import PieChartExpenses from "@/components/charts/PieChartExpenses";
 import SankeyChart from "@/components/charts/SankeyChart";
+import AreaChartProgression from "@/components/charts/AreaChartProgression";
 
 
 export default async function Dashboard() {
@@ -24,8 +25,10 @@ export default async function Dashboard() {
   // Sorting transactions
   const transactionsList = sortTransactions(transactions);
   const todayBalance = calculateTodaysBalance(transactionsList);
+  const firstTransaction = transactionsList[0];
 
   const amountGoal = user.settings.amountGoal;
+  const goalDate = new Date(user.settings.goalDate);
 
   function sortTransactions(transactions: Transaction[]) {
     const sortedTransactions = transactions.flatMap((transaction) => {
@@ -60,8 +63,9 @@ export default async function Dashboard() {
     <>
       <div className={styles.dashboard_layout}>
         <section className={styles.dashboard_graphs}>
-          <SankeyChart transactions={transactionsList}/>
           <PieChartExpenses transactions={transactionsList} />
+          <SankeyChart transactions={transactionsList} />
+          <AreaChartProgression transactions={transactionsList} amountGoal={amountGoal} firstTransaction={firstTransaction} goalDate={goalDate}/>
         </section>
         <SpaceshipAndMoon balance={todayBalance} goal={amountGoal} />
       </div>
