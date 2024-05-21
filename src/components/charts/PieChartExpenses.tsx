@@ -53,18 +53,20 @@ export default function PieChartExpenses({ transactions }: Props) {
         return name;
     };
 
-    function tooltipFormatter(value:number, name: string) {
+    function tooltipFormatter(value: number, name: string) {
         return [`$${value}`, name];
     };
 
     const data = setData(transactions);
 
     return (
-        <ResponsiveContainer width={'40%'} height={400}>
-            <PieChart >
-                <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label={renderCustomLabel} />
-                <Tooltip formatter={tooltipFormatter} />
-            </PieChart>
-        </ResponsiveContainer>
+        <div className={styles.container}>
+            <ResponsiveContainer height={400}>
+                <PieChart >
+                    <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label={renderCustomLabel} />
+                    <Tooltip formatter={tooltipFormatter} />
+                </PieChart>
+            </ResponsiveContainer>
+        </div>
     )
 }
