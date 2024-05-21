@@ -103,7 +103,7 @@ export default function SankeyChart({ transactions }: Props) {
   const data = setData(transactions);
 
   return (
-    <ResponsiveContainer width={"60%"} height={500}>
+    <ResponsiveContainer className={styles.container} height={500}>
       <Sankey
         data={data}
         node={(nodeProps) => (
@@ -141,10 +141,10 @@ export default function SankeyChart({ transactions }: Props) {
         )}
         nodePadding={50}
         margin={{
-          left: 200,
-          right: 200,
-          top: 100,
-          bottom: 100,
+          left: 50,
+          right: 80,
+          top: 75,
+          bottom: 75,
         }}
         link={{ stroke: '#77c878' }}
       >

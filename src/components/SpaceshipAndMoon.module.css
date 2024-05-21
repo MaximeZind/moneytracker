@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: center;
     padding: 15px;
+    border-left: 1px solid var(--ternary-color);
+    background: linear-gradient(1.65turn, var(--quarternary-color) 1%, var(--primary-color));
 }
 
 .moon {
