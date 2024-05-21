@@ -61,7 +61,8 @@ export default function PieChartExpenses({ transactions }: Props) {
 
     return (
         <div className={styles.container}>
-            <ResponsiveContainer height={400}>
+            <h2 className={styles.title}>Expenses</h2>
+            <ResponsiveContainer height={300}>
                 <PieChart >
                     <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label={renderCustomLabel} />
                     <Tooltip formatter={tooltipFormatter} />

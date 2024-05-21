@@ -1,5 +1,12 @@
 .container {
-    width: 40%;
+    width: 35%;
+    background-color: var(--primary-color);
+    border: 1px solid var(--ternary-color);
+    align-self: stretch;
+}
+
+.title {
+    text-align: center;
 }
 
 @media (max-width: 1024px) {

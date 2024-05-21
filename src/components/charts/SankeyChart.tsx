@@ -104,7 +104,8 @@ export default function SankeyChart({ transactions }: Props) {
 
   return (
     <div className={styles.container}>
-      <ResponsiveContainer className={styles.container} height={500}>
+      <h2 className={styles.title}>Income vs Expenses</h2>
+      <ResponsiveContainer className={styles.responsive_container} height={400}>
         <Sankey
           data={data}
           node={(nodeProps) => (
@@ -120,19 +121,19 @@ export default function SankeyChart({ transactions }: Props) {
                 d={`M ${nodeProps.x},${nodeProps.y} h ${nodeProps.width} v ${nodeProps.height} h -${nodeProps.width} Z`}
               />
               <text
+                className={styles.text_header}
                 textAnchor="start"
                 x={nodeProps.x + 16}
                 y={nodeProps.y + 17}
-                fontSize={14}
                 stroke="#333"
               >
                 {nodeProps.payload.name}
               </text>
               <text
+                className={styles.text_content}
                 textAnchor="start"
                 x={nodeProps.x + 16}
                 y={nodeProps.y + 30}
-                fontSize={12}
                 stroke="#333"
                 strokeOpacity={0.5}
               >

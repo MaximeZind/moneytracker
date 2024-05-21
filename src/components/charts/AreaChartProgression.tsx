@@ -27,7 +27,7 @@ export default function AreaChartProgression({ transactions, firstTransaction, a
         let balance = 0;
         const startingDateTimeStamp = new Date(firstTransaction.date).getTime();
         const coefficient = goalDate.getTime() - startingDateTimeStamp;
-        
+
         const data = transactionsDates.map((transactionDate) => {
             const transactionTimeStamp = transactionDate.getTime();
             transactions.filter((transaction) => {
@@ -38,7 +38,7 @@ export default function AreaChartProgression({ transactions, firstTransaction, a
                         balance = balance - transaction.amount;
                     }
                 }
-            });         
+            });
             const progression = (transactionTimeStamp - startingDateTimeStamp) / coefficient;
             const startingBalance = transactions[0].amount;
             const goal = startingBalance + progression * (amountGoal - startingBalance);
@@ -47,7 +47,7 @@ export default function AreaChartProgression({ transactions, firstTransaction, a
                 "Balance": balance,
                 "Goal": progression <= 1 ? goal : amountGoal
             }
-            
+
         })
         return data;
     }
@@ -55,26 +55,30 @@ export default function AreaChartProgression({ transactions, firstTransaction, a
     const data = setData(transactions, firstTransaction, amountGoal, goalDate);
 
     return (
-        <ResponsiveContainer width={'90%'} height={400}>
-            <AreaChart width={730} height={250} data={data}
-                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                    </linearGradient>
-                </defs>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
-                <Area type="monotone" dataKey="Balance" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-                <Area type="monotone" dataKey="Goal" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-            </AreaChart>
-        </ResponsiveContainer>
+        <div className={styles.container}>
+            <h2 className={styles.title}>Budget vs Goal</h2>
+            <ResponsiveContainer height={400}>
+                <AreaChart width={730} height={250} data={data}
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <defs>
+                        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Area type="monotone" dataKey="Balance" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                    <Area type="monotone" dataKey="Goal" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                </AreaChart>
+            </ResponsiveContainer>
+        </div>
+
     )
 }

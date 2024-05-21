@@ -1,4 +1,5 @@
 .spaceship_and_moon {
+    height: calc(100vh - 100px);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -11,7 +12,7 @@
 
 .moon {
     object-fit: contain;
-    width: 100%;
+    width: 300px;
     height: auto;
     position: absolute;
     top: 0;
@@ -22,7 +23,7 @@
     position: absolute;
     bottom: 0;
     object-fit: contain;
-    width: 100%;
+    width: 300px;
     height: auto;
     animation-duration: 5s;
     animation-fill-mode: forwards;
@@ -190,5 +191,13 @@
     }
     to {
         transform: translateY(calc(100px - 100vh + 100%)) scale(calc(1 - 0.45));
+    }
+}
+
+@media (max-width: 768px) {
+
+    .spaceship_and_moon {
+        border-left: none;
+        border-bottom: 1px solid var(--ternary-color);
     }
 }

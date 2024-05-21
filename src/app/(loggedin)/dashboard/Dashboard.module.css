@@ -14,11 +14,21 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 40px;
+    padding: 40px;
 }
 
 @media (max-width: 1024px) {
 
     .dashboard_graphs {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .dashboard_layout {
+        display: flex;
+        flex-direction: column-reverse;
     }
 }
