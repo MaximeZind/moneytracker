@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import styles from "./LoginForm.module.css";
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { LoginData, LoginUser } from '../../app/services/login';
-import { redirect } from 'next/navigation'
+import TextInput from "./formscomponents/TextInput";
+import SubmitButton from "./formscomponents/SubmitButton";
 
 export default function Login() {
-    const [token, setToken] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-    
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const contactForm = event.target as HTMLFormElement;
@@ -18,32 +18,20 @@ export default function Login() {
         const loginResponse = LoginUser(formJson);
         loginResponse.then((response) => {
             const status = response.response.status;
-            if (status === 200){
-                const receivedToken = response.responseData.token;
-                setToken(receivedToken);
-            } else if (status !== 200) {
+            if (status !== 200) {
                 setErrorMsg(response.responseData.message)
             }
         })
     }
 
-    //Auto redirect to dashboard if token exists
-    useEffect(() => {
-        if (token !== null) {
-            redirect('/dashboard');
-        }
-    }, [token])
-
     return (
         <form onSubmit={handleSubmit} className={styles.login_form}>
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" />
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" />
+            <TextInput name="username" type="text" label="Username" />
+            <TextInput name="password" type="password" label="Password" />
             {
                 errorMsg && <p>{errorMsg}</p>
             }
-            <button value='submit'>Valider</button>
+            <SubmitButton value='submit' text='Submit' />
             <p>You don&apos;t have an account yet? <Link href={"/signup"}>Sign Up!</Link></p>
         </form>
     )
