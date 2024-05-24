@@ -90,19 +90,19 @@ export default function SpaceshipAndMoon({ balance, goal }: SpaceshipAndMoonProp
                 className={styles.moon}
                 src={moon}
                 alt={'moon'} />
-            <span className={`${setSpaceshipClassname(percentage)} ${styles.spaceship}`}>
-                {
-                    isSpaceshipOn ?
-                        <Image
-                            src={spaceship_on}
-                            alt={'spaceship'} /> :
-                        <Image
-                            src={spaceship_off}
-                            alt={'spaceship'} />
-                }
-            </span>
             {
-                message !== '' && 
+                isSpaceshipOn ?
+                    <Image
+                        className={`${setSpaceshipClassname(percentage)} ${styles.spaceship}`}
+                        src={spaceship_on}
+                        alt={'spaceship'} /> :
+                    <Image
+                        className={`${setSpaceshipClassname(percentage)} ${styles.spaceship}`}
+                        src={spaceship_off}
+                        alt={'spaceship'} />
+            }
+            {
+                message !== '' &&
                 <div className={styles.message_box}>
                     <p>{message}</p>
                 </div>

@@ -17,6 +17,7 @@
     position: absolute;
     top: 0;
     animation: rotateMoon 240s linear infinite;
+    max-height: 30vh;
 }
 
 .spaceship {
@@ -25,6 +26,7 @@
     object-fit: contain;
     width: 300px;
     height: auto;
+    max-height: 30vh;
     animation-duration: 5s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-in-out;
