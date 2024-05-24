@@ -3,6 +3,10 @@
     flex-direction: column;
     gap: 40px;
     align-items: center;
+    background-color: var(--primary-color);
+    border: 1px solid var(--ternary-color);
+    width: fit-content;
+    padding: 15px 25px;
 }
 
 .main_infos {

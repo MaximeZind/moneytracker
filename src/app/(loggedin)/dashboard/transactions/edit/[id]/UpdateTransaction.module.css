@@ -1,5 +1,6 @@
 .update_transaction_section {
-    background-color: var(--quarternary-color);
-    padding: 15px 25px;
-    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
