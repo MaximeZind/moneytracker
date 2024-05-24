@@ -5,6 +5,8 @@ import { SignUpData, signUpUser } from "@/app/services/signup";
 import { getUsers } from "@/app/services/users";
 import styles from "./SignUpForm.module.css";
 import { FormEvent } from 'react';
+import TextInput from "./formscomponents/TextInput";
+import SubmitButton from "./formscomponents/SubmitButton";
 
 export default function SignUp() {
 
@@ -30,18 +32,15 @@ export default function SignUp() {
         event.preventDefault();
         const users = await getUsers();
         console.log(users);
-        
+
     }
     return (
         <>
             <form className={styles.submit_form} onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
-                <input type="text" name="username" id="username" />
-                <label htmlFor="email">Email</label>
-                <input type="text" id="email" name="email" />
-                <label htmlFor="password">Password</label>
-                <input type="text" name="password" id="password" />
-                <button value='submit'>Valider</button>
+                <TextInput name="username" type="text" label="Username" />
+                <TextInput name="email" type="text" label="Email" />
+                <TextInput name="password" type="password" label="Password" />
+                <SubmitButton value='submit' text='Submit' />
             </form>
             <button onClick={handleDeleteUsers}>Delete Users</button>
             <button onClick={handleGetUsers}>Get Users</button>
