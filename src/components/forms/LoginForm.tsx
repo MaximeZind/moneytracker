@@ -4,12 +4,16 @@ import Link from "next/link";
 import styles from "./LoginForm.module.css";
 import { FormEvent, useState } from 'react';
 import { LoginData, LoginUser } from '../../app/services/login';
+import { redirect } from 'next/navigation';
 import TextInput from "./formscomponents/TextInput";
 import SubmitButton from "./formscomponents/SubmitButton";
+import { useRouter } from 'next/navigation';
+
 
 export default function Login() {
     const [errorMsg, setErrorMsg] = useState(null);
-
+    const router = useRouter();
+    
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const contactForm = event.target as HTMLFormElement;
@@ -18,7 +22,9 @@ export default function Login() {
         const loginResponse = LoginUser(formJson);
         loginResponse.then((response) => {
             const status = response.response.status;
-            if (status !== 200) {
+            if (status === 200){
+                router.push('/dashboard');
+            } else if (status !== 200) {
                 setErrorMsg(response.responseData.message)
             }
         })
