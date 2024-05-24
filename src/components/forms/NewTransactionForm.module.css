@@ -2,7 +2,11 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+    padding: 15px 25px;
     align-items: center;
+    background-color: var(--primary-color);
+    border: 1px solid var(--ternary-color);
+    width: fit-content;
 }
 
 .main_infos {
