@@ -13,11 +13,11 @@
     color: var(--quinary-color);
 }
 
-.hero_section_text > h1 {
+.hero_section_text>h1 {
     font-size: 3rem;
 }
 
-.hero_section_text > h2 {
+.hero_section_text>h2 {
     font-size: 1rem;
     margin-top: 1.2rem;
 }
@@ -25,4 +25,36 @@
 .hero_section_image {
     width: 30%;
     height: auto;
+}
+
+@media (max-width: 1024px) {
+
+    .hero_section {
+        flex-direction: column-reverse;
+        padding: 40px;
+        gap: 20%;
+    }
+
+    .hero_section_image {
+        width: 50%;
+        min-width: 200px;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .dashboard_layout {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .hero_section_text>h1 {
+        font-size: 2rem;
+    }
+
+    .hero_section_text>h2 {
+        font-size: 0.8rem;
+        margin-top: 1.2rem;
+    }
 }
