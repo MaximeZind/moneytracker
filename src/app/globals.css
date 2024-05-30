@@ -88,3 +88,9 @@ a, a:hover, a:active, a:visited {
   color: var(--senary-color);
   text-decoration: none;
 }
+
+@media (max-width: 768px) {
+  body {
+    --header-height: 0px;
+  }
+}
