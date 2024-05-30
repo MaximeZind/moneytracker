@@ -79,6 +79,7 @@ body {
   --green: rgb(117, 177, 117);
 
   /* Select input component */
+  --header-height: 100px;
   --select-option-height: 24px;
   background-color: rgba(0, 0, 0, 0.04);
 }

@@ -196,6 +196,8 @@
     }
 }
 
+/* Media Queries - RESPONSIVE */
+
 @media (max-width: 768px) {
 
     .spaceship_and_moon {
