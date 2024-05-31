@@ -32,3 +32,15 @@
     background-color: var(--primary-color);
     border-left: 1px solid var(--quarternary-color);
 }
+
+/* Media Queries - RESPONSIVE */
+
+@media (max-width: 1440px) {
+    .transactions_layout {
+        grid-template-columns:  75% 25%;
+    }
+
+    .transactions_left_section {
+        display: none;
+    }
+}
