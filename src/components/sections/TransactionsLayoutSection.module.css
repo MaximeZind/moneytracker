@@ -35,7 +35,7 @@
 
 /* Media Queries - RESPONSIVE */
 
-@media (max-width: 1440px) {
+@media (max-width: 1439px) {
     .transactions_layout {
         grid-template-columns:  75% 25%;
     }
@@ -44,3 +44,13 @@
         display: none;
     }
 }
+
+@media (max-width: 1023px) {
+
+    .transactions_layout {
+        grid-template-columns:  100%;
+    }
+    .transactions_right_section  {
+        width: 0;
+    } 
+  }

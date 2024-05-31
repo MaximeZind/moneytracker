@@ -70,7 +70,6 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
                 <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
             </section>
             <section className={styles.transactions_right_section}>
-                <h1>Filters</h1>
                 <TransactionsFilters transactions={transactionsList} accounts={accounts} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
             </section>
         </div>

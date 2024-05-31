@@ -1,4 +1,5 @@
 .transactions_section_filters {
+    position: inherit;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -24,3 +25,36 @@
     font-weight: bold;
 }
 
+.filters_icon {
+    width: 30px;
+    fill: var(--senary-color);
+    display: none;
+    z-index: 1500;
+}
+
+
+@media (max-width: 1023px) {
+    .filters_icon  {
+      display: block;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+    }
+
+    .transactions_section_filters {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--primary-color);
+        z-index: 1000;
+        padding: 50px;
+        transform: translateX(-100vw);
+        transition: transform .2s ease-in-out;
+    }
+
+    .open.transactions_section_filters {
+        transform: translateX(0);
+    }
+  }
