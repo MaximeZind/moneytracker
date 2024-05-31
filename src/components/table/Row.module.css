@@ -78,6 +78,10 @@ tr:hover > .balance_cell > .options {
     display: none;
 }
 
+.amount {
+    display: none;
+}
+
 /* Modal */
 
 .modal_content {
@@ -107,5 +111,17 @@ tr:hover > .balance_cell > .options {
 
     .description {
         display: none;
+    }
+
+    .income {
+        display: none;
+    }
+
+    .debit {
+        display: none;
+    }
+
+    .amount {
+        display: table-cell;
     }
   }

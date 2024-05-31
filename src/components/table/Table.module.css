@@ -18,6 +18,10 @@
     padding: 18px 10px;
 }
 
+.amount {
+    display: none;
+}
+
 /* Media Queries - Responsive */
 
 @media (max-width: 767px) {
@@ -31,5 +35,17 @@
 
     .description {
         display: none;
+    }
+
+    .income {
+        display: none;
+    }
+
+    .debit {
+        display: none;
+    }
+
+    .amount {
+        display: table-cell;
     }
   }

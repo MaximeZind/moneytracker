@@ -35,8 +35,8 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
         return sortedTransactions;
     }
 
-    const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
-    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; id: string; }[] = []
+    const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Amount", "Balance"];
+    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; amount:string; type: string; id: string; }[] = []
     transactionsList.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
         const dayNumber = new Date(transaction.date).getDate().toLocaleString().padStart(2, '0');
@@ -49,6 +49,7 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
             category: transaction.category.name,
             income: transaction.type === "income" ? transaction.amount : 0,
             debit: transaction.type === "expense" ? transaction.amount : 0,
+            amount: transaction.type === "income" ? `${transaction.amount}` : transaction.type === "expense" ? `-${transaction.amount}` : "" ,
             type: transaction.type,
             id: transaction.id
         }

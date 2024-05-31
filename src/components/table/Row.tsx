@@ -21,6 +21,7 @@ interface TransactionObject {
     debit: number;
     description: string;
     income: number;
+    amount: string;
     type: string;
     id: string;
 }
@@ -32,6 +33,7 @@ const headerMapping: { [key: string]: keyof TransactionObject } = {
     Debit: 'debit',
     Description: 'description',
     Income: 'income',
+    Amount: 'amount',
     Type: 'type',
 };
 
@@ -64,9 +66,8 @@ export default function Row({ headers, transaction, balance, isToday, isHidden }
             {
                 headers.map((header: string, index) => {
                     const property = headerMapping[header];
-                    const customClass = styles[header.toLowerCase()];
-
-                    if (header !== "Balance") {
+                    const customClass = styles[header.toLowerCase()];                    
+                    if (header !== "Balance") {                        
                         if (header.toLowerCase() === 'income' && transaction.income > 0) {
                             return (
                                 <td className={`${styles.content_cell} ${styles.cell} ${styles.income} ${customClass}`} key={index}>{transaction[property]}</td>

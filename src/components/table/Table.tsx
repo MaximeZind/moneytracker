@@ -14,6 +14,7 @@ interface TransactionObject {
     debit: number;
     description: string;
     income: number;
+    amount: string;
     type: string;
     id: string;
 }
