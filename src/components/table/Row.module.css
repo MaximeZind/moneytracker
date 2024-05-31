@@ -15,7 +15,6 @@
 
 .cell {
     padding: 16px;
-    /* border-radius: 7px; */
     text-align: center;
 }
 .income {
@@ -24,14 +23,11 @@
 
 .expense {
     color: rgb(255, 86, 86);;
-    /* background-color: rgb(255, 86, 86); */
-    /* filter: saturate(80%) brightness(90%); */
 }
 
 .balance_cell {
     color: rgb(68,81,201, 0.6);
     font-weight: bold;
-    /* color: var(--primary-color); */
     display: flex; 
     flex-direction: row;
 }
@@ -97,3 +93,19 @@ tr:hover > .balance_cell > .options {
     justify-content: center;
     gap: 20px;
 }
+
+/* Media Queries - Responsive */
+
+@media (max-width: 767px) {
+    .category {
+        display: none;
+    }
+
+    .month {
+        display: none;
+    }
+
+    .description {
+        display: none;
+    }
+  }

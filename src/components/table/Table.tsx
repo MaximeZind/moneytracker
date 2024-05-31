@@ -41,8 +41,9 @@ export default function Table({ headers, data, hiddenIndexes }: TableProps) {
                 <tr>
                     {
                         headers && headers.map((header, index) => {
+                            const customClass = styles[header.toLowerCase()];
                             return (
-                                <th className={`${styles.header_cell} ${styles.cell}`} key={index}>{header}</th>
+                                <th className={`${styles.header_cell} ${styles.cell} ${customClass}`} key={index}>{header}</th>
                             )
                         })
                     }

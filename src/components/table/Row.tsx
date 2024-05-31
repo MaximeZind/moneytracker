@@ -64,18 +64,20 @@ export default function Row({ headers, transaction, balance, isToday, isHidden }
             {
                 headers.map((header: string, index) => {
                     const property = headerMapping[header];
+                    const customClass = styles[header.toLowerCase()];
+
                     if (header !== "Balance") {
                         if (header.toLowerCase() === 'income' && transaction.income > 0) {
                             return (
-                                <td className={`${styles.content_cell} ${styles.cell} ${styles.income}`} key={index}>{transaction[property]}</td>
+                                <td className={`${styles.content_cell} ${styles.cell} ${styles.income} ${customClass}`} key={index}>{transaction[property]}</td>
                             )
                         } else if (header.toLowerCase() === 'debit' && transaction.debit > 0) {
                             return (
-                                <td className={`${styles.content_cell} ${styles.cell} ${styles.expense}`} key={index}>{transaction[property]}</td>
+                                <td className={`${styles.content_cell} ${styles.cell} ${styles.expense} ${customClass}`} key={index}>{transaction[property]}</td>
                             )
                         } else {
                             return (
-                                <td className={`${styles.content_cell} ${styles.cell}`} key={index}>{transaction[property]}</td>
+                                <td className={`${styles.content_cell} ${styles.cell} ${customClass}`} key={index}>{transaction[property]}</td>
                             )
                         }
 

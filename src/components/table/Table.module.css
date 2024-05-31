@@ -17,3 +17,19 @@
     border-bottom: 1px solid var(--ternary-color);
     padding: 18px 10px;
 }
+
+/* Media Queries - Responsive */
+
+@media (max-width: 767px) {
+    .category {
+        display: none;
+    }
+
+    .month {
+        display: none;
+    }
+
+    .description {
+        display: none;
+    }
+  }
