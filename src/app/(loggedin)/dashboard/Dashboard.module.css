@@ -18,14 +18,14 @@
     padding: 40px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1440px) {
 
     .dashboard_graphs {
         flex-direction: column;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 
     .dashboard_layout {
         display: flex;

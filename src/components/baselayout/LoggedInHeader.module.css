@@ -161,8 +161,7 @@
 
 /* Media Queries - RESPONSIVE */
 
-@media (max-width: 768px) {
-
+@media (max-width: 1023px) {
     .header {
         background: none;
         border: none;
