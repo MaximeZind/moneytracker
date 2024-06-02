@@ -76,6 +76,16 @@ export default function Row({ headers, transaction, balance, isToday, isHidden }
                             return (
                                 <td className={`${styles.content_cell} ${styles.cell} ${styles.expense} ${customClass}`} key={index}>{transaction[property]}</td>
                             )
+                        } else if (header.toLowerCase() === 'amount') {
+                            if (transaction.amount[0] === "-") {
+                                return (
+                                    <td className={`${styles.content_cell} ${styles.cell} ${styles.amount} ${styles.expense} ${customClass}`} key={index}>{transaction[property]}</td>
+                                )
+                            } else if (transaction.amount[0] !== "-") {
+                                return (
+                                    <td className={`${styles.content_cell} ${styles.cell} ${styles.amount} ${styles.income} ${customClass}`} key={index}>{transaction[property]}</td>
+                                )
+                            }
                         } else {
                             return (
                                 <td className={`${styles.content_cell} ${styles.cell} ${customClass}`} key={index}>{transaction[property]}</td>
