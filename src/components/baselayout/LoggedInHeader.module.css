@@ -9,7 +9,7 @@
     padding: 15px 50px;
     background-color: var(--primary-color);
     border-bottom: 1px solid var(--quarternary-color);
-    z-index: 999;
+    z-index: var(--header-zindex);
     height: var(--header-height);
 }
 
@@ -177,6 +177,7 @@
         transition: transform .2s ease-in-out ;
         background-color: var(--primary-color);
         border-radius: 0;
+        z-index: var(--menu-zindex-inactive);
     }
 
     .burger_menu {
@@ -187,10 +188,15 @@
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-        z-index: 999;
+        z-index: var(--menu-zindex-inactive);
+    }
+
+    .burger_menu.open {
+        z-index: var(--menu-icon-zindex-active);
     }
 
     .header_nav.open{
         transform: translateX(0);
+        z-index: var(--menu-zindex-active);
     }
 }

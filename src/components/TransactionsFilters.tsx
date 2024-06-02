@@ -138,7 +138,7 @@ export default function TransactionsFilters({ transactions, accounts, categories
         <>
             <svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 64 64"
-                className={styles.filters_icon}
+                className={isOpen ? `${styles.filters_icon} ${styles.open}` : `${styles.filters_icon}`}
                 onClick={() => setIsOpen(!isOpen)}>
                 <g id="Layer_23"
                     data-name="Layer 23">

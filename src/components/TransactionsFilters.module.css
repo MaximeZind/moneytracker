@@ -29,7 +29,6 @@
     width: 30px;
     fill: var(--senary-color);
     display: none;
-    z-index: 1500;
 }
 
 
@@ -39,7 +38,16 @@
       position: fixed;
       top: 10px;
       left: 10px;
+      z-index: var(--menu-icon-zindex-inactive);
     }
+
+    .filters_icon.open  {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: var(--menu-icon-zindex-active);
+      }
 
     .transactions_section_filters {
         position: fixed;
@@ -48,7 +56,7 @@
         width: 100vw;
         height: 100vh;
         background-color: var(--primary-color);
-        z-index: 1000;
+        z-index: var(--menu-zindex-inactive);
         padding: 50px;
         transform: translateX(-100vw);
         transition: transform .2s ease-in-out;
@@ -56,5 +64,6 @@
 
     .open.transactions_section_filters {
         transform: translateX(0);
+        z-index: var(--menu-zindex-active);
     }
   }
