@@ -36,8 +36,8 @@ export default function AccountPreview({ account, categories }: Props) {
 
 
     // Creating datas for the table component
-    const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Balance"];
-    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; type: string; id: string; }[] = [];
+    const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Amount", "Balance"];
+    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; amount: string; type: string; id: string; }[] = [];
 
     transactions?.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
@@ -51,6 +51,7 @@ export default function AccountPreview({ account, categories }: Props) {
             category: transaction.category.name,
             income: transaction.type === "income" ? transaction.amount : 0,
             debit: transaction.type === "expense" ? transaction.amount : 0,
+            amount: transaction.type === "income" ? `${transaction.amount}` : transaction.type === "expense" ? `-${transaction.amount}` : "" ,
             type: transaction.type,
             id: transaction.id
         }
