@@ -16,7 +16,7 @@ export default function LoggedInHeader() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <header className={styles.header}>
+        <header className={isOpen ? `${styles.header} ${styles.open}` : `${styles.header}`}>
             <div className={isOpen ? `${styles.burger_menu} ${styles.open}` : `${styles.burger_menu}`}
                 onClick={() => setIsOpen(!isOpen)}>
                 <span className={`${styles.burger_menu_bar} ${styles.top_bar}`}></span>

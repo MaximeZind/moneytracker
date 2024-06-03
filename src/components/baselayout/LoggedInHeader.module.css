@@ -167,6 +167,10 @@
         border: none;
     }
 
+    .header.open {
+        z-index: var(--menu-zindex-active);
+    }
+
     .header_nav {
         flex-direction: column;
         position: absolute;

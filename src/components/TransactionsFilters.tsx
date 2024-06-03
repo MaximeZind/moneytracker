@@ -132,8 +132,6 @@ export default function TransactionsFilters({ transactions, accounts, categories
         setIndexes([...indexOfHiddenTransactions])
     }
 
-    console.log(isOpen);
-    
     return (
         <>
             <svg xmlns="http://www.w3.org/2000/svg"
