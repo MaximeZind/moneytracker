@@ -32,3 +32,27 @@
     background-color: var(--primary-color);
     border-left: 1px solid var(--quarternary-color);
 }
+
+/* Media Queries - RESPONSIVE */
+
+@media (max-width: 1439px) {
+    .account_section {
+        grid-template-columns:  75% 25%;
+    }
+
+    .categories_section {
+        display: none;
+    }
+}
+
+@media (max-width: 1023px) {
+
+    .account_section {
+        grid-template-columns:  100%;
+    }
+    .filters_section {
+        width: 0;
+        overflow: hidden;
+        border: none;
+    } 
+  }
