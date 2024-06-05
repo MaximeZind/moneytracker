@@ -1,10 +1,3 @@
-.settings_item_text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
 .settings_item {
     display: flex;
     flex-direction: row;
@@ -12,6 +5,13 @@
     align-items: center;
     gap: 400px;
     width: 100%;
+}
+
+.settings_item_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .settings_item_update_form {
@@ -28,4 +28,22 @@
     justify-content: space-between;
     align-items: center;
     gap: 25px;
+}
+
+/* Media Queries - RESPONSIVE */
+
+@media (max-width: 767px) {
+    .settings_item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: unset;
+        width: 100%;
+    }
+
+    .settings_item_update_form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

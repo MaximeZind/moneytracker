@@ -15,3 +15,14 @@
     width: fit-content;
     gap: 30px;
 }
+
+
+/* Media Queries - RESPONSIVE */
+
+@media (max-width: 767px) {
+
+    .settings_sections {
+        width: 100%;
+        padding: 50px;
+    }
+}
