@@ -26,7 +26,9 @@ export default function LoggedInHeader() {
             <nav className={isOpen ? `${styles.header_nav} ${styles.open}` : `${styles.header_nav}`}>
                 <Button url='/dashboard' value='' text='Dashboard' />
                 <Button url='/dashboard/transactions' value='' text='Transactions' />
+                <Button url='/dashboard/transactions/add' value='' text='Add Transaction' />
                 <Button url='/dashboard/accounts' value='' text='Accounts' />
+                <Button url='/dashboard/categories' value='' text='Categories' />
                 <Button url='/dashboard/settings' value='' text='Settings' />
                 <Button onClick={handleOnClick} value='' text='Sign Out' />
             </nav>
