@@ -4,6 +4,8 @@
 import { FormEvent } from 'react';
 import styles from "./NewAccountForm.module.css";
 import { AccountData, newAccount } from "../../app/services/accounts";
+import TextInput from './formscomponents/TextInput';
+import Button from './formscomponents/SubmitButton';
 
 export default function NewAccountForm() {
 
@@ -14,13 +16,9 @@ export default function NewAccountForm() {
         const formJson: AccountData = Object.fromEntries(formData.entries()) as unknown as AccountData;
         const newAccountResponse = newAccount(formJson);
         newAccountResponse.then((response) => {
-            console.log(response);
-            
             const status = response.response.status;
-            console.log(response);
-            
-            if (status === 200){
-                const receivedToken = response.responseData.token;
+            if (status === 200) {
+                console.log(response);
             } else if (status !== 200) {
                 console.log(response.responseData.message)
             }
@@ -28,12 +26,10 @@ export default function NewAccountForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className={styles.login_form}>
-            <label htmlFor="name">Account Name</label>
-            <input type="text" name="name" id="name" />
-            <label htmlFor="type">Account type</label>
-            <input type="text" name="type" id="type" />
-            <button value='submit'>Valider</button>
+        <form onSubmit={handleSubmit} className={styles.new_account_form}>
+            <TextInput name="name" type="text" label="Account name" />
+            <TextInput name="type" type="text" label="Account type" />
+            <Button value="submit" text="Add" />
         </form>
     )
 }
