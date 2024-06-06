@@ -20,12 +20,9 @@ export default function CategoriesSection() {
         fetchCategories();
     }, []);
 
-    function refresh (list: Category[]) {
-        console.log('refresh');
-        
+    function refresh (list: Category[]) {        
         setCategories(list);
     }
-    console.log(categories);
     
     return (
         categories &&

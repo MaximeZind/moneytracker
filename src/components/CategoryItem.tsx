@@ -28,7 +28,7 @@ export default function CategoryItem({ category }: Props) {
     function handleDeleteCategory(id: string) {
         deleteCategory(id).then((response) => {
             const responseStatus = response.status;
-            if(responseStatus === 200) {
+            if (responseStatus === 200) {
                 window.location.reload();
             }
         })
@@ -56,8 +56,10 @@ export default function CategoryItem({ category }: Props) {
                     <>
                         <form className={styles.category_edit_form} onSubmit={handleEditCategory}>
                             <TextInput name="name" type="text" defaultValue={category.name} label="" />
-                            <Button text="Save" value="submit" />
-                            <Button text="Cancel" value="" onClick={() => setIsEditing(false)} />
+                            <div className={styles.category_edit_form_buttons}>
+                                <Button text="Save" value="submit" />
+                                <Button text="Cancel" value="" onClick={() => setIsEditing(false)} />
+                            </div>
                         </form>
                     </>
                     :
@@ -75,7 +77,7 @@ export default function CategoryItem({ category }: Props) {
                     <div className={styles.modal_content}>
                         <p>{`Do you really want to ${modalContent} this category?`}</p>
                         {
-                            category.transactions && category.transactions.length > 0 && 
+                            category.transactions && category.transactions.length > 0 &&
                             <p>{`If you ${modalContent} this category, this will also delete the ${category.transactions.length} transaction(s) associated with it.`}</p>
                         }
                         <Button text="Yes" value="none" onClick={() => handleDeleteCategory(category.id)} />
