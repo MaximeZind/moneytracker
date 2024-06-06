@@ -92,3 +92,16 @@
     align-items: center;
     gap: 10px;
 }
+
+/* Media Queries - RESPONSIVE */
+
+@media (max-width: 767px) {
+    .main_infos {
+        flex-direction: column;
+    }
+
+    .recurring_frequency {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+  }
