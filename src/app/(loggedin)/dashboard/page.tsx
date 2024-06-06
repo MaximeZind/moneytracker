@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import PieChartExpenses from "@/components/charts/PieChartExpenses";
 import SankeyChart from "@/components/charts/SankeyChart";
 import AreaChartProgression from "@/components/charts/AreaChartProgression";
+import Button from "@/components/forms/formscomponents/SubmitButton";
 
 
 export default async function Dashboard() {
@@ -57,10 +58,8 @@ export default async function Dashboard() {
     return balance;
   }
 
-
-
   return (
-    <>
+    transactionsList.length > 0 ?
       <div className={styles.dashboard_layout}>
         <section className={styles.dashboard_graphs}>
           <PieChartExpenses transactions={transactionsList} />
@@ -68,8 +67,12 @@ export default async function Dashboard() {
           <AreaChartProgression transactions={transactionsList} amountGoal={amountGoal} firstTransaction={firstTransaction} goalDate={goalDate}/>
         </section>
         <SpaceshipAndMoon balance={todayBalance} goal={amountGoal} />
+      </div> :
+      <div className={styles.empty_transactions_list_message}>
+        <p>It looks like you haven't added any transaction yet! Click on the link below to do so:</p>
+        <Button url='/dashboard/transactions/add' text='Add Transaction' value={""} />
       </div>
-    </>
+
   )
 }
 

@@ -6,7 +6,7 @@ import { getUsers } from "@/app/services/users";
 import styles from "./SignUpForm.module.css";
 import { FormEvent } from 'react';
 import TextInput from "./formscomponents/TextInput";
-import SubmitButton from "./formscomponents/SubmitButton";
+import Button from "./formscomponents/SubmitButton";
 
 export default function SignUp() {
 
@@ -40,7 +40,7 @@ export default function SignUp() {
                 <TextInput name="username" type="text" label="Username" />
                 <TextInput name="email" type="text" label="Email" />
                 <TextInput name="password" type="password" label="Password" />
-                <SubmitButton value='submit' text='Submit' />
+                <Button value='submit' text='Submit' />
             </form>
             <button onClick={handleDeleteUsers}>Delete Users</button>
             <button onClick={handleGetUsers}>Get Users</button>

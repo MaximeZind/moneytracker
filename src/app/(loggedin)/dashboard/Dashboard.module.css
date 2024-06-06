@@ -18,6 +18,15 @@
     padding: 40px;
 }
 
+.empty_transactions_list_message {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
 @media (max-width: 1440px) {
 
     .dashboard_graphs {
