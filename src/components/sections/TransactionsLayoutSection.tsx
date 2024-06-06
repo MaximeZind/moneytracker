@@ -36,7 +36,7 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
     }
 
     const tableHeaders = ["Month", "Date", "Description", "Category", "Income", "Debit", "Amount", "Balance"];
-    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; amount:string; type: string; id: string; }[] = []
+    let tableData: { month: string; date: string; description: string; category: string; income: number; debit: number; amount: string; type: string; id: string; }[] = []
     transactionsList.map((transaction) => {
         const monthName = new Date(transaction.date).toLocaleString('default', { month: 'long' })
         const dayNumber = new Date(transaction.date).getDate().toLocaleString().padStart(2, '0');
@@ -49,7 +49,7 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
             category: transaction.category.name,
             income: transaction.type === "income" ? transaction.amount : 0,
             debit: transaction.type === "expense" ? transaction.amount : 0,
-            amount: transaction.type === "income" ? `${transaction.amount}` : transaction.type === "expense" ? `-${transaction.amount}` : "" ,
+            amount: transaction.type === "income" ? `${transaction.amount}` : transaction.type === "expense" ? `-${transaction.amount}` : "",
             type: transaction.type,
             id: transaction.id
         }
@@ -61,18 +61,23 @@ export default function TransactionsLayoutSection({ transactions, accounts, cate
     }
 
     return (
-        <div className={styles.transactions_layout}>
-            <section className={styles.transactions_left_section}>
-                <Button value='' text='Add Transaction' url='/dashboard/transactions/add' />
-                <h1>Categories</h1>
-                <CategoriesBox categories={categoriesList} refresh={refresh} />
-            </section>
-            <section className={styles.transactions_table}>
-                <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
-            </section>
-            <section className={styles.transactions_right_section}>
-                <TransactionsFilters transactions={transactionsList} accounts={accounts} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
-            </section>
-        </div>
+        transactions.length === 0 ?
+            <div className={styles.empty_transactions_list_message}>
+                <p>{`It looks like you haven't added any transaction yet! Click on the button below to get started:`}</p>
+                <Button url='/dashboard/transactions/add' text='Add Transaction' value={""} />
+            </div> :
+            <div className={styles.transactions_layout}>
+                <section className={styles.transactions_left_section}>
+                    <Button value='' text='Add Transaction' url='/dashboard/transactions/add' />
+                    <h1>Categories</h1>
+                    <CategoriesBox categories={categoriesList} refresh={refresh} />
+                </section>
+                <section className={styles.transactions_table}>
+                    <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
+                </section>
+                <section className={styles.transactions_right_section}>
+                    <TransactionsFilters transactions={transactionsList} accounts={accounts} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
+                </section>
+            </div>
     )
 }

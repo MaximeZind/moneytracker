@@ -6,6 +6,7 @@ import generateRecurringInstances from "@/utils/transactions";
 import CategoriesBox from "../CategoriesBox";
 import { useState } from "react";
 import TransactionsFilters from "../TransactionsFilters";
+import Button from "../forms/formscomponents/SubmitButton";
 
 interface Props {
     account: Account;
@@ -51,7 +52,7 @@ export default function AccountPreview({ account, categories }: Props) {
             category: transaction.category.name,
             income: transaction.type === "income" ? transaction.amount : 0,
             debit: transaction.type === "expense" ? transaction.amount : 0,
-            amount: transaction.type === "income" ? `${transaction.amount}` : transaction.type === "expense" ? `-${transaction.amount}` : "" ,
+            amount: transaction.type === "income" ? `${transaction.amount}` : transaction.type === "expense" ? `-${transaction.amount}` : "",
             type: transaction.type,
             id: transaction.id
         }
@@ -62,19 +63,24 @@ export default function AccountPreview({ account, categories }: Props) {
         setCategoriesList(list);
     }
     return (
-        <section className={styles.account_section}>
-            <section className={styles.categories_section}>
-                <h1>Categories</h1>
-                <CategoriesBox categories={categoriesList} refresh={refresh} />
+        transactions.length === 0 ?
+            <div className={styles.empty_transactions_list_message}>
+                <p>{`It looks like you haven't added any transaction yet! Click on the button below to get started:`}</p>
+                <Button url='/dashboard/transactions/add' text='Add Transaction' value={""} />
+            </div> :
+            <section className={styles.account_section}>
+                <section className={styles.categories_section}>
+                    <h1>Categories</h1>
+                    <CategoriesBox categories={categoriesList} refresh={refresh} />
+                </section>
+                <section className={styles.account_section_transactions}>
+                    <h1>{account.name}</h1>
+                    <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
+                </section>
+                <section className={styles.filters_section}>
+                    <h1>Filters</h1>
+                    <TransactionsFilters transactions={transactions} accounts={[account]} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
+                </section>
             </section>
-            <section className={styles.account_section_transactions}>
-                <h1>{account.name}</h1>
-                <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
-            </section>
-            <section className={styles.filters_section}>
-                <h1>Filters</h1>
-                <TransactionsFilters transactions={transactions} accounts={[account]} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
-            </section>
-        </section>
     )
 }

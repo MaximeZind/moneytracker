@@ -22,7 +22,8 @@ export default async function Dashboard() {
   const categories = categoriesData.response.data;
   const settingsData = await getSettingsDatas();
   const user = settingsData.response.data;
-
+  const userName = user.username;
+  
   // Sorting transactions
   const transactionsList = sortTransactions(transactions);
   const todayBalance = calculateTodaysBalance(transactionsList);
@@ -69,7 +70,8 @@ export default async function Dashboard() {
         <SpaceshipAndMoon balance={todayBalance} goal={amountGoal} />
       </div> :
       <div className={styles.empty_transactions_list_message}>
-        <p>It looks like you haven't added any transaction yet! Click on the link below to do so:</p>
+        <h2>Welcome {userName.charAt(0).toUpperCase() + userName.slice(1)}</h2>
+        <p>{`It looks like you haven't added any transaction yet! Click on the button below to get started:`}</p>
         <Button url='/dashboard/transactions/add' text='Add Transaction' value={""} />
       </div>
 
