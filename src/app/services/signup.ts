@@ -14,12 +14,6 @@ export async function signUpUser(data: SignUpData) {
             Accept: "application/json",
         },
         body: data,
-    })
-
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Something went wrong');
-    }
-    const responseData = response.json();
-    return responseData;
+    })    
+    return response;
 }

@@ -8,3 +8,8 @@
     border: 1px solid var(--ternary-color);
     padding: 40px;
 }
+
+.error_msg {
+    color: red;
+    font-size: 0.8rem;
+}
