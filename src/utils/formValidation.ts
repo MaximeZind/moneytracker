@@ -34,6 +34,37 @@ export function validateSignUp(object: {
     return validation;
 }
 
+export function validateLogin(object: {
+    username: string;
+    password: string;
+}) {
+    const usernameValidation = validateName(object.username);
+    const passwordValidation = validatePassword(object.password);
+
+    const validationArray = [usernameValidation, passwordValidation];
+
+    let isValid = true;
+    validationArray.map((item) => {
+        if (!item.response) {
+            isValid = false;
+            return;
+        }
+    });
+
+    const validation = {
+        isValid: isValid,
+        data: {
+            username: usernameValidation.response,
+            password:  passwordValidation.response,
+        },
+        errorMsg: {
+            username: usernameValidation.errorMsg,
+            password:  passwordValidation.errorMsg,
+        }
+    }
+    return validation;
+}
+
 // Function to validate names
 export function validateName(string: string) {
     const nameValue = string.trim();
