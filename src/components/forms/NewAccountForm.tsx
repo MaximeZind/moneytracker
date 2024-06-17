@@ -1,4 +1,3 @@
-
 'use client'
 
 import { FormEvent } from 'react';
@@ -6,8 +5,11 @@ import styles from "./NewAccountForm.module.css";
 import { AccountData, newAccount } from "../../app/services/accounts";
 import TextInput from './formscomponents/TextInput';
 import Button from './formscomponents/SubmitButton';
+import { useRouter } from 'next/navigation';
 
 export default function NewAccountForm() {
+
+    const router = useRouter();
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -16,9 +18,10 @@ export default function NewAccountForm() {
         const formJson: AccountData = Object.fromEntries(formData.entries()) as unknown as AccountData;
         const newAccountResponse = newAccount(formJson);
         newAccountResponse.then((response) => {
-            const status = response.response.status;
+            const status = response.response.status;             
             if (status === 200) {
-                console.log(response);
+                const accountId = response.response.data[0].id;
+                router.push(`/dashboard/accounts/${accountId}`);
             } else if (status !== 200) {
                 console.log(response.responseData.message)
             }

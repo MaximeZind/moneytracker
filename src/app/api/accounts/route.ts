@@ -27,21 +27,21 @@ export async function GET(request: NextRequest) {
     const headers = request.headers;
     const authorizationHeader = headers.get('Authorization');
     let userToken: string | null = null;
-    
+
     if (authorizationHeader) {
         const [, tokenValue] = authorizationHeader.split('Bearer ');
         userToken = tokenValue.trim();
     }
     const cookieStore = cookies();
     const tokenObject = cookieStore.get(COOKIE_NAME);
-    let token = tokenObject?.value; 
+    let token = tokenObject?.value;
     if (!token && !userToken) {
         response.status = 401;
         response.message = 'Unauthorized - Token missing';
         response.data = [];
-    } else if (!token && userToken){
+    } else if (!token && userToken) {
         token = userToken;
-    } 
+    }
     if (token) {
         try {
             let userId = null;
@@ -107,7 +107,7 @@ export async function POST(request: Request) {
                     accounts: true,
                 },
             });
-    
+
             if (user) {
                 // Create a new account
                 const newAccount = await prisma.account.create({
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
                         userId: userId,
                     },
                 });
-    
+
                 // Update the user's accounts by adding the new account
                 const updatedUser = await prisma.user.update({
                     where: {
@@ -134,9 +134,11 @@ export async function POST(request: Request) {
                         accounts: true,
                     },
                 });
-                return Response.json(updatedUser);
+                response.status = 200;
+                response.data = [newAccount];
+                return NextResponse.json({ response: response }, { status: response.status });
             }
         }
     }
-    
+
 }
