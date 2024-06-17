@@ -62,7 +62,7 @@
     animation-duration: .35s;
     animation-fill-mode: backwards;
     animation-timing-function: ease;
-    height: calc(8 * var(--select-option-height));
+    max-height: calc(8 * var(--select-option-height));
     overflow-y: scroll;
 }
 
