@@ -61,8 +61,6 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
     }
 
     const lastTransaction = transactionList?.at(-1);
-    console.log(lastTransaction);
-
     let lastTransactionDate
     if (lastTransaction !== undefined) {
         lastTransactionDate = new Date(lastTransaction.date);
