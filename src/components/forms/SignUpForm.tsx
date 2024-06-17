@@ -8,6 +8,7 @@ import { FormEvent, useState } from 'react';
 import TextInput from "./formscomponents/TextInput";
 import Button from "./formscomponents/SubmitButton";
 import { validateSignUp } from "@/utils/formValidation";
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
 
@@ -17,6 +18,9 @@ export default function SignUp() {
     const [passwordErrorMsg, setPasswordErrorMsg] = useState<null | string>(null);
     const [emailErrorMsg, setEmailErrorMsg] = useState<null | string>(null);
     const [errorMsg, setErrorMsg] = useState<null | string>(null);
+
+    const router = useRouter();
+
 
     function handleErrorMsgs(errorMsgs: {
         username: null | string,
@@ -62,11 +66,11 @@ export default function SignUp() {
                 if (status !== 200) {
                     setErrorMsg(response.response.message);
                 } else if (status === 200) {
-                    
+                    router.push('/dashboard');
                 }
             });
         } else if (!verification.isValid) {
-            handleErrorMsgs(verification.errorMsg)
+            handleErrorMsgs(verification.errorMsg);
         }
     }
 
