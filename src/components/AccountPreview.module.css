@@ -19,10 +19,14 @@
     background-color: var(--secondary-color);
     border-bottom: 1px dashed var(--ternary-color);
     padding: 15px;
+    width: 100%;
 }
 
 .account_preview_title {
     color: var(--septenary-color);
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .account_preview_type {

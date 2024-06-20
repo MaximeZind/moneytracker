@@ -78,10 +78,12 @@ export default function AccountPreview({ name, type, transactions, id }: Props) 
                 <p>Last Transaction:</p>
                 <div className={styles.account_preview_last_transactions_details}>
                     {
-                        lastTransaction && lastTransaction.type === "income" ?
+                        lastTransaction ? lastTransaction.type === "income" ?
                             <p className={styles.income}>+{currency}{lastTransaction?.amount}</p>
                             :
                             <p className={styles.expense}>-{currency}{lastTransaction?.amount}</p>
+                            : 
+                            <p>N/A</p>
                     }
                     {
                         lastTransactionDate !== undefined &&
