@@ -1,7 +1,6 @@
 'use client'
 
 import styles from "./AccountPreview.module.css";
-import Link from "next/link";
 import { Transaction } from "@/types/global";
 import { useEffect, useState } from "react";
 import generateRecurringInstances from "../utils/transactions";
