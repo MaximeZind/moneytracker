@@ -21,12 +21,12 @@ export default async function AddTransaction() {
           </>
         ) : accounts.length > 0 ? (
           <>
-            <p>Looks like you don't have any categories created. You will need at least one to create a transaction. Click on the button below to get started:</p>
+            <p>{`Looks like you don't have any categories created. You will need at least one to create a transaction. Click on the button below to get started:`}</p>
             <Button value={""} text={"Categories"} url={"/dashboard/categories"}/>
           </>
         ) : (
           <>
-            <p>Looks like you don't have any account created. You will need at least one to create a transaction. Click on the button below to get started:</p>
+            <p>{`Looks like you don't have any account created. You will need at least one to create a transaction. Click on the button below to get started:`}</p>
             <Button value={""} text={"Create a new account"} url={"/dashboard/accounts/newaccount"}/>
           </>
         )
