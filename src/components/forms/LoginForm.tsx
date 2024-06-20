@@ -46,10 +46,10 @@ export default function Login() {
         const contactForm = event.target as HTMLFormElement;
         const formData = new FormData(contactForm);
         const formJson: LoginData = Object.fromEntries(formData.entries()) as unknown as LoginData;
-        const loginResponse = LoginUser(formJson);
         const verification = validateLogin(formJson);
         deleteErrorMsgs();
         if (verification.isValid) {
+            const loginResponse = LoginUser(formJson);
             loginResponse.then((response) => {
                 const status = response.response.status;
                 if (status === 200) {

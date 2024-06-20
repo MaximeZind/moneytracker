@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import styles from "./NewTransactionForm.module.css";
 import { getAccounts } from "../../app/services/accounts";
-import { NewTransaction } from '@/types/global';
+import { Account, Category, NewTransaction } from '@/types/global';
 import { getCategories } from '@/app/services/categories';
 import { newTransaction } from '@/app/services/transactions';
 import TextInput from './formscomponents/TextInput';
@@ -11,27 +11,32 @@ import SelectInput from './formscomponents/SelectInput';
 import SubmitButton from './formscomponents/SubmitButton';
 import AddButton from './formscomponents/AddButton';
 
-export default function NewTransactionForm() {
+interface Props {
+    accounts: Account[];
+    categories: Category[];
+}
 
-    const [accounts, setAccounts] = useState([]);
-    const [categories, setCategories] = useState([]);
+export default function NewTransactionForm({accounts, categories} : Props ) {
+
+    // const [accounts, setAccounts] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [isRecurring, setIsRecurring] = useState(false);
 
-    useEffect(() => {
-        const fetchAccounts = async () => {
-            await getAccounts().then((response) => {
-                setAccounts(response);
-            });
-        }
+    // useEffect(() => {
+    //     const fetchAccounts = async () => {
+    //         await getAccounts().then((response) => {
+    //             setAccounts(response);
+    //         });
+    //     }
 
-        const fetchCategories = async () => {
-            await getCategories().then((response) => {
-                setCategories(response);
-            });
-        }
-        fetchAccounts();
-        fetchCategories();
-    }, [])
+    //     const fetchCategories = async () => {
+    //         await getCategories().then((response) => {
+    //             setCategories(response);
+    //         });
+    //     }
+    //     fetchAccounts();
+    //     fetchCategories();
+    // }, [])
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
