@@ -8,6 +8,7 @@ import TextInput from './formscomponents/TextInput';
 import SelectInput from './formscomponents/SelectInput';
 import SubmitButton from './formscomponents/SubmitButton';
 import AddButton from './formscomponents/AddButton';
+import { useRouter } from 'next/navigation';
 
 interface Props {
     accounts: Account[];
@@ -16,6 +17,7 @@ interface Props {
 
 export default function NewTransactionForm({accounts, categories} : Props ) {
 
+    const router = useRouter();
     const [isRecurring, setIsRecurring] = useState(false);
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -41,6 +43,8 @@ export default function NewTransactionForm({accounts, categories} : Props ) {
             const status = response.status;
             if (status !== 200) {
                 console.log(response.message)
+            } else if (status === 200) {
+                router.push(`/dashboard/transactions`);
             }
         })
     }

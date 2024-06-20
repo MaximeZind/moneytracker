@@ -63,24 +63,26 @@ export default function AccountPreview({ account, categories }: Props) {
         setCategoriesList(list);
     }
     return (
-        transactions.length === 0 ?
-            <div className={styles.empty_transactions_list_message}>
-                <p>{`It looks like you haven't added any transaction yet! Click on the button below to get started:`}</p>
-                <Button url='/dashboard/transactions/add' text='Add Transaction' value={""} />
-            </div> :
-            <section className={styles.account_section}>
-                <section className={styles.categories_section}>
-                    <h1>Categories</h1>
-                    <CategoriesBox categories={categoriesList} refresh={refresh} />
-                </section>
-                <section className={styles.account_section_transactions}>
-                    <h1>{account.name}</h1>
-                    <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
-                </section>
-                <section className={styles.filters_section}>
-                    <h1>Filters</h1>
-                    <TransactionsFilters transactions={transactions} accounts={[account]} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
-                </section>
+        <section className={styles.account_section}>
+            <section className={styles.categories_section}>
+                <h1>Categories</h1>
+                <CategoriesBox categories={categoriesList} refresh={refresh} />
             </section>
+            <section className={styles.account_section_transactions}>
+                <h1>{account.name}</h1>
+                {
+                    transactions.length === 0 ?
+                        <div className={styles.empty_transactions_list_message}>
+                            <p>{`It looks like you haven't added any transaction yet! Click on the button below to get started:`}</p>
+                            <Button url='/dashboard/transactions/add' text='Add Transaction' value={""} />
+                        </div> :
+                        <Table headers={tableHeaders} data={tableData} hiddenIndexes={hiddenIndexes} />
+                }
+            </section>
+            <section className={styles.filters_section}>
+                <h1>Filters</h1>
+                <TransactionsFilters transactions={transactions} accounts={[account]} categories={categoriesList} setHiddenIndexes={setHiddenIndexes} />
+            </section>
+        </section>
     )
 }
