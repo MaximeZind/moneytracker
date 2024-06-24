@@ -40,7 +40,7 @@ const getAccountsDatas = async () => {
   const token = cookieStore.get(COOKIE_NAME);
   if (token) {
     const res = await fetch(`${process.env.API_BASE_URL}api/accounts`, {
-      next: { revalidate: 10 },
+      next: { revalidate: 0 },
       method: 'GET',
       headers: {
         Accept: "application/json",
@@ -58,6 +58,7 @@ const getCategories = async () => {
   const token = cookieStore.get(COOKIE_NAME);
   if (token) {
     const res = await fetch(`${process.env.API_BASE_URL}api/categories`, {
+      next: { revalidate: 0 },
       method: 'GET',
       headers: {
         Accept: "application/json",
