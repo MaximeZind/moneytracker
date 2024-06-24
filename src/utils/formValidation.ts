@@ -20,11 +20,11 @@ export function validateSignUp(object: {
 
     const validation = {
         isValid: isValid,
-        data: {
+        data: isValid ? {
             username: usernameValidation.response,
             password:  passwordValidation.response,
             email: emailValidation.response,
-        },
+        } : null,
         errorMsg: {
             username: usernameValidation.errorMsg,
             password:  passwordValidation.errorMsg,
@@ -53,10 +53,10 @@ export function validateLogin(object: {
 
     const validation = {
         isValid: isValid,
-        data: {
+        data: isValid ? {
             username: usernameValidation.response,
             password:  passwordValidation.response,
-        },
+        } : null,
         errorMsg: {
             username: usernameValidation.errorMsg,
             password:  passwordValidation.errorMsg,

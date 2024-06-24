@@ -51,11 +51,13 @@ export default function Login() {
         if (verification.isValid) {
             const loginResponse = LoginUser(formJson);
             loginResponse.then((response) => {
+                console.log(response);
                 const status = response.response.status;
                 if (status === 200) {
                     router.push('/dashboard');
                 } else if (status !== 200) {
-                    setErrorMsg(response.responseData.message)
+                    const message = response.response.message;
+                    setErrorMsg(message)
                 }
             })
         } else if (!verification.isValid) {
@@ -68,7 +70,7 @@ export default function Login() {
             <TextInput name="username" type="text" label="Username" errorMsg={usernameErrorMsg} />
             <TextInput name="password" type="password" label="Password" errorMsg={passwordErrorMsg} />
             {
-                errorMsg && <p>{errorMsg}</p>
+                errorMsg && <p className={styles.error}>{errorMsg}</p>
             }
             <SubmitButton value='submit' text='Submit' />
             <p>You don&apos;t have an account yet? <Link href={"/signup"}>Sign Up!</Link></p>

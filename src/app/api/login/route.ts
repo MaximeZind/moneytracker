@@ -73,15 +73,11 @@ export async function POST(request: Request) {
                 response.message = `Several mistakes have been found:\n${errorMessages.join("\n")}`
             }
         }
-    } catch (error) {
+    } catch (error) {        
         console.log('Error with the login.');
         if (error instanceof Error) {
             response.message = error.message;
         }
     }
-    
-    return new NextResponse(JSON.stringify(response), {
-        status: response.status,
-        headers: headers,
-    });
+    return NextResponse.json({ response: response }, { status: response.status, headers: headers });
 }

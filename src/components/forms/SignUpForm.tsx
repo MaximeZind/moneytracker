@@ -59,16 +59,23 @@ export default function SignUp() {
             password: formData.get('password') as string,
         };
         deleteErrorMsgs();
-        const verification = validateSignUp(formJson);
+        const verification = validateSignUp(formJson);       
         if (verification.isValid) {
-            signUpUser(formJson).then((response) => {
-                const status = response.response.status;
-                if (status !== 200) {
-                    setErrorMsg(response.response.message);
-                } else if (status === 200) {
-                    router.push('/dashboard');
-                }
-            });
+            const data = verification.data as {
+                username: string,
+                password: string,
+                email: string,
+            };
+            if (data) {
+                signUpUser(data).then((response) => {
+                    const status = response.response.status;
+                    if (status !== 200) {
+                        setErrorMsg(response.response.message);
+                    } else if (status === 200) {
+                        router.push('/dashboard');
+                    }
+                });
+            }
         } else if (!verification.isValid) {
             handleErrorMsgs(verification.errorMsg);
         }
